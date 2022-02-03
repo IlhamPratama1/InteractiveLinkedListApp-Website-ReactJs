@@ -1,11 +1,13 @@
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { State, UserInitialStateInterface } from '../../state';
-import { useHookDispatch } from "../../state/dispatch";
+
+import { State } from '../../state';
+
+import { UserStateInterface } from '../../interface';
+
 
 export default function HeroSection() {
-    const { LoginUser, LogoutUser } = useHookDispatch();
-    const auth: UserInitialStateInterface = useSelector((state: State) => state.auth);
+    const auth: UserStateInterface = useSelector((state: State) => state.auth);
 
     return(
         <div className="container mx-auto px-12 md:px-24">
@@ -20,8 +22,6 @@ export default function HeroSection() {
                         <div className="flex items-center space-x-2">
                             <Link to="/register" className="text-xs font-bold font-playfair py-3 px-7 bg-orange-main hover:bg-yellow-second text-white-main hover:text-black-main transition duration-300">Sign Up</Link>
                             <Link to="/dashboard" className="text-xs font-bold font-playfair py-3 px-7 text-orange-main border border-orange-main hover:bg-yellow-second hover:text-black-main transition duration-300">Try Now</Link>
-                            <button onClick={() => LoginUser("asolole")}>login</button>
-                            <button onClick={() => LogoutUser("jos")}>logout</button>
                         </div>
                     </div>                    
                 </div>

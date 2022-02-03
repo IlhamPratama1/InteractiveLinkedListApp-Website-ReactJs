@@ -1,15 +1,18 @@
 import { ActionType } from "../action-types";
 import { AuthAction } from "../actions"
-import { UserInitialStateInterface } from "../interface";
+import { UserStateInterface } from "../../interface";
 
 const userToken = localStorage.getItem('access_token');
 
-const initialState: UserInitialStateInterface = {
+// Create initial state
+// Check if token exist
+const initialState: UserStateInterface = {
     loggedIn : userToken ? true : false,
     token : userToken ? userToken : null
 }
 
-const authReducer = (state: UserInitialStateInterface = initialState, action: AuthAction) => {
+// Create New Reducer
+const authReducer = (state: UserStateInterface = initialState, action: AuthAction) => {
     switch (action.type) {
         case ActionType.LOGIN:
             return {
@@ -23,7 +26,6 @@ const authReducer = (state: UserInitialStateInterface = initialState, action: Au
             };
         default:
             return state;
-
     }
 }
 

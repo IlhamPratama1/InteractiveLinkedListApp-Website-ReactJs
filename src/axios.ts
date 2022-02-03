@@ -6,13 +6,13 @@ const axiosInstance = axios.create({
 	baseURL: baseURL,
 	timeout: 100000,
 	headers: {
-		'x-access-token': GetAccessToken(),
 		'Content-Type': 'application/json',
 		accept: 'application/json',
 	},
 });
+axiosInstance.defaults.headers.common['x-access-token'] = GetAccessToken();
 
-function GetAccessToken() {
+export function GetAccessToken() {
     const accessToken : string | null = localStorage.getItem('access_token');
     if (accessToken)
         return accessToken;
