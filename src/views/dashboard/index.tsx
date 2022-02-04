@@ -8,7 +8,7 @@ import { UserStateInterface } from '../../interface';
 import { ListType, StateDataType } from '../../type';
 import ListProject from './listProject';
 import TypeProject from './typeProject';
-import { GetMyLists, PostNewList } from '../../api/listRequest';
+import { GetMyLists } from '../../api/listRequest';
 
 
 export default function DashboardView() {
@@ -20,11 +20,6 @@ export default function DashboardView() {
 
     // State
     const [ lists, setLists ] = useState<StateDataType<ListType>>({ isLoading: true, data: [] }); 
-    
-    async function SubmitListType(type: string) {
-        const list: ListType = await PostNewList(type);
-        navigate(`/struct/${type}/${list.id}`);
-    }
     
     const FetchUserList = useCallback(async () => {
         const data: Array<ListType> = await GetMyLists();
@@ -45,9 +40,9 @@ export default function DashboardView() {
                         <p className="font-source text-lg">Create new Linked-List project, and select which type of Linked-List. </p>
                     </div>
                     <div className="space-y-6">
-                        <TypeProject SubmitFunction={SubmitListType} type='single' />
-                        <TypeProject SubmitFunction={SubmitListType} type='double' />
-                        <TypeProject SubmitFunction={SubmitListType} type='circular' />
+                        <TypeProject type='single' />
+                        <TypeProject type='double' />
+                        <TypeProject type='circular' />
                     </div>
                 </div>
 

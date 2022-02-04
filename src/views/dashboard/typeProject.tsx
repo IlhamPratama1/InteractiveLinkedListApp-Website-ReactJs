@@ -1,11 +1,24 @@
+import { ListType } from '../../type';
+import { PostNewList } from '../../api/listRequest';
+import { useNavigate } from 'react-router-dom';
+import Hashids from 'hashids';
+
 type TypeProjectInterface = {
-    SubmitFunction: Function,
     type: string
 }
 
-export default function TypeProject({ SubmitFunction, type }: TypeProjectInterface) {
+export default function TypeProject({ type }: TypeProjectInterface) {
+    const navigate = useNavigate();
+    const hashids = new Hashids(process.env.REACT_APP_HASH_ID, 20);
+
+    async function SubmitListType(type: string) {
+        const list: ListType = await PostNewList(type);
+        const encodedId = hashids.encode(list.id);
+        navigate(`/struct/${type}/${encodedId}`);
+    }
+
     return(
-        <div onClick={() => SubmitFunction(type)} className="cursor-pointer py-4 px-6 border rounded-xl hover:border-yellow-main transition duration-300">
+        <div onClick={() => SubmitListType(type)} className="cursor-pointer py-4 px-6 border rounded-xl hover:border-yellow-main transition duration-300">
             <div className="flex items-center space-x-8">
                 <img className="w-12" src="/static/icons/document.png" alt="single-link" />
                 <h1 className="font-source text-xl">Single Linked-List</h1>

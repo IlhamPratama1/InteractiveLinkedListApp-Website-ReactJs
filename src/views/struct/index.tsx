@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useParams, useNavigate } from "react-router-dom";
+import Hashids from 'hashids'
 
 import { ListType, StructFormType } from '../../type';
 import { doubleLinkedData, singleLinkedData } from './initialStructData';
@@ -9,11 +10,12 @@ import { PostNewStruct } from '../../api/structRequest';
 import { StructFormValidation } from '../../validation/structFormValidation';
 
 import { StructDisabledSelectInput, StructDisabledValueInput, StructSelectInput, StructValueInput } from './structTypeInput';
+import { NumberLike } from 'hashids/cjs/util';
 
 
 export default function StructView() {
     // --- Lib
-    let { type, listid } = useParams();
+    let { type, encodedId } = useParams();
     let navigate = useNavigate();
     
     // --- State
@@ -23,6 +25,13 @@ export default function StructView() {
     const [ error, setError ] = useState<any>({});
 
     // --- Func
+    const DecodeId = useCallback(() => {
+        const hashids = new Hashids(process.env.REACT_APP_HASH_ID, 20);
+        let decodedId: NumberLike = 0;
+        if (encodedId) return decodedId = hashids.decode(encodedId)[0];
+        return decodedId;
+    }, [encodedId]);
+
     function AddNewFormData(event: React.MouseEvent) {
         event.preventDefault();
         var formObj: StructFormType = { type: '', value: '' };
@@ -43,9 +52,10 @@ export default function StructView() {
 
     async function SubmitStructFormData(event: React.MouseEvent) {
         event.preventDefault();
+
         const formIsValid: boolean = StructFormValidation(structName, structFormData, setError);
         if(formIsValid) {
-            const struct = await PostNewStruct(structName, structFormData, Number(listid));
+            const struct = await PostNewStruct(structName, structFormData, Number(DecodeId()));
             navigate(`/editor/${struct.listId}`);
         }
     }
@@ -62,12 +72,14 @@ export default function StructView() {
     }, [type, structName]);
 
     const CheckIfStructExist = useCallback( async () => {
-        const list: ListType = await GetListDetail(listid);
+        const decodedId: string = String(DecodeId());
+        const list: ListType = await GetListDetail(decodedId);
+        
         if (list.struct === null)
             InitializeStruct();
         else
-            navigate(`/editor/${listid}`);
-    }, [navigate, listid, InitializeStruct]);
+            navigate(`/editor/${encodedId}`);
+    }, [encodedId, navigate, InitializeStruct, DecodeId]);
 
     useEffect(() => {
         CheckIfStructExist();

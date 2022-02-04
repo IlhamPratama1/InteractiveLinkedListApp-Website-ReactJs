@@ -5,6 +5,7 @@
 // 4. create reducer
 // 5. combine reducers
 // 6. create action creators
+// 7. create useSelector in dispatch
 
 export * as actionCreators from './action-creators';
 export * from './store';

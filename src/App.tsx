@@ -15,7 +15,7 @@ function App() {
         <Route path="/login" element={<LoginView />} />
         <Route path="/register" element={<RegisterView />} />
         <Route path="/dashboard" element={<DashboardView />} />
-        <Route path="/struct/:type/:listid" element={<StructView />} />
+        <Route path="/struct/:type/:encodedId" element={<StructView />} />
       </Routes>
     </div>
   );

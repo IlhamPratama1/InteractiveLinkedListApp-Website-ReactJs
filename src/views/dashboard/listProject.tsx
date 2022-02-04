@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { ListType } from "../../type";
+import Hashids from 'hashids';
 
 type ListProjectType = {
     index: number,
@@ -7,8 +8,10 @@ type ListProjectType = {
 }
 
 export default function ListProject({ index, list }: ListProjectType) {
+    const hashids = new Hashids(process.env.REACT_APP_HASH_ID, 20);
+
     return (
-        <Link to={`/struct/${list.type}/${list.id}`} key={index} className="py-4 px-6 border rounded-xl hover:border-yellow-main transition duration-300">
+        <Link to={`/struct/${list.type}/${hashids.encode(list.id)}`} key={index} className="py-4 px-6 border rounded-xl hover:border-yellow-main transition duration-300">
             <div className="flex justify-end w-auto">
                 <img className="w-4" src="/static/icons/plus.png" alt="plus" />
             </div>
