@@ -18,3 +18,13 @@ export async function PostNewList(type: string): Promise<any> {
         console.log(err);
     }
 }
+
+export async function GetListDetail(listId: string | undefined): Promise<any> {
+    try {
+        const list = await axiosInstance.get(`/list/detail/${listId}`);
+        return list.data;
+    }
+    catch (err) {
+        console.log(err);
+    }
+}

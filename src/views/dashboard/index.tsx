@@ -45,18 +45,9 @@ export default function DashboardView() {
                         <p className="font-source text-lg">Create new Linked-List project, and select which type of Linked-List. </p>
                     </div>
                     <div className="space-y-6">
-                        <TypeProject
-                            SubmitFunction={SubmitListType}
-                            type='single'
-                        />
-                        <TypeProject
-                            SubmitFunction={SubmitListType}
-                            type='double'
-                        />
-                        <TypeProject
-                            SubmitFunction={SubmitListType}
-                            type='circular'
-                        />
+                        <TypeProject SubmitFunction={SubmitListType} type='single' />
+                        <TypeProject SubmitFunction={SubmitListType} type='double' />
+                        <TypeProject SubmitFunction={SubmitListType} type='circular' />
                     </div>
                 </div>
 
@@ -71,16 +62,9 @@ export default function DashboardView() {
                                 {lists.isLoading ? null :
                                     lists.data.length === 0 ? <h1 className="font-source text-xl">Linked List project is empty</h1> :
                                     lists.data.map((list, i) => {
-                                        return(
-                                            <ListProject
-                                                key={i}
-                                                index={i}
-                                                list={list}
-                                            />
-                                        );
+                                        return( <ListProject key={i} index={i} list={list} /> );
                                     })
                                 }
-                                
                             </div>
                         </div>
                     </div>

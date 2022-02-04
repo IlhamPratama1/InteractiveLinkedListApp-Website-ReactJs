@@ -28,4 +28,11 @@ export type StateDataType<T> = {
 export type ListType = {
     id: number,
     type: string,
+    struct?: any
+}
+
+// GLobal type for input struct
+export type StructFormType = {
+    type: string,
+    value: string | number
 }

@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 import { ListType } from "../../type";
 
-type ListProjectInterface = {
+type ListProjectType = {
     index: number,
     list: ListType
 }
 
-export default function ListProject({ index, list }: ListProjectInterface) {
+export default function ListProject({ index, list }: ListProjectType) {
     return (
         <Link to={`/struct/${list.type}/${list.id}`} key={index} className="py-4 px-6 border rounded-xl hover:border-yellow-main transition duration-300">
             <div className="flex justify-end w-auto">

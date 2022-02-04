@@ -4,7 +4,7 @@ import { ErrorMessageInterface, FormInterface, } from "../interface";
 // Check if username or password is exist
 // Use parameter form data and error callback
 // return boolean if form is valid or not
-export function RegisterValidation(formData: FormInterface, callback: Function) {
+export function RegisterValidation(formData: FormInterface, callback: Function): boolean {
     let formIsValid: boolean = true;
     let errors: ErrorMessageInterface = {};
     if (formData.username === "") {

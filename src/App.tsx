@@ -4,6 +4,7 @@ import Navbar from "./views/template/navbar";
 import LoginView from "./views/auth/loginView";
 import RegisterView from "./views/auth/registerView";
 import DashboardView from "./views/dashboard";
+import StructView from "./views/struct";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/login" element={<LoginView />} />
         <Route path="/register" element={<RegisterView />} />
         <Route path="/dashboard" element={<DashboardView />} />
+        <Route path="/struct/:type/:listid" element={<StructView />} />
       </Routes>
     </div>
   );
