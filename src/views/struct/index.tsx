@@ -62,7 +62,7 @@ export default function StructView() {
     }, [type, structName]);
 
     const CheckIfStructExist = useCallback( async () => {
-        const list: ListType = await GetListDetail(listid)
+        const list: ListType = await GetListDetail(listid);
         if (list.struct === null)
             InitializeStruct();
         else

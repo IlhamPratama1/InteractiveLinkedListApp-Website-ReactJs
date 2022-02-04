@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from "react-redux";
 
-import { State } from '../../state';
-import { useHookDispatch } from '../../state/dispatch';
+import { selectAuth, useHookDispatch } from '../../state/dispatch';
 
 import { UserStateInterface, ErrorMessageInterface } from '../../interface';
 import { FormDataType, ErrorMessageType } from '../../type';
@@ -18,7 +17,7 @@ export default function RegisterView() {
     let navigate = useNavigate();
     
     // Redux
-    const auth: UserStateInterface = useSelector((state: State) => state.auth);
+    const auth: UserStateInterface = useSelector(selectAuth);
     const { LoginUser } = useHookDispatch();
 
     // State
