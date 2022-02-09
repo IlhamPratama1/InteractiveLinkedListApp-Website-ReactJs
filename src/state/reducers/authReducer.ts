@@ -15,12 +15,12 @@ const initialState: UserStateInterface = {
 const authReducer = (state: UserStateInterface = initialState, action: AuthAction) => {
     switch (action.type) {
         case ActionType.LOGIN:
-            return {
+            return state = {
                 loggedIn : true,
                 token : action.payload
             };
         case ActionType.LOGOUT:
-            return {
+            return state = {
                 loggedIn : false,
                 token : null
             };

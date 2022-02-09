@@ -1,85 +1,96 @@
+// Lib
 import React, { useEffect, useState, useCallback } from 'react';
 import { useParams, useNavigate } from "react-router-dom";
-import Hashids from 'hashids'
+import { useDispatch, useSelector } from 'react-redux';
 
+// Redux component
 import { ListType, StructFormType } from '../../type';
-import { doubleLinkedData, singleLinkedData } from './initialStructData';
+import { selectProjectType, selectStruct, useHookDispatch } from '../../state/dispatch';
+import { StructStateInterface } from '../../interface';
+import { ActionType } from '../../state/action-types';
+import { ListAction, StructAction } from '../../state/actions';
 
-import { GetListDetail } from '../../api/listRequest';
+// External function
+import { DecodeId, EncodeId } from '../../encrypt/hashId';
 import { PostNewStruct } from '../../api/structRequest';
 import { StructFormValidation } from '../../validation/structFormValidation';
+import { doubleLinkedData, singleLinkedData } from './initialStructData';
 
+// React component
 import { StructDisabledSelectInput, StructDisabledValueInput, StructSelectInput, StructValueInput } from './structTypeInput';
-import { NumberLike } from 'hashids/cjs/util';
+import { GetListDetail } from '../../api/listRequest';
 
 
 export default function StructView() {
     // --- Lib
+    const dispatch = useDispatch();
     let { type, encodedId } = useParams();
     let navigate = useNavigate();
     
     // --- State
-    const [ structName, setStructName ] = useState<string>('');
-    const [ structFormData, setStructFormData ] = useState<Array<StructFormType>>([{ type: '', value: '' }]);
-    const [ projectType, setProjectType ] = useState<string>('');
+    const { structName, structData }: StructStateInterface = useSelector(selectStruct);
+    const { SetStructName, SetStructData } = useHookDispatch();
+    const projectType: string = useSelector(selectProjectType);
     const [ error, setError ] = useState<any>({});
 
     // --- Func
-    const DecodeId = useCallback(() => {
-        const hashids = new Hashids(process.env.REACT_APP_HASH_ID, 20);
-        let decodedId: NumberLike = 0;
-        if (encodedId) return decodedId = hashids.decode(encodedId)[0];
-        return decodedId;
-    }, [encodedId]);
-
     function AddNewFormData(event: React.MouseEvent) {
         event.preventDefault();
-        var formObj: StructFormType = { type: '', value: '' };
-        formObj['type'] = 'int';
-        formObj['value'] = "";
-        let newFormArray = [...structFormData];
+        var formObj: StructFormType = { type: 'int', value: '' };
+        let newFormArray = [...structData];
         newFormArray.push(formObj);
-        setStructFormData(newFormArray);
+        SetStructData(newFormArray);
     }
 
     function UpdateItem (prop: string, event: React.ChangeEvent<HTMLSelectElement>| React.ChangeEvent<HTMLInputElement>, index: number) {
-        const old = structFormData[index];
+        const old = structData[index];
         const updated = { ...old, [prop]: event.target.value }
-        const clone = [...structFormData];
+        const clone = [...structData];
         clone[index] = updated;
-        setStructFormData(clone);
+        console.log(clone);
+        SetStructData(clone);
     }
 
     async function SubmitStructFormData(event: React.MouseEvent) {
         event.preventDefault();
 
-        const formIsValid: boolean = StructFormValidation(structName, structFormData, setError);
+        const formIsValid: boolean = StructFormValidation(structName, structData, setError);
         if(formIsValid) {
-            const struct = await PostNewStruct(structName, structFormData, Number(DecodeId()));
-            navigate(`/editor/${struct.listId}`);
+            const struct = await PostNewStruct(structName, structData, Number(DecodeId(encodedId)));
+            navigate(`/editor/${EncodeId(struct.listId)}`);
         }
     }
 
     const InitializeStruct = useCallback(() => {
-        if (type) setProjectType(type);
+        if (type)
+            dispatch<ListAction>({
+                type: ActionType.SETTYPE,
+                payload: type
+            });
         if (type === 'double') {
             const data = doubleLinkedData(structName);
-            setStructFormData(data);
+            dispatch<StructAction>({
+                type : ActionType.SETSTRUCTDATA,
+                payload : data
+            });
         } else {
             const data = singleLinkedData(structName);
-            setStructFormData(data);
+            dispatch<StructAction>({
+                type : ActionType.SETSTRUCTDATA,
+                payload : data
+            });
         }
-    }, [type, structName]);
+    }, [structName, dispatch, type]);
 
     const CheckIfStructExist = useCallback( async () => {
-        const decodedId: string = String(DecodeId());
+        const decodedId = Number(DecodeId(encodedId));
         const list: ListType = await GetListDetail(decodedId);
         
-        if (list.struct === null)
-            InitializeStruct();
+        if (list.struct)
+            navigate(`/dashboard/`);
         else
-            navigate(`/editor/${encodedId}`);
-    }, [encodedId, navigate, InitializeStruct, DecodeId]);
+            InitializeStruct();
+    }, [navigate, InitializeStruct, encodedId]);
 
     useEffect(() => {
         CheckIfStructExist();
@@ -96,24 +107,22 @@ export default function StructView() {
                     <div className="space-y-3">
                         <label className="font-source text-xl">Struct Name</label>
                         <br />
-                        <input onChange={e => setStructName(e.target.value)} className="w-7/12 h-12 border focus:outline-none focus:border-yellow-main p-4"></input>
+                        <input onChange={e => SetStructName(e.target.value)} className="w-7/12 h-12 border focus:outline-none focus:border-yellow-main p-4"></input>
                         <br />
                         <span style={{ color: "red" }}>{error["name"]}</span>
                     </div>
-                    {structFormData.map((data, i) => {
+                    {structData.map((data, i) => {
                         return(
                             <div key={i} className="w-full flex items-cente space-y-2">
                                 <div className="pt-2">
                                     <label className="font-source text-lg focus:outline-none focus:border-yellow-main">Variable Name</label>
                                     { i === 0 || (i === 1 && projectType === 'double') ?
                                         <StructDisabledSelectInput
-                                            structName={structName}
                                             data={data}
                                             index={i}
                                             HandleChange={UpdateItem}
                                         /> :
                                         <StructSelectInput
-                                            structName={structName}
                                             data={data}
                                             index={i}
                                             HandleChange={UpdateItem}

@@ -24,3 +24,23 @@ export interface ErrorMessageInterface {
     confirmPassword?: string,
     match?: string
 }
+
+// Struct form input interface
+export interface StructFormInterface {
+    type: string,
+    value: string
+}
+
+// Initial Struct state data in reducer
+export interface StructStateInterface {
+    structName: string,
+    structData: Array<StructFormInterface>
+}
+
+// Initial Code state data in reducer
+export interface CodeStateInterface {
+    id: number,
+    code: string,
+    operation: Array<string>,
+    log: Array<string>
+}

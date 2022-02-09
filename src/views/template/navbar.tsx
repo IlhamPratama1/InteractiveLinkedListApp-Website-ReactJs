@@ -20,7 +20,7 @@ export default function Navbar() {
     function SignOut() {
         localStorage.removeItem('access_token');
 		axiosInstance.defaults.headers.common['x-access-token'] = false;
-        LogoutUser(null);
+        LogoutUser();
         navigate('/login');
     }
 

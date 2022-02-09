@@ -3,7 +3,7 @@ import { StructFormType } from "../type";
 
 export async function PostNewStruct(structName: string, structFormData: Array<StructFormType>, listId: number): Promise<any> {
     try {
-        const stuct = await axiosInstance.post('struct/create', {
+        const stuct = await axiosInstance.post('/struct/create', {
             name: structName,
             data: structFormData,
             listId: listId

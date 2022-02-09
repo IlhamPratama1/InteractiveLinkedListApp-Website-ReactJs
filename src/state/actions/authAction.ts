@@ -7,7 +7,7 @@ interface LoginAction {
 
 interface LogoutAction {
     type: ActionType.LOGOUT,
-    payload: string | null
+    payload?: string | null
 }
 
 export type AuthAction = LoginAction | LogoutAction ;

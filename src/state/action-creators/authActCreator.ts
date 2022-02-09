@@ -11,11 +11,10 @@ export const LoginUser = (token: string | null) => {
     };
 }
 
-export const LogoutUser = (token: string | null) => {
+export const LogoutUser = () => {
     return (dispatch: Dispatch<AuthAction>) => {
         dispatch({
-            type: ActionType.LOGOUT,
-            payload: token
+            type: ActionType.LOGOUT
         });
     };
 }

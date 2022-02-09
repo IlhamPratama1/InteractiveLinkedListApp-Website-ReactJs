@@ -1,2 +1,2 @@
-* listType -> struct
 * structView -> error state
+* type -> listType

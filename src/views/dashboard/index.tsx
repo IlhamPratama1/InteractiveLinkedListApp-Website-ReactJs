@@ -1,13 +1,18 @@
+// Lib
 import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
+// Redux Component
 import { State } from '../../state';
-
 import { UserStateInterface } from '../../interface';
 import { ListType, StateDataType } from '../../type';
+
+// React Component
 import ListProject from './listProject';
 import TypeProject from './typeProject';
+
+// External function
 import { GetMyLists } from '../../api/listRequest';
 
 
@@ -57,7 +62,7 @@ export default function DashboardView() {
                                 {lists.isLoading ? null :
                                     lists.data.length === 0 ? <h1 className="font-source text-xl">Linked List project is empty</h1> :
                                     lists.data.map((list, i) => {
-                                        return( <ListProject key={i} index={i} list={list} /> );
+                                        return( <ListProject key={i} index={i} list={list} FetchUserList={FetchUserList} /> );
                                     })
                                 }
                             </div>

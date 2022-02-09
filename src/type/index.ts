@@ -24,15 +24,53 @@ export type StateDataType<T> = {
     data: Array<T>
 }
 
+// GLobal type for input struct
+export type StructFormType = {
+    type: string,
+    value: string
+}
+
+// Global type for struct
+export type StructType = {
+    id: number,
+    listId: number,
+    name: string,
+    data: Array<StructFormType>
+}
+
+// Global type for Node data
+export type NodeType = {
+    id: number,
+    listId: number,
+    data: Array<any>
+}
+
+export type LogType = {
+    id: number,
+    codeId: number,
+    data: Array<string>
+}
+
+export type OperationType = {
+    id: number,
+    codeId: number,
+    data: Array<string>
+}
+
+// Global type for code data
+export type CodeType = {
+    id: number,
+    listId: number,
+    data: string,
+    log: LogType,
+    operation: OperationType
+}
+
 // Global type for list
 export type ListType = {
     id: number,
     type: string,
-    struct?: any
-}
-
-// GLobal type for input struct
-export type StructFormType = {
-    type: string,
-    value: string | number
+    struct: StructType,
+    node: NodeType,
+    code: CodeType
 }
