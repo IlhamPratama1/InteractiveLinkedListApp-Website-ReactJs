@@ -1,5 +1,5 @@
 import { StructStateInterface } from "../../interface";
-import { StructAction } from "../actions/structAction";
+import { StructAction } from "../actions";
 import { ActionType } from "../action-types";
 
 const initialState: StructStateInterface = {

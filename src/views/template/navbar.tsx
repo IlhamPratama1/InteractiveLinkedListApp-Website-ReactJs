@@ -9,14 +9,14 @@ import { UserStateInterface } from '../../interface';
 import axiosInstance from "../../axios";
 
 export default function Navbar() {
-    // route
+    // --- route
     let navigate = useNavigate();
 
-    // redux
+    // --- redux
     const auth: UserStateInterface = useSelector((state: State) => state.auth);
     const { LogoutUser } = useHookDispatch();
 
-    // Func
+    // --- Func
     function SignOut() {
         localStorage.removeItem('access_token');
 		axiosInstance.defaults.headers.common['x-access-token'] = false;

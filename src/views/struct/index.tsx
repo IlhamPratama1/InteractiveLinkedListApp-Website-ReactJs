@@ -27,10 +27,12 @@ export default function StructView() {
     let { type, encodedId } = useParams();
     let navigate = useNavigate();
     
-    // --- State
+    // --- Redux state
     const { structName, structData }: StructStateInterface = useSelector(selectStruct);
     const { SetStructName, SetStructData } = useHookDispatch();
     const projectType: string = useSelector(selectProjectType);
+
+    // --- State
     const [ error, setError ] = useState<any>({});
 
     // --- Func

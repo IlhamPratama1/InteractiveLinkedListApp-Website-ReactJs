@@ -10,10 +10,10 @@ type CodeSectionType = {
 }
 
 export default function Modal({ setModalOpen }: CodeSectionType) {
-    // state
+    // --- Redux state
     const { code } = useSelector(selectCode);
 
-    // Func
+    // --- Func
     function CloseModal() { setModalOpen(false); }
     function CopyCode() { navigator.clipboard.writeText(code); }
 

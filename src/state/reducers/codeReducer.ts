@@ -1,6 +1,6 @@
 import { ActionType } from "../action-types";
 import { CodeStateInterface } from "../../interface";
-import { CodeAction } from "../actions/codeAction";
+import { CodeAction } from "../actions";
 
 const initialState: CodeStateInterface = {
     id: 0,

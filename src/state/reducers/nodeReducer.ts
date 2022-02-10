@@ -1,5 +1,5 @@
 import { ActionType } from "../action-types";
-import { NodeAction } from "../actions/nodeAction";
+import { NodeAction } from "../actions";
 
 const nodeReducer = (state: Array<any> = [], action: NodeAction) => {
     switch (action.type) {

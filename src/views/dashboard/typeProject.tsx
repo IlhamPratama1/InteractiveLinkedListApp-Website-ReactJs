@@ -8,9 +8,11 @@ type TypeProjectInterface = {
 }
 
 export default function TypeProject({ type }: TypeProjectInterface) {
+    // --- Lib
     const navigate = useNavigate();
     const hashids = new Hashids(process.env.REACT_APP_HASH_ID, 20);
 
+    // --- Func
     async function SubmitListType(type: string) {
         const list: ListType = await PostNewList(type);
         const encodedId = hashids.encode(list.id);

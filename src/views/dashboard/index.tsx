@@ -17,15 +17,16 @@ import { GetMyLists } from '../../api/listRequest';
 
 
 export default function DashboardView() {
-    // Lib
+    // --- Lib
     let navigate = useNavigate();
 
-    // Redux
+    // --- Redux State
     const auth: UserStateInterface = useSelector((state: State) => state.auth);
 
-    // State
+    // --- State
     const [ lists, setLists ] = useState<StateDataType<ListType>>({ isLoading: true, data: [] }); 
     
+    // --- Func
     const FetchUserList = useCallback(async () => {
         const data: Array<ListType> = await GetMyLists();
         setLists({ isLoading: false, data: data });

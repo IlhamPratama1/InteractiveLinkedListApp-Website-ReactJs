@@ -10,13 +10,11 @@ type CodeSectionType = {
 }
 
 export default function Section({ setModalOpen }: CodeSectionType) {
-    // State
+    // --- Redux State
     const { code } = useSelector(selectCode);
 
-    // Func
-    function OpenModal() {
-        setModalOpen(true);
-    }
+    // --- Func
+    function OpenModal() { setModalOpen(true); }
 
     return(
         <div className="bg-yellow-main w-84 rounded-xl">
@@ -25,7 +23,7 @@ export default function Section({ setModalOpen }: CodeSectionType) {
                 <p className="font-bold text-xl font-source text-black">Source Code</p>
             </div>
             <div>
-                    {code.substring(0, 234)}
+                {code.substring(0, 234)}
             </div>
         </div>
     );

@@ -10,9 +10,11 @@ type ListProjectType = {
 }
 
 export default function ListProject({ index, list, FetchUserList }: ListProjectType) {
+    // --- Lib
     const hashids = new Hashids(process.env.REACT_APP_HASH_ID, 20);
     const Navigate = useNavigate();
 
+    // --- Func
     async function OpenListProject() {
         const listProject: ListType = await GetListDetail(list.id);
         if (listProject.struct === null)

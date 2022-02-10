@@ -15,14 +15,14 @@ import { RegisterUserAuth } from '../../authentication/register';
 
 
 export default function RegisterView() {
-    // Router
+    // --- Router
     let navigate = useNavigate();
-    
-    // Redux
+
+    // --- Redux State
     const auth: UserStateInterface = useSelector(selectAuth);
     const { LoginUser } = useHookDispatch();
 
-    // State
+    // --- State
     const [ error, setError ] = useState<ErrorMessageType>({});
     const [ loadingSubmit, setLoadingSubmit ] = useState<boolean>(false);
     const [ formData, setFormData ] = useState<FormDataType>({
@@ -32,11 +32,12 @@ export default function RegisterView() {
         confirmPassword: ""
     });
 
-    // OnChange
+    // --- OnChange
     const handleChange = (prop: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, [prop]: event.target.value });
     };
     
+    // --- Func
     function FormSuccess() {
         LoginUser(localStorage.getItem('access_token'));
         setLoadingSubmit(false);

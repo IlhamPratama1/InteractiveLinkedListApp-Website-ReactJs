@@ -18,6 +18,12 @@ export type FormDataType = {
     confirmPassword?: string
 }
 
+// Globa type for Node Modal
+export type NodeModalType = {
+    index: number,
+    data: any
+}
+
 // Global type for get res data
 export type StateDataType<T> = {
     isLoading: boolean,
@@ -45,12 +51,14 @@ export type NodeType = {
     data: Array<any>
 }
 
+// Global type for Log data
 export type LogType = {
     id: number,
     codeId: number,
     data: Array<string>
 }
 
+// Global type for Operation data
 export type OperationType = {
     id: number,
     codeId: number,

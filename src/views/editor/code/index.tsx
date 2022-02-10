@@ -6,7 +6,7 @@ import Section from './section';
 import Modal from './modal';
 
 export default function CodeEditor() {
-    // State
+    // --- State
     const [ modalOpen, setModalOpen ] = useState<boolean>(false);
     
     return(

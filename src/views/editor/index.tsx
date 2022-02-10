@@ -11,24 +11,23 @@ import { GetCodeDetail, PostNewCode, PostNewLog, PostNewOperation } from '../../
 
 // Redux component
 import { CodeType, ListType, LogType, NodeType, OperationType } from '../../type';
+import { StructAction, CodeAction, NodeAction, ListAction } from '../../state/actions';
 import { ActionType } from '../../state/action-types';
-import { StructAction } from '../../state/actions';
-import { CodeAction } from '../../state/actions/codeAction';
-import CodeEditor from './code';
-import { NodeAction } from '../../state/actions/nodeAction';
+
+// React component
 import NodeEditor from './node';
+import CodeEditor from './code';
 
 
 export default function EditorView() {
-    // Lib
+    // --- Lib
     const dispatch = useDispatch();
     let { encodedId } = useParams();
 
-    // Func
+    // --- Func
     const SetInitialNode = useCallback( async () => {
         const decodedId = Number(DecodeId(encodedId));
         const node: NodeType = await GetNodeDetail(decodedId);
-        console.log(node.data);
         
         dispatch<NodeAction>({
             type: ActionType.SETNODE,
@@ -78,6 +77,10 @@ export default function EditorView() {
         const decodedId = Number(DecodeId(encodedId));
         const listDetail: ListType = await GetListDetail(decodedId);
 
+        dispatch<ListAction>({
+            type: ActionType.SETTYPE,
+            payload: listDetail.type
+        });
         dispatch<StructAction>({
             type: ActionType.SETSTRUCT,
             payload: {

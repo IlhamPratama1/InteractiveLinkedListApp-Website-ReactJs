@@ -10,6 +10,7 @@ type InputType = {
 }
 
 export function StructDisabledSelectInput({ data, index, HandleChange}: InputType) {
+    // --- Redux state
     const { structName }: StructStateInterface = useSelector(selectStruct);
 
     return (

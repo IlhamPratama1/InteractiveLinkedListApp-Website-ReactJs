@@ -15,4 +15,8 @@ interface OpenToolAction {
     payload: number
 }
 
-export type ToolAction = OpenNodeAction | EditNodeAction | OpenToolAction;
+interface CloseDetailNode {
+    type: ActionType.CLOSEDETAILINDEX
+}
+
+export type ToolAction = OpenNodeAction | EditNodeAction | OpenToolAction | CloseDetailNode;
