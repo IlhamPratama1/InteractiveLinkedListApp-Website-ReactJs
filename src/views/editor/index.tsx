@@ -1,12 +1,12 @@
 // lib
 import { useCallback, useEffect } from 'react';
 import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 // External funtion
 import { GetListDetail } from '../../api/listRequest';
 import { DecodeId } from '../../encrypt/hashId';
-import { GetNodeDetail } from '../../api/nodeRequest';
+import { GetNodeDetail, PostNewNode } from '../../api/nodeRequest';
 import { GetCodeDetail, PostNewCode, PostNewLog, PostNewOperation } from '../../api/codeRequest';
 
 // Redux component
@@ -14,8 +14,9 @@ import { CodeType, ListType, LogType, NodeType, OperationType } from '../../type
 import { ActionType } from '../../state/action-types';
 import { StructAction } from '../../state/actions';
 import { CodeAction } from '../../state/actions/codeAction';
-import { selectCode, selectStruct } from '../../state/dispatch';
-import { CodeStateInterface, StructStateInterface } from '../../interface';
+import CodeEditor from './code';
+import { NodeAction } from '../../state/actions/nodeAction';
+import NodeEditor from './node';
 
 
 export default function EditorView() {
@@ -23,14 +24,17 @@ export default function EditorView() {
     const dispatch = useDispatch();
     let { encodedId } = useParams();
 
-    const Code: CodeStateInterface = useSelector(selectCode);
-    const Struct: StructStateInterface = useSelector(selectStruct);
-
+    // Func
     const SetInitialNode = useCallback( async () => {
         const decodedId = Number(DecodeId(encodedId));
         const node: NodeType = await GetNodeDetail(decodedId);
-        console.log(node);
-    }, [encodedId]);
+        console.log(node.data);
+        
+        dispatch<NodeAction>({
+            type: ActionType.SETNODE,
+            payload: node.data
+        });
+    }, [dispatch, encodedId]);
 
     const SetInitialCode = useCallback( async () => {
         const decodedId = Number(DecodeId(encodedId));
@@ -65,6 +69,11 @@ export default function EditorView() {
         });
     }, [dispatch, encodedId]);
 
+    const CreateNewNodeData = useCallback( async() => {
+        const decodedId = Number(DecodeId(encodedId));
+        await PostNewNode(decodedId);
+    }, [encodedId])
+
     const CheckInitialData = useCallback( async () => {
         const decodedId = Number(DecodeId(encodedId));
         const listDetail: ListType = await GetListDetail(decodedId);
@@ -81,9 +90,9 @@ export default function EditorView() {
         else CreateNewCodeData();
 
         if (listDetail.node) SetInitialNode();
-        else console.log("create node");
+        else CreateNewNodeData();
 
-    }, [encodedId, dispatch, SetInitialCode, SetInitialNode, CreateNewCodeData]);
+    }, [encodedId, dispatch, SetInitialCode, SetInitialNode, CreateNewCodeData, CreateNewNodeData]);
 
     useEffect(() => {
         CheckInitialData();
@@ -91,10 +100,8 @@ export default function EditorView() {
 
     return (
         <div className="container mx-auto">
-            {Code.operation}
-            {Struct.structData.map((data, i) => {
-                return (<div key={i} className=''>{data.type}</div>);
-            })}
+            <CodeEditor />
+            <NodeEditor />
         </div>
     );
 }

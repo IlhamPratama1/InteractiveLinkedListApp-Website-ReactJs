@@ -47,7 +47,6 @@ export default function StructView() {
         const updated = { ...old, [prop]: event.target.value }
         const clone = [...structData];
         clone[index] = updated;
-        console.log(clone);
         SetStructData(clone);
     }
 

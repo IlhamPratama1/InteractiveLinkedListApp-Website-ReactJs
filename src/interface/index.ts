@@ -44,3 +44,10 @@ export interface CodeStateInterface {
     operation: Array<string>,
     log: Array<string>
 }
+
+// Initial Tool state in reducer
+export interface ToolStateInterface {
+    toolIndex: number,
+    nodeIndex: number,
+    editIndex: number
+}
