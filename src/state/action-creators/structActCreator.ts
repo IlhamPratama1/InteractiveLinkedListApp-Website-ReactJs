@@ -3,18 +3,6 @@ import { StructAction } from "../actions";
 import { ActionType } from "../action-types";
 import { StructFormInterface } from "../../interface";
 
-export const SetStruct = (structName: string, structData: Array<StructFormInterface>) => {
-    return (dispatch: Dispatch<StructAction>) => {
-        dispatch({
-            type: ActionType.SETSTRUCT,
-            payload: {
-                structName: structName,
-                structData: structData
-            }
-        });
-    };
-}
-
 export const SetStructName = (structName: string) => {
     return (dispatch: Dispatch<StructAction>) => {
         dispatch({

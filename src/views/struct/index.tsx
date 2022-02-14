@@ -39,15 +39,15 @@ export default function StructView() {
     function AddNewFormData(event: React.MouseEvent) {
         event.preventDefault();
         var formObj: StructFormType = { type: 'int', value: '' };
-        let newFormArray = [...structData];
+        let newFormArray: Array<StructFormType> = [...structData];
         newFormArray.push(formObj);
         SetStructData(newFormArray);
     }
 
     function UpdateItem (prop: string, event: React.ChangeEvent<HTMLSelectElement>| React.ChangeEvent<HTMLInputElement>, index: number) {
-        const old = structData[index];
-        const updated = { ...old, [prop]: event.target.value }
-        const clone = [...structData];
+        const old: StructFormType = structData[index];
+        const updated: StructFormType = { ...old, [prop]: event.target.value }
+        const clone: Array<StructFormType> = [...structData];
         clone[index] = updated;
         SetStructData(clone);
     }

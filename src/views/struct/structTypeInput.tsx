@@ -3,6 +3,7 @@ import { StructStateInterface } from "../../interface";
 import { selectStruct } from "../../state/dispatch";
 import { StructFormType } from "../../type";
 
+
 type InputType = {
     data: StructFormType,
     index: number,

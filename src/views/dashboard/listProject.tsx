@@ -3,6 +3,7 @@ import { ListType } from "../../type";
 import Hashids from 'hashids';
 import { DeleteList, GetListDetail } from "../../api/listRequest";
 
+
 type ListProjectType = {
     index: number,
     list: ListType,

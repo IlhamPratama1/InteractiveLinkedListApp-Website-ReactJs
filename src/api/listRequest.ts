@@ -32,7 +32,7 @@ export async function GetListDetail(listId: string | number): Promise<any> {
 export async function DeleteList(listId: string | number): Promise<any> {
     try {
         const message = await axiosInstance.delete(`/list/delete/${listId}`);
-        console.log(message);
+        return message;
     }
     catch (err) {
         console.log(err);

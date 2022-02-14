@@ -3,6 +3,7 @@ import { StructAction } from "../actions";
 import { ActionType } from "../action-types";
 
 const initialState: StructStateInterface = {
+    listId: 0,
     structName: '',
     structData: []
 }
@@ -11,6 +12,7 @@ const structReducer = (state: StructStateInterface = initialState, action: Struc
     switch (action.type) {
         case ActionType.SETSTRUCT:
             return state = {
+                listId: action.payload.listId,
                 structName: action.payload.structName,
                 structData: action.payload.structData
             };

@@ -1,34 +1,23 @@
 import { CodeStateInterface } from "../../interface";
 import { ActionType } from "../action-types";
 
-interface OperationLog {
-    operation: Array<string>
-    log: Array<string>
-}
-
 interface SetCodeLogOperation {
     type: ActionType.SETCODELOGOPERATION,
     payload: CodeStateInterface
 }
 
-interface SetCodeAction {
-    type: ActionType.SETCODE,
+interface SetLastOperation {
+    type: ActionType.SETLASTOPERATION,
     payload: string
 }
 
-interface SetLogAction {
-    type: ActionType.SETLOG,
+interface SetSearchLog {
+    type: ActionType.SETSEARCHLOG,
     payload: Array<string>
 }
 
-interface SetOperationAction {
-    type: ActionType.SETOPERATION,
-    payload: Array<string>
+interface ResetCodeAction {
+    type: ActionType.RESETCODE
 }
 
-interface SetLogOperationAction {
-    type: ActionType.SETLOGOPERATION,
-    payload: OperationLog
-}
-
-export type CodeAction = SetCodeLogOperation | SetCodeAction | SetLogOperationAction | SetOperationAction | SetLogAction ;
+export type CodeAction = SetCodeLogOperation | SetLastOperation | SetSearchLog | ResetCodeAction;

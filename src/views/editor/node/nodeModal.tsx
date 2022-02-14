@@ -4,13 +4,14 @@ import { useSelector } from "react-redux";
 // Redux component
 import { selectNode, selectProjectType, selectStruct } from "../../../state/dispatch";
 import { NodeModalType, StructFormType } from "../../../type";
+import { StructStateInterface } from "../../../interface";
 
 
 export default function NodeModal({ index, data }: NodeModalType ) {
     // --- Redux State
-    const nodeData = useSelector(selectNode);
-    const projectType = useSelector(selectProjectType);
-    const { structData } = useSelector(selectStruct);
+    const nodeData: Array<any> = useSelector(selectNode);
+    const projectType: string = useSelector(selectProjectType);
+    const { structData }: StructStateInterface = useSelector(selectStruct);
 
     // --- React render function
     const inputDisabledValue = (disabledValue: string | number) => {

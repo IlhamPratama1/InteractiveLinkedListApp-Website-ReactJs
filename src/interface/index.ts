@@ -33,6 +33,7 @@ export interface StructFormInterface {
 
 // Initial Struct state data in reducer
 export interface StructStateInterface {
+    listId: number,
     structName: string,
     structData: Array<StructFormInterface>
 }
@@ -42,7 +43,9 @@ export interface CodeStateInterface {
     id: number,
     code: string,
     operation: Array<string>,
-    log: Array<string>
+    log: Array<string>,
+    lastOperation: string,
+    searchLog: Array<string>
 }
 
 // Initial Tool state in reducer

@@ -23,7 +23,8 @@ const toolReducer = (state: ToolStateInterface = initialState, action: ToolActio
         case ActionType.EDITNODEINDEX:
             return state = {
                 ...state,
-                toolIndex: action.payload
+                nodeIndex: action.payload,
+                editIndex: action.payload
             };
         case ActionType.CLOSEDETAILINDEX:
             return state = {

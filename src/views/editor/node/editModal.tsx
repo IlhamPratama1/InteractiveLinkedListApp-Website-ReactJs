@@ -4,19 +4,46 @@ import { useSelector } from "react-redux";
 // Redux component
 import { selectNode, selectProjectType, selectStruct } from "../../../state/dispatch";
 import { NodeModalType, StructFormType } from "../../../type";
+import { useHookDispatch } from "../../../state/dispatch";
+import { StructStateInterface } from "../../../interface";
+
+// External function
+import { CheckRegexValidation } from "../../../regex";
+import { UpdateNodeData } from "../../../api/nodeRequest";
+
 
 export default function EditModal({ index, data }: NodeModalType ) {
     // --- Redux State
-    const projectType = useSelector(selectProjectType);
-    const nodeData = useSelector(selectNode);
-    const { structData } = useSelector(selectStruct);
+    const projectType: string = useSelector(selectProjectType);
+    const nodeData: Array<any> = useSelector(selectNode);
+    const { listId, structData }: StructStateInterface = useSelector(selectStruct);
+    const { SetNodeData, CloseDetailNode, GenerateCode } = useHookDispatch();
+
+    // --- OnChange
+    function UpdateNodeForm (variable: StructFormType, event: React.ChangeEvent<HTMLInputElement>) {
+        const re: RegExp = CheckRegexValidation(variable.type);
+        if (event.target.value === '' || re.test(event.target.value)) {
+            const old: any = nodeData[index];
+            const updated: any = { ...old, [variable.value]: event.target.value }
+            const clone: Array<any> = [...nodeData];
+            clone[index] = updated;
+            SetNodeData(clone);
+        }
+    }
+
+    // --- OnSubmit
+    function SubmitNodeData () {
+        CloseDetailNode();
+        GenerateCode(index, index, '');
+        UpdateNodeData(listId, nodeData);
+    }
 
     // --- React render component
     const inputDisabledValue = (disabledValue: string | number, placeholder: string) => {
         return <input disabled value={disabledValue} placeholder={placeholder} className="focus:outline-none focus:border-purple-main p-4 h-5 w-44 border rounded-xl"></input>
     }
     const inputValue = (variable: StructFormType) => {
-        return <input value={data[variable.value] || ''} placeholder={variable.type} className="focus:outline-none focus:border-purple-main p-4 h-5 w-44 border rounded-xl"></input>
+        return <input value={data[variable.value] || ''} onChange={e => UpdateNodeForm(variable, e)} placeholder={variable.type} className="focus:outline-none focus:border-purple-main p-4 h-5 w-44 border rounded-xl"></input>
     }
     const RenderNodeValue = (variable: StructFormType, i: number) => {
         if (projectType === 'single') {
@@ -57,7 +84,7 @@ export default function EditModal({ index, data }: NodeModalType ) {
                     </div>
                 );
             })}
-            <button className="text-xs font-bold font-playfair py-2 px-4 bg-purple-main hover:bg-purple-second text-white-main hover:text-black-main transition duration-300">submit</button>
+            <button onClick={SubmitNodeData} className="text-xs font-bold font-playfair py-2 px-4 bg-purple-main hover:bg-purple-second text-white-main hover:text-black-main transition duration-300">submit</button>
         </div> 
     );
 }

@@ -3,6 +3,7 @@ import { PostNewList } from '../../api/listRequest';
 import { useNavigate } from 'react-router-dom';
 import Hashids from 'hashids';
 
+
 type TypeProjectInterface = {
     type: string
 }
@@ -15,7 +16,7 @@ export default function TypeProject({ type }: TypeProjectInterface) {
     // --- Func
     async function SubmitListType(type: string) {
         const list: ListType = await PostNewList(type);
-        const encodedId = hashids.encode(list.id);
+        const encodedId: string = hashids.encode(list.id);
         navigate(`/struct/${type}/${encodedId}`);
     }
 

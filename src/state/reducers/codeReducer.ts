@@ -6,34 +6,27 @@ const initialState: CodeStateInterface = {
     id: 0,
     code: '',
     operation: [],
-    log: []
+    log: [],
+    lastOperation: '',
+    searchLog: []
 }
 
 const codeReducer = (state: CodeStateInterface = initialState, action: CodeAction) => {
     switch (action.type) {
         case ActionType.SETCODELOGOPERATION:
             return state = action.payload;
-        case ActionType.SETCODE:
+        case ActionType.SETSEARCHLOG:
             return state = {
                 ...state,
-                code: action.payload
+                searchLog: action.payload
             };
-        case ActionType.SETLOGOPERATION:
+        case ActionType.SETLASTOPERATION:
             return state = {
                 ...state,
-                operation: action.payload.operation,
-                log: action.payload.log
+                lastOperation: action.payload
             };
-        case ActionType.SETLOG:
-            return state = {
-                ...state,
-                log: action.payload
-            };
-        case ActionType.SETOPERATION:
-            return state = {
-                ...state,
-                log: action.payload
-            };
+        case ActionType.RESETCODE:
+            return state = initialState;
         default:
             return state;
     }

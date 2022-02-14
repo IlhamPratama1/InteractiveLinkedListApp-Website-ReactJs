@@ -5,4 +5,8 @@ interface SetNodeAction {
     payload: Array<any>
 }
 
-export type NodeAction = SetNodeAction
+interface ResetNodeAction {
+    type: ActionType.RESETNODE
+}
+
+export type NodeAction = SetNodeAction | ResetNodeAction;

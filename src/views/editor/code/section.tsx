@@ -3,6 +3,8 @@ import { useSelector } from 'react-redux';
 
 // Redux component
 import { selectCode } from '../../../state/dispatch';
+import { CodeStateInterface } from '../../../interface';
+
 
 // Typing
 type CodeSectionType = {
@@ -11,7 +13,7 @@ type CodeSectionType = {
 
 export default function Section({ setModalOpen }: CodeSectionType) {
     // --- Redux State
-    const { code } = useSelector(selectCode);
+    const { code }: CodeStateInterface = useSelector(selectCode);
 
     // --- Func
     function OpenModal() { setModalOpen(true); }

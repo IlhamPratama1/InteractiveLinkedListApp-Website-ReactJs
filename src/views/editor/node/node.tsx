@@ -3,10 +3,12 @@ import { useSelector } from "react-redux";
 
 // Redux component
 import { selectTool, useHookDispatch } from "../../../state/dispatch";
+import { ToolStateInterface } from "../../../interface";
 
 // React component
 import EditModal from "./editModal";
 import NodeModal from "./nodeModal";
+
 
 type NodeType = {
     index: number,
@@ -15,7 +17,7 @@ type NodeType = {
 
 export default function Node({ index, data }: NodeType) {
     // --- Redux State
-    const { nodeIndex, editIndex } = useSelector(selectTool);
+    const { nodeIndex, editIndex }: ToolStateInterface = useSelector(selectTool);
     const { OpenNodeIndex, CloseNode } = useHookDispatch();
 
     // --- Func

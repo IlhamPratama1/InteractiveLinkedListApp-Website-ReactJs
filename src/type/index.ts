@@ -65,13 +65,21 @@ export type OperationType = {
     data: Array<string>
 }
 
+// export type for Searchlog
+export type SearchLogType = {
+    id: number,
+    codeId: number,
+    data: Array<string>
+}
+
 // Global type for code data
 export type CodeType = {
     id: number,
     listId: number,
     data: string,
     log: LogType,
-    operation: OperationType
+    operation: OperationType,
+    searchLog: SearchLogType
 }
 
 // Global type for list

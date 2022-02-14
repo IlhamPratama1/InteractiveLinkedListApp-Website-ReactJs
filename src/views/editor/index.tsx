@@ -7,16 +7,17 @@ import { useDispatch } from 'react-redux';
 import { GetListDetail } from '../../api/listRequest';
 import { DecodeId } from '../../encrypt/hashId';
 import { GetNodeDetail, PostNewNode } from '../../api/nodeRequest';
-import { GetCodeDetail, PostNewCode, PostNewLog, PostNewOperation } from '../../api/codeRequest';
+import { GetCodeDetail, PostNewCode, PostNewLog, PostNewOperation, PostNewSearchLog } from '../../api/codeRequest';
 
 // Redux component
-import { CodeType, ListType, LogType, NodeType, OperationType } from '../../type';
+import { CodeType, ListType, LogType, NodeType, OperationType, SearchLogType } from '../../type';
 import { StructAction, CodeAction, NodeAction, ListAction } from '../../state/actions';
 import { ActionType } from '../../state/action-types';
 
 // React component
 import NodeEditor from './node';
 import CodeEditor from './code';
+import ToolEditor from './tools';
 
 
 export default function EditorView() {
@@ -46,6 +47,8 @@ export default function EditorView() {
                 code: code.data,
                 log: code.log.data,
                 operation: code.operation.data,
+                lastOperation: '',
+                searchLog: code.searchLog.data
             }
         });
     }, [encodedId, dispatch]);
@@ -56,6 +59,7 @@ export default function EditorView() {
 
         const log: LogType = await PostNewLog(code.id);
         const operation: OperationType = await PostNewOperation(code.id);
+        const searchLog: SearchLogType = await PostNewSearchLog(code.id);
 
         dispatch<CodeAction>({
             type: ActionType.SETCODELOGOPERATION,
@@ -63,15 +67,21 @@ export default function EditorView() {
                 id: code.id,
                 code: code.data,
                 log: log.data,
-                operation: operation.data
+                operation: operation.data,
+                lastOperation: '',
+                searchLog: searchLog.data
             }
         });
     }, [dispatch, encodedId]);
 
     const CreateNewNodeData = useCallback( async() => {
         const decodedId = Number(DecodeId(encodedId));
-        await PostNewNode(decodedId);
-    }, [encodedId])
+        const node: NodeType = await PostNewNode(decodedId);
+        dispatch<NodeAction>({
+            type: ActionType.SETNODE,
+            payload: node.data
+        });
+    }, [encodedId, dispatch])
 
     const CheckInitialData = useCallback( async () => {
         const decodedId = Number(DecodeId(encodedId));
@@ -84,6 +94,7 @@ export default function EditorView() {
         dispatch<StructAction>({
             type: ActionType.SETSTRUCT,
             payload: {
+                listId: listDetail.id,
                 structName: listDetail.struct.name,
                 structData: listDetail.struct.data
             }
@@ -103,6 +114,7 @@ export default function EditorView() {
 
     return (
         <div className="container mx-auto">
+            <ToolEditor />
             <CodeEditor />
             <NodeEditor />
         </div>

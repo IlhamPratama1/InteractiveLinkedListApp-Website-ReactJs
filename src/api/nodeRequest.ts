@@ -20,3 +20,15 @@ export async function PostNewNode(listId: string | number): Promise<any> {
         console.log(err);
     }
 }
+
+export async function UpdateNodeData(listId: string | number, data: Array<any>): Promise<any> {
+    try {
+        const node = await axiosInstance.put('/node/update', {
+            data: data,
+            listId: listId
+        });
+        return node.data;
+    } catch (err) {
+        console.log(err);
+    }
+}
