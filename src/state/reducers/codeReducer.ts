@@ -26,7 +26,14 @@ const codeReducer = (state: CodeStateInterface = initialState, action: CodeActio
                 lastOperation: action.payload
             };
         case ActionType.RESETCODE:
-            return state = initialState;
+            return state = {
+                ...state,
+                code: initialState.code,
+                operation: initialState.operation,
+                log: initialState.log,
+                lastOperation: initialState.lastOperation,
+                searchLog: initialState.searchLog
+            };
         default:
             return state;
     }
