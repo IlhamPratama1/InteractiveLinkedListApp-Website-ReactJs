@@ -2,7 +2,7 @@
 import { useSelector } from "react-redux";
 
 // Redux component
-import { selectNode, selectProjectType, selectStruct } from "../../../state/dispatch";
+import { selectCode, selectNode, selectProjectType, selectStruct } from "../../../state/dispatch";
 import { NodeModalType, StructFormType } from "../../../type";
 import { useHookDispatch } from "../../../state/dispatch";
 import { StructStateInterface } from "../../../interface";
@@ -16,8 +16,9 @@ export default function EditModal({ index, data }: NodeModalType ) {
     // --- Redux State
     const projectType: string = useSelector(selectProjectType);
     const nodeData: Array<any> = useSelector(selectNode);
+    const { lastOperation } = useSelector(selectCode);
     const { listId, structData }: StructStateInterface = useSelector(selectStruct);
-    const { SetNodeData, CloseDetailNode, GenerateCode } = useHookDispatch();
+    const { SetNodeData, CloseDetailNode, GenerateCode, SetQuestComplete } = useHookDispatch();
 
     // --- OnChange
     function UpdateNodeForm (variable: StructFormType, event: React.ChangeEvent<HTMLInputElement>) {
@@ -36,6 +37,7 @@ export default function EditModal({ index, data }: NodeModalType ) {
         CloseDetailNode();
         GenerateCode(index, index, '');
         UpdateNodeData(listId, nodeData);
+        SetQuestComplete(lastOperation, projectType);
     }
 
     // --- React render component

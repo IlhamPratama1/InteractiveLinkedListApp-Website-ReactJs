@@ -6,6 +6,7 @@ import RegisterView from "./views/auth/registerView";
 import DashboardView from "./views/dashboard";
 import StructView from "./views/struct";
 import EditorView from "./views/editor";
+import QuestView from "./views/quest";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/login" element={<LoginView />} />
         <Route path="/register" element={<RegisterView />} />
         <Route path="/dashboard" element={<DashboardView />} />
+        <Route path="/quest" element={<QuestView />} />
         <Route path="/struct/:type/:encodedId" element={<StructView />} />
         <Route path="/editor/:encodedId" element={<EditorView />} />
       </Routes>

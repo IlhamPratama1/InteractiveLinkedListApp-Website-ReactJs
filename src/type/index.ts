@@ -90,3 +90,15 @@ export type ListType = {
     node: NodeType,
     code: CodeType
 }
+
+// GLobal type for Quest data
+export type QuestType = {
+    id: number,
+    isComplete: boolean,
+    quest: {
+        name: string,
+        detail: string,
+        tool: string,
+        type: string
+    }
+}

@@ -5,10 +5,10 @@ import { UpdateNodeData } from '../../../api/nodeRequest';
 
 // Redux component
 import { StructStateInterface } from '../../../interface';
+import { selectNode, selectProjectType, selectStruct, useHookDispatch } from '../../../state/dispatch';
 
 // External function
 import { CheckRegexValidation } from '../../../regex';
-import { selectNode, selectStruct, useHookDispatch } from '../../../state/dispatch';
 
 
 export default function RemoveTool() {
@@ -17,7 +17,8 @@ export default function RemoveTool() {
 
     // --- Redux state 
     const nodeData: Array<any> = useSelector(selectNode);
-    const { SetLastOperation, SetNodeData, CloseTool, GenerateCode } = useHookDispatch();
+    const projectType: string = useSelector(selectProjectType);
+    const { SetLastOperation, SetQuestComplete, SetNodeData, CloseTool, GenerateCode } = useHookDispatch();
     const { listId }: StructStateInterface = useSelector(selectStruct);
 
     // --- OnChange
@@ -37,6 +38,7 @@ export default function RemoveTool() {
         CloseTool();
         GenerateCode(index, index, '');
         UpdateNodeData(listId, array);
+        SetQuestComplete('delete', projectType);
     }
 
     return(

@@ -73,7 +73,6 @@ export async function UpdateOperationData(codeId: string | number | undefined, d
     }
 }
 
-
 export async function UpdateSearchLogData(codeId: string | number | undefined, data: Array<string>): Promise<any> {
     try {
         const searchLog = await axiosInstance.put('/search-log/update', { data: data, codeId: codeId });

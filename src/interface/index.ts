@@ -54,3 +54,15 @@ export interface ToolStateInterface {
     nodeIndex: number,
     editIndex: number
 }
+
+// Initial Search state in reducer
+export interface QuestStateInterface {
+    id: number,
+    isComplete: boolean,
+    quest: {
+        name: string,
+        detail: string,
+        tool: string,
+        type: string
+    }
+}

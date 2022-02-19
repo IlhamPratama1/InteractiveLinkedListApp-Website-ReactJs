@@ -15,7 +15,7 @@ export default function SearchTool() {
     const projectType: string = useSelector(selectProjectType);
     const nodeData: Array<any> = useSelector(selectNode);
     const { structData }: StructStateInterface = useSelector(selectStruct);
-    const { GenerateCode, SetLastOperation, SetSearchLog, CloseTool } = useHookDispatch();
+    const { GenerateCode, SetLastOperation, OpenNodeIndex, SetSearchLog, SetSearchResult, CloseTool, SetQuestComplete } = useHookDispatch();
 
     // --- State
     const [ searchIndex, setSearchIndex ] = useState<Array<string | number>>(GenerateArray());
@@ -42,13 +42,15 @@ export default function SearchTool() {
         const data = searchIndex[ind];
         for (let i = 0; i < nodeData.length; i++) {
             if (nodeData[i][valueBy] === searchIndex[ind]) {
-                console.log("ada");
+                SetSearchResult(i);
+                OpenNodeIndex(i);
             }
         }
         SetSearchLog(valueBy);
         SetLastOperation(`search${valueBy}`);
         CloseTool();
         GenerateCode(Number(data), data, valueBy);
+        SetQuestComplete('search', projectType);
     }
 
     const checkToolValue = (index: number) => {

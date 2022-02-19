@@ -10,14 +10,15 @@ import { GetNodeDetail, PostNewNode } from '../../api/nodeRequest';
 import { GetCodeDetail, PostNewCode, PostNewLog, PostNewOperation, PostNewSearchLog } from '../../api/codeRequest';
 
 // Redux component
-import { CodeType, ListType, LogType, NodeType, OperationType, SearchLogType } from '../../type';
-import { StructAction, CodeAction, NodeAction, ListAction } from '../../state/actions';
+import { CodeType, ListType, LogType, NodeType, OperationType, QuestType, SearchLogType } from '../../type';
+import { StructAction, CodeAction, NodeAction, ListAction, SearchAction, QuestAction } from '../../state/actions';
 import { ActionType } from '../../state/action-types';
 
 // React component
 import NodeEditor from './node';
 import CodeEditor from './code';
 import ToolEditor from './tools';
+import { GetMyQuests } from '../../api/questRequest';
 
 
 export default function EditorView() {
@@ -86,6 +87,7 @@ export default function EditorView() {
     const CheckInitialData = useCallback( async () => {
         const decodedId = Number(DecodeId(encodedId));
         const listDetail: ListType = await GetListDetail(decodedId);
+        const quests: Array<QuestType> = await GetMyQuests();
 
         dispatch<ListAction>({
             type: ActionType.SETTYPE,
@@ -98,6 +100,13 @@ export default function EditorView() {
                 structName: listDetail.struct.name,
                 structData: listDetail.struct.data
             }
+        });
+        dispatch<SearchAction>({
+            type: ActionType.RESETSEARCHRESULT
+        });
+        dispatch<QuestAction>({
+            type: ActionType.SETQUESTDATA,
+            payload: quests
         });
 
         if (listDetail.code) SetInitialCode();
