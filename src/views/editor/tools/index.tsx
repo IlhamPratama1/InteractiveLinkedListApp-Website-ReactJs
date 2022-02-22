@@ -58,7 +58,6 @@ export default function ToolEditor() {
         SetLastOperation('add');
         OpenEditNodeIndex(newNode.length - 1);
         CloseTool();
-        UpdateNodeData(listId, newNode);
     }
 
     function RemoveAllNode() {
