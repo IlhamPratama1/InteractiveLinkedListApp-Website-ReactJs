@@ -1,6 +1,6 @@
 // Lib
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useSelector } from "react-redux";
 
 // Redux component
@@ -58,37 +58,45 @@ export default function LoginView() {
     }, [auth.token, navigate]);
 
     return(
-        <div className="container mx-auto px-12 md:px-24">
-            <div className="grid lg:grid-cols-2 md:grid-cols-1">
-                <div className="text-right">
-                    <img alt="hero" className="w-96" src="/static/images/auth.jpg" />
+        <div className='h-screen mx-auto'>
+            <div className='h-full grid grid-cols-1 lg:grid-cols-2'>
+                <div className='h-full bg-green-light hidden lg:flex justify-center items-center'>
+                    <img className="scale-75" alt="home" src="/static/illustration/auth-img.png" />
                 </div>
-                <div className="flex items-center">
-                    <div className="space-y-8 w-full">
-                        <div className="flex space-x-4">
-                            <h1 className="font-playfair text-4xl font-bold">Login</h1>
-                            <p className="font-playfair text-lg self-center">or</p>
-                            <h1 className="underline font-playfair text-4xl">Register</h1>
+                <div className='h-full flex items-center'>
+                    <div className='w-full px-14 md:px-16 lg:px-20 space-y-12'>
+                        <div className='flex space-x-4'>
+                            <h1 className='font-roboto text-4xl font-bold'>Register</h1>
+                            <p className='flex items-end font-roboto text-2xl'>or</p>
+                            <Link to={'/register'} className='font-roboto text-4xl' style={{
+                                    'textDecoration': 'underline',
+                                    'textDecorationColor': '#6FFFE9',                            
+                                }}>Login</Link>
                         </div>
-                        <form className="space-y-2">
-                            <div className="space-y-2">
-                                <label className="font-source text-lg">Email</label>
-                                <input onChange={handleChange('email')} className="focus:outline-none focus:border-yellow-main p-4 w-full h-12 border"></input>
+                        <form className="space-y-6 w-full">
+                            <div className="space-y-3">
+                                <label className="font-roboto text-lg">Email</label>
+                                <input onChange={handleChange('email')} placeholder="Enter your email" className="focus:outline-none focus:border-cyan-dark p-4 w-full h-13 border rounded-md"></input>
                                 <br />
                                 <span style={{ color: "red" }}>{error["email"]}</span>
                             </div>
-                            <div className="space-y-2">
-                                <label className="font-source text-lg">Password</label>
-                                <input type="password" required onChange={handleChange('password')} className="focus:outline-none focus:border-yellow-main p-4 w-full h-12 border"></input>
+                            <div className="space-y-3">
+                                <label className="font-roboto text-lg">Password</label>
+                                <input type="password" required onChange={handleChange('password')} placeholder="Enter your password" className="focus:outline-none focus:border-cyan-dark p-4 w-full h-13 border rounded-md"></input>
                                 <br />
                                 <span style={{ color: "red" }}>{error["password"]}</span>
                             </div>
-                            <span style={{ color: "red" }}>{error["404"]}</span>
                             <br />
+                            <Link to={'/register'} className='font-roboto text-sm' style={{
+                                'textDecoration': 'underline',
+                                'textDecorationColor': '#5BC0BE',
+                            }}>Forget Password</Link>
                             <div className="flex items-center space-x-3">
-                                <button onClick={(event) => HandleSubmit(event)} className="text-xs font-bold font-playfair py-3 px-7 bg-yellow-main hover:bg-yellow-second text-white-main hover:text-black-main transition duration-300">Login</button>
-                                {loadingSubmit && <svg className="animate-spin bg-black h-5 w-5 mr-3" viewBox="0 0 24 24"></svg> }
+                                <button onClick={event => HandleSubmit(event)} className="text-md font-bold font-roboto py-3 px-10 bg-cyan-dark hover:bg-cyan-light text-white hover:text-black transition duration-300 rounded-md">Sign In</button>
+                                    {loadingSubmit && <svg className="animate-spin bg-black h-5 w-5 mr-3" viewBox="0 0 24 24"></svg> }
                             </div>
+                            <br />
+                            <span style={{ color: "red" }}>{error["404"]}</span>
                         </form>
                     </div>
                 </div>

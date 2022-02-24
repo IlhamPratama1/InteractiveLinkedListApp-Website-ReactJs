@@ -7,7 +7,6 @@ import { selectNode, useHookDispatch } from '../../../state/dispatch';
 
 // External function
 import { CheckRegexValidation } from '../../../regex';
-import { UpdateNodeData } from '../../../api/nodeRequest';
 
 
 export default function InsertTool() {
