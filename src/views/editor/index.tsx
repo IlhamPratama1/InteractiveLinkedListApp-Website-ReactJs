@@ -8,6 +8,7 @@ import { GetListDetail } from '../../api/listRequest';
 import { DecodeId } from '../../encrypt/hashId';
 import { GetNodeDetail, PostNewNode } from '../../api/nodeRequest';
 import { GetCodeDetail, PostNewCode, PostNewLog, PostNewOperation, PostNewSearchLog } from '../../api/codeRequest';
+import { GetMyQuests } from '../../api/questRequest';
 
 // Redux component
 import { CodeType, ListType, LogType, NodeType, OperationType, QuestType, SearchLogType } from '../../type';
@@ -18,7 +19,7 @@ import { ActionType } from '../../state/action-types';
 import NodeEditor from './node';
 import CodeEditor from './code';
 import ToolEditor from './tools';
-import { GetMyQuests } from '../../api/questRequest';
+import Navbar from '../template/navbar';
 
 
 export default function EditorView() {
@@ -122,7 +123,8 @@ export default function EditorView() {
     }, [CheckInitialData])
 
     return (
-        <div className="container mx-auto">
+        <div className="mx-auto">
+            <Navbar />
             <ToolEditor />
             <CodeEditor />
             <NodeEditor />

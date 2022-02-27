@@ -1,16 +1,18 @@
+// Lib
 import { useNavigate } from "react-router-dom";
-import { ListType } from "../../type";
 import Hashids from 'hashids';
+
+// Redux Component
+import { ListType } from "../../type";
 import { DeleteList, GetListDetail } from "../../api/listRequest";
 
 
 type ListProjectType = {
-    index: number,
     list: ListType,
     FetchUserList: Function
 }
 
-export default function ListProject({ index, list, FetchUserList }: ListProjectType) {
+export default function ListProject({ list, FetchUserList }: ListProjectType) {
     // --- Lib
     const hashids = new Hashids(process.env.REACT_APP_HASH_ID, 20);
     const Navigate = useNavigate();
@@ -19,29 +21,53 @@ export default function ListProject({ index, list, FetchUserList }: ListProjectT
     async function OpenListProject() {
         const listProject: ListType = await GetListDetail(list.id);
         if (listProject.struct === null)
-            Navigate(`/struct/${list.type}/${hashids.encode(list.id)}`);
+            Navigate(`/dashboard/struct/${list.type}/${hashids.encode(list.id)}`);
         else
             Navigate(`/editor/${hashids.encode(list.id)}`);
     }
-
+    
     async function DeleteListData() {
         await DeleteList(list.id);
         FetchUserList();
     }
 
+    // --- Render Component
+    function SelectedColor() {
+        switch (list.type) {
+            case 'single':
+                return 'bg-blue-light';
+            case 'double':
+                return 'bg-cyan-dark';
+            case 'circular':
+                return 'bg-cyan-light';
+        }
+    }
+
+    function SelectedImage() {
+        switch (list.type) {
+            case 'single':
+                return '/static/new_icon/link.png';
+            case 'double':
+                return '/static/new_icon/double.png';
+            case 'circular':
+                return '/static/new_icon/circular.png';
+        }
+    }
+
     return (
-        <div key={index} className="py-4 px-6 border rounded-xl hover:border-yellow-main transition duration-300">
-            <button onClick={OpenListProject}>
-                <div className="flex justify-end w-auto">
-                    <img className="w-4" src="/static/icons/plus.png" alt="plus" />
-                </div>
-                <div className="my-6 flex justify-center w-auto">
-                    <img className="w-12" src="/static/icons/zip-folder.png" alt="single-link" />
-                </div>
-                <h1 className="font-source text-xl">Circular Linked-List</h1>
-                <h2 className="font-source opacity-50 text-md">12 Maret 2022</h2>
-            </button>
-            <button onClick={DeleteListData} className="text-xs font-bold font-playfair py-3 px-7 bg-yellow-main hover:bg-yellow-second text-white-main hover:text-black-main transition duration-300">delete</button>
+        <div className='p-4 border rounded-md flex space-x-4'>
+            <div onClick={OpenListProject} className={`cursor-pointer w-16 h-16 rounded-md p-4 ${SelectedColor()}`}>
+                <img  src={SelectedImage()} alt='project' />
+            </div>
+            <div onClick={OpenListProject} className='cursor-pointer space-y-2'>
+                <h1 className='font-roboto font-bold text-lg m-auto'>{list.struct === null ? 'struct not created': list.struct.name}</h1>
+                <h1 className='font-roboto text-md capitalize'>{list.type} Linked List</h1>
+            </div>
+            <div className='space-y-4'>
+                <img onClick={DeleteListData} className='cursor-pointer float-right opacity-60 scale-50' src='/static/new_icon/cancel.png' alt='project' />
+                <br />
+                <h1 className='opacity-40 font-roboto text-sm'>12 Februari 2022</h1>
+            </div>
         </div>
     );
 }

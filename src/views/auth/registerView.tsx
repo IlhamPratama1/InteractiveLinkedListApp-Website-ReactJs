@@ -49,6 +49,7 @@ export default function RegisterView() {
         setError(errors);
     }
 
+    // --- OnSubmit
     async function HandleSubmit(event: React.MouseEvent) {
         event.preventDefault();
         setLoadingSubmit(true);
@@ -72,6 +73,8 @@ export default function RegisterView() {
                 </div>
                 <div className='h-full flex items-center'>
                     <div className='w-full px-14 md:px-16 lg:px-20 space-y-12'>
+
+                        {/* --- Header --- */}
                         <div className='flex space-x-4'>
                             <h1 className='font-roboto text-4xl font-bold'>Register</h1>
                             <p className='flex items-end font-roboto text-2xl'>or</p>
@@ -80,25 +83,35 @@ export default function RegisterView() {
                                     'textDecorationColor': '#6FFFE9',                            
                                 }}>Login</Link>
                         </div>
+
+                        {/* --- Form --- */}
                         <form className="space-y-6 w-full">
+
+                            {/* --- Username --- */}
                             <div className="space-y-3">
                                 <label className="font-roboto text-lg">Username</label>
                                 <input onChange={handleChange('username')} placeholder="Enter your username" className="focus:outline-none focus:border-cyan-dark p-4 w-full h-13 border rounded-md"></input>
                                 <br />
                                 <span style={{ color: "red" }}>{error["username"]}</span>
                             </div>
+
+                            {/* --- Email --- */}
                             <div className="space-y-3">
                                 <label className="font-roboto text-lg">Email</label>
                                 <input onChange={handleChange('email')} placeholder="Enter your email" className="focus:outline-none focus:border-cyan-dark p-4 w-full h-13 border rounded-md"></input>
                                 <br />
                                 <span style={{ color: "red" }}>{error["email"]}</span>
                             </div>
+
+                            {/* --- Password --- */}
                             <div className="space-y-3">
                                 <label className="font-roboto text-lg">Password</label>
                                 <input type="password" required onChange={handleChange('password')}  placeholder="Enter your password" className="focus:outline-none focus:border-cyan-dark p-4 w-full h-13 border rounded-md"></input>
                                 <br />
                                 <span style={{ color: "red" }}>{error["password"]}</span>
                             </div>
+
+                            {/* --- Confirm --- */}
                             <div className="space-y-3">
                                 <label className="font-roboto text-lg">Confirm Password</label>
                                 <input type="password" required onChange={handleChange('confirmPassword')}  placeholder="Retype your password" className="focus:outline-none focus:border-cyan-dark p-4 w-full h-13 border rounded-md"></input>
@@ -107,15 +120,21 @@ export default function RegisterView() {
                                 <br />
                                 <span style={{ color: "red" }}>{error["match"]}</span>
                             </div>
+
+                            {/* --- Forget Password --- */}
                             <Link to={'/register'} className='font-roboto text-sm' style={{
                                 'textDecoration': 'underline',
                                 'textDecorationColor': '#5BC0BE',
                             }}>Forget Password</Link>
+
+                            {/* --- Submit Button --- */}
                             <div className="flex items-center space-x-3">
-                                <button onClick={event => HandleSubmit(event)} className="text-md font-bold font-roboto py-3 px-10 bg-cyan-dark hover:bg-cyan-light text-white hover:text-black transition duration-300 rounded-md">Sign In</button>
+                                <button onClick={event => HandleSubmit(event)} className="focus:outline-none text-md font-bold font-roboto py-3 px-10 bg-cyan-dark hover:bg-cyan-light text-white hover:text-black transition duration-300 rounded-md">Sign In</button>
                                     {loadingSubmit && <svg className="animate-spin bg-black h-5 w-5 mr-3" viewBox="0 0 24 24"></svg> }
                             </div>
                             <br />
+
+                            {/* --- Error Message --- */}
                             <span style={{ color: "red" }}>{error["404"]}</span>
                         </form>
 
