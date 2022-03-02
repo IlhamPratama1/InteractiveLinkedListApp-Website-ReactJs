@@ -11,7 +11,7 @@ export default function CodeEditor() {
     const [ modalOpen, setModalOpen ] = useState<boolean>(false);
     
     return(
-        <div className="absolute right-10 bottom-10">
+        <div className="absolute right-8 bottom-8">
             <Section setModalOpen={setModalOpen} />
             {modalOpen ?
                 <Modal setModalOpen={setModalOpen} /> 

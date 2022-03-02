@@ -69,7 +69,7 @@ export default function RegisterView() {
         <div className='h-screen mx-auto'>
             <div className='h-full grid grid-cols-1 lg:grid-cols-2'>
                 <div className='h-full bg-green-light hidden lg:flex justify-center items-center'>
-                    <img className="scale-75" alt="home" src="/static/illustration/auth-img.png" />
+                    <img alt="home" src="/static/illustrations/register.svg" />
                 </div>
                 <div className='h-full flex items-center'>
                     <div className='w-full px-14 md:px-16 lg:px-20 space-y-12'>

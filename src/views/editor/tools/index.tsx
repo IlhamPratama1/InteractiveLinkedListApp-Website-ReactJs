@@ -1,6 +1,7 @@
 // Lin
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { TemplateIcon, ViewGridAddIcon, CollectionIcon, SearchCircleIcon, TrashIcon, FolderRemoveIcon, FireIcon, PencilAltIcon } from "@heroicons/react/outline";
 
 // Redux Component
 import { selectCode, selectNode, selectStruct, selectTool, useHookDispatch } from "../../../state/dispatch";
@@ -32,6 +33,7 @@ export default function ToolEditor() {
 
     // --- Func
     function RedirectToDashboard() { navigate('/dashboard'); }
+
     function OpenToolInIndex(index: number) {
         if (toolIndex === index)
             OpenToolIndex(-1);
@@ -76,18 +78,35 @@ export default function ToolEditor() {
     }
 
     return (
-        <div className="absolute left-0 top-100 flex space-x-2 items-end">
-            <div>
-                <div className="bg-yellow-main p-4 w-16">
-                    <button title='dashboard' onClick={RedirectToDashboard}><img className="w-8 cursor-pointer" alt="dashboard" src="/static/icons/dashboard.svg" /></button>
+        <div className="absolute mt-8 ml-8 flex space-x-6 items-start">
+            <div className="bg-white drop-shadow-5xl rounded-md">
+                <div className='flex justify-center border-b border-gray-200 py-4'>
+                    <button title='dashboard' className="focus:outline-none" onClick={RedirectToDashboard}>
+                        <TemplateIcon className="w-8 h-8 text-black hover:text-cyan-dark transition duration-300" />
+                    </button>
                 </div>
-                <div className="bg-yellow-second p-4 space-y-8 w-16">
-                    <button title='Add New Node' onClick={AddNewNodeInTail} ><img  className="w-8 cursor-pointer" alt="add" src="/static/icons/layer.png" /></button>
-                    <button title='Insert New Node' onClick={() => OpenToolInIndex(1)} ><img className="w-8 cursor-pointer" alt="insert" src="/static/icons/process.png" /></button>
-                    <button title='Search Node' onClick={() => OpenToolInIndex(2)} ><img className="w-8 cursor-pointer" alt="delete" src="/static/icons/magnifying-glass.png" /></button>
-                    <button title='Remove Node Index' onClick={() => OpenToolInIndex(3)} ><img className="w-8 cursor-pointer" alt="search" src="/static/icons/trash.png" /></button>
-                    <button title='Remove Logs' onClick={RemoveCodeAndLog} ><img className="w-8 cursor-pointer" alt="search" src="/static/icons/remove-database.png" /></button>
-                    <button title='Remove All Node' onClick={RemoveAllNode} ><img className="w-8 cursor-pointer" alt="search" src="/static/icons/eraser.png" /></button>
+                <div className="p-4 space-y-4 w-16">
+                    <button title='Add New Node' className="focus:outline-none" onClick={AddNewNodeInTail} >
+                        <ViewGridAddIcon className="w-8 h-8 text-black hover:text-cyan-dark transition duration-300" />
+                    </button>
+                    <button title='Insert New Node' className="focus:outline-none" onClick={() => OpenToolInIndex(1)} >
+                        <CollectionIcon className="w-8 h-8 text-black hover:text-cyan-dark transition duration-300" />
+                    </button>
+                    <button title='Search Node' className="focus:outline-none" onClick={() => OpenToolInIndex(2)} >
+                        <SearchCircleIcon className="w-8 h-8 text-black hover:text-cyan-dark transition duration-300" />
+                    </button>
+                    <button title='Remove Node Index' className="focus:outline-none" onClick={() => OpenToolInIndex(3)} >
+                        <TrashIcon className="w-8 h-8 text-black hover:text-cyan-dark transition duration-300" />
+                    </button>
+                    <button title='Remove Logs' onClick={RemoveCodeAndLog} >
+                        <FireIcon className="w-8 h-8 text-black hover:text-cyan-dark transition duration-300" />
+                    </button>
+                    <button title='Remove All Node' className="focus:outline-none" onClick={RemoveAllNode} >
+                        <FolderRemoveIcon className="w-8 h-8 text-black hover:text-cyan-dark transition duration-300" />
+                    </button>
+                    <button title='Edit Node' className="focus:outline-none">
+                        <PencilAltIcon className="w-8 h-8 text-black hover:text-cyan-dark transition duration-300" />
+                    </button>
                 </div>
             </div>
             <div>

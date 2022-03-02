@@ -61,13 +61,13 @@ export default function ProjectView() {
 
             {/* --- Cols-1 --- */}
             <div className='2xl:px-12'>
-                <div className='w-full h-full bg-green-light rounded-3xl px-4 py-16 space-y-10'>
-                    <img src='/static/illustration/new-project.png' alt='project' />
-                    <div className='space-y-3 font-roboto px-6'>
+                <div className='w-full h-full bg-green-light rounded-3xl py-8 px-8 space-y-7'>
+                    <img src='/static/illustrations/project-new.svg' alt='project' />
+                    <div className='space-y-3 font-roboto px-2'>
                         <h1 className='font-bold text-3xl'>Create New Project</h1>
-                        <p className='text-md opacity-60'>Create new Linked-List project, and select which type of Linked-List.</p>
+                        <p className='text-md opacity-80'>Create new Linked-List project, and select which type of Linked-List.</p>
                     </div>
-                    <div className='space-y-6 font-roboto px-6'>
+                    <div className='space-y-6 font-roboto px-2'>
                         <h1 className='font-bold text-md opacity-50'>Type</h1>
                         {projectList.map((type, i) => {
                             return (
@@ -79,15 +79,15 @@ export default function ProjectView() {
                                     />
                             );
                         })}
-                        <button onClick={SubmitListType} className="focus:outline-none flex mx-auto rounded-md px-10 py-3 bg-cyan-dark text-white font-bold text-sm md:text-md lg:text-lg">Create</button>
+                        <button onClick={SubmitListType} className="focus:outline-none flex mx-auto rounded-md px-10 py-3 bg-cyan-dark text-white hover:bg-blue-dark hover:text-yellow font-bold text-sm md:text-md lg:text-lg transition duration-300">Create</button>
                     </div>
                 </div>
             </div>
 
             {/* --- Cols-2 --- */}
             <div className='xl:border-r flex justify-center'>
-                <div className='2xl:pl-10 2xl:pr-20 lg:pr-8 space-y-8'>
-                    <img className='mt-2 w-96' src='/static/illustration/saved-project.jpg' alt='project' />
+                <div className='2xl:pl-10 2xl:pr-20 lg:pr-8 space-y-7'>
+                    <img className='scale-90' src='/static/illustrations/phone.svg' alt='project' />
                     <div className='space-y-3 font-roboto'>
                         <h1 className='font-bold text-3xl'>Open Saved Project</h1>
                         <p className='text-md opacity-60'>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
@@ -102,35 +102,46 @@ export default function ProjectView() {
                                         FetchUserList={FetchUserList}
                                     />
                                 );
-                            })
+                            }).slice(0, 3)
                         }
                     </div>
-                    <button className="focus:outline-none flex mx-auto rounded-md px-10 py-3 bg-blue-dark text-white font-bold font-roboto text-sm md:text-md lg:text-lg">All</button>
+                    <button className="focus:outline-none flex mx-auto rounded-md px-10 py-3 bg-blue-dark text-white hover:text-yellow font-bold font-roboto text-sm md:text-md lg:text-lg transition duration-300">All</button>
                 </div>
             </div>
 
             {/* --- Cols-3 --- */}
             <div className='flex justify-center'>
                 <div className='2xl:px-16 lg:px-8 space-y-7'>
-                    <img className='mt-7 w-96' src='/static/illustration/quest-project.jpg' alt='project' />
+                    <img className='scale-90' src='/static/illustrations/laptop.svg' alt='project' />
                     <div className='space-y-3 font-roboto'>
                         <h1 className='font-bold text-3xl'>Quest</h1>
                         <p className='text-md opacity-60'>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
                     </div>
-                    <div className='space-y-5'>
-                        <h1 className='font-roboto font-bold text-md'>InComplete</h1>
+                    <div className='space-y-4'>
+                        <h1 className='font-roboto font-bold text-md'>Complete</h1>
                         {quests.isLoading ? null :
                             quests.data.map((quest, i) => {
                                 return (
-                                    <div key={i} className={`border-l-8 ${i < quests.data.length / 2 ? 'border-cyan-dark':'border-orange'} pl-4 space-y-2`}>
+                                    <div key={i} className={`border-l-8 border-cyan-dark pl-4 space-y-2`}>
                                         <h1 className='font-roboto text-md'>{quest.quest.detail}</h1>
                                         <h1 className='font-roboto text-sm opacity-40 capitalize'>{quest.quest.type} Linked List</h1>
                                     </div>
                                 );
-                            })
+                            }).slice(0, 2)
+                        }
+                        <h1 className='font-roboto font-bold text-md'>InComplete</h1>
+                        {quests.isLoading ? null :
+                            quests.data.map((quest, i) => {
+                                return (
+                                    <div key={i} className={`border-l-8 border-orange pl-4 space-y-2`}>
+                                        <h1 className='font-roboto text-md'>{quest.quest.detail}</h1>
+                                        <h1 className='font-roboto text-sm opacity-40 capitalize'>{quest.quest.type} Linked List</h1>
+                                    </div>
+                                );
+                            }).slice(2, 4)
                         }
                     </div>
-                    <button className="focus:outline-none flex mx-auto rounded-md px-10 py-3 bg-blue-dark text-white font-bold font-roboto text-sm md:text-md lg:text-lg">All</button>
+                    <button className="focus:outline-none flex mx-auto rounded-md px-10 py-3 bg-blue-dark text-white hover:text-yellow font-bold font-roboto text-sm md:text-md lg:text-lg transition duration-300">All</button>
                 </div>
             </div>
 

@@ -51,15 +51,25 @@ export default function InsertTool() {
      } 
 
     return(
-        <div className="bg-yellow-main p-4 mt-2 space-y-2">
-            <p className="font-source text-md font-bold text-black">Insert before Index</p>
-            <input type="text" value={insertBeforeIndex} onChange={handleChangeInsertBefore} placeholder="index" className="focus:outline-none focus:border-orang-main p-4 h-5 w-44 border rounded-xl"></input>
-            <br />
-            <button onClick={InsertNodeBeforeIndex} className="text-xs font-bold font-playfair py-2 px-4 bg-orange-main hover:bg-orane-second text-white-main hover:text-black-main transition duration-300">submit</button>
-            <p className="font-source text-md font-bold text-black">Insert after Index</p>
-            <input type="text" value={insertAfterIndex} onChange={handleChangeInsertAfter} placeholder="index" className="focus:outline-none focus:border-orang-main p-4 h-5 w-44 border rounded-xl"></input>
-            <br />
-            <button onClick={InsertNodeAfterIndex} className="text-xs font-bold font-playfair py-2 px-4 bg-orange-main hover:bg-orane-second text-white-main hover:text-black-main transition duration-300">submit</button>
+        <div className="bg-white drop-shadow-8xl p-4 rounded-md">
+            <form className='font-roboto w-48 space-y-4'>
+                <div className='space-y-2'>
+                    <p className="text-sm font-bold">Insert Before Index</p>
+                    <label className='text-xs opacity-40'>Index</label>
+                    <div className='space-y-3'>
+                        <input type="text" value={insertBeforeIndex} onChange={handleChangeInsertBefore} placeholder="index" className="focus:outline-none bg-slate-gray p-4 h-5 rounded-md text-sm"></input>
+                        <button onClick={InsertNodeBeforeIndex} className="text-xs font-bold rounded-md py-2 px-4 text-black bg-cyan-light transition duration-300">Submit</button>
+                    </div>
+                </div>
+                <div className='space-y-2'>
+                    <p className="text-sm font-bold">Insert After Index</p>
+                    <label className='text-xs opacity-40'>Index</label>
+                    <div className='space-y-3'>
+                        <input type="text" value={insertAfterIndex} onChange={handleChangeInsertAfter} placeholder="index" className="focus:outline-none bg-slate-gray p-4 h-5 rounded-md text-sm"></input>
+                        <button onClick={InsertNodeAfterIndex} className="text-xs font-bold rounded-md py-2 px-4 text-black bg-cyan-light transition duration-300">Submit</button>
+                    </div>
+                </div>
+            </form>
         </div>
     );
 }

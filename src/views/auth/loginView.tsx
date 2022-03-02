@@ -62,7 +62,7 @@ export default function LoginView() {
         <div className='h-screen mx-auto'>
             <div className='h-full grid grid-cols-1 lg:grid-cols-2'>
                 <div className='h-full bg-green-light hidden lg:flex justify-center items-center'>
-                    <img className="scale-75" alt="home" src="/static/illustration/auth-img.png" />
+                    <img alt="home" src="/static/illustrations/login.svg" />
                 </div>
                 <div className='h-full flex items-center'>
                     <div className='w-full px-14 md:px-16 lg:px-20 space-y-12'>
@@ -104,7 +104,7 @@ export default function LoginView() {
                             
                             {/* --- Submit Button --- */}
                             <div className="flex items-center space-x-3">
-                                <button onClick={event => HandleSubmit(event)} className="focus:outline-none text-md font-bold font-roboto py-3 px-10 bg-cyan-dark hover:bg-cyan-light text-white hover:text-black transition duration-300 rounded-md">Sign In</button>
+                                <button onClick={event => HandleSubmit(event)} className="focus:outline-none text-md font-bold font-roboto py-3 px-10 bg-cyan-dark hover:bg-blue-dark text-white hover:text-cyan-dark transition duration-500 rounded-md">Sign In</button>
                                     {loadingSubmit && <svg className="animate-spin bg-black h-5 w-5 mr-3" viewBox="0 0 24 24"></svg> }
                             </div>
                             <br />

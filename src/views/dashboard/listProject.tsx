@@ -1,6 +1,7 @@
 // Lib
 import { useNavigate } from "react-router-dom";
 import Hashids from 'hashids';
+import { XIcon, SwitchHorizontalIcon, LinkIcon, RefreshIcon } from "@heroicons/react/solid";
 
 // Redux Component
 import { ListType } from "../../type";
@@ -46,25 +47,27 @@ export default function ListProject({ list, FetchUserList }: ListProjectType) {
     function SelectedImage() {
         switch (list.type) {
             case 'single':
-                return '/static/new_icon/link.png';
+                return <LinkIcon className="text-white" />
             case 'double':
-                return '/static/new_icon/double.png';
+                return <SwitchHorizontalIcon className="text-white" />
             case 'circular':
-                return '/static/new_icon/circular.png';
+                return <RefreshIcon className="text-white" />
         }
     }
 
     return (
-        <div className='p-4 border rounded-md flex space-x-4'>
-            <div onClick={OpenListProject} className={`cursor-pointer w-16 h-16 rounded-md p-4 ${SelectedColor()}`}>
-                <img  src={SelectedImage()} alt='project' />
+        <div className='p-4 border hover:border-cyan-dark rounded-md flex justify-between items-center transition duration-300'>
+            <div className="space-x-3 flex items-center">
+                <div onClick={OpenListProject} className={`cursor-pointer w-16 h-16 rounded-md p-4 ${SelectedColor()}`}>
+                    {SelectedImage()}
+                </div>
+                <div onClick={OpenListProject} className='cursor-pointer space-y-2'>
+                    <h1 className='font-roboto font-bold text-lg m-auto'>{list.struct === null ? 'struct not created': list.struct.name}</h1>
+                    <h1 className='font-roboto text-md capitalize'>{list.type} Linked List</h1>
+                </div>
             </div>
-            <div onClick={OpenListProject} className='cursor-pointer space-y-2'>
-                <h1 className='font-roboto font-bold text-lg m-auto'>{list.struct === null ? 'struct not created': list.struct.name}</h1>
-                <h1 className='font-roboto text-md capitalize'>{list.type} Linked List</h1>
-            </div>
-            <div className='space-y-4'>
-                <img onClick={DeleteListData} className='cursor-pointer float-right opacity-60 scale-50' src='/static/new_icon/cancel.png' alt='project' />
+            <div className='space-y-3'>
+                <button className="float-right w-5 h-5 opacity-40" onClick={DeleteListData}><XIcon /></button>
                 <br />
                 <h1 className='opacity-40 font-roboto text-sm'>12 Februari 2022</h1>
             </div>

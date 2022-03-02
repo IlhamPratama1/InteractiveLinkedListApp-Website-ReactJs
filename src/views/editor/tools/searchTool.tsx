@@ -63,16 +63,18 @@ export default function SearchTool() {
     }
 
     return(
-        <div className="bg-yellow-main p-4 mt-2 space-y-2">
-            <div className="grid grid-cols-2 gap-4">
+        <div className="bg-white drop-shadow-8xl p-4 rounded-md">
+            <div className="w-48 font-roboto space-y-4">
                 {structData.map((variable, i) => {
                     return(
                         checkToolValue(i) ?
                         <div key={i} className="space-y-2">
-                            <p className="font-source text-md font-bold text-black">Search by {variable.value}</p>
-                            <input value={searchIndex[i]} onChange={e => HandleChange(e, i, variable.type)} placeholder="value" className="focus:outline-none focus:border-orang-main p-4 h-5 w-44 border rounded-xl"></input>
-                            <br />
-                            <button onClick={() => SearchNodeAtIndex(variable.value, i)} className="text-xs font-bold font-playfair py-2 px-4 bg-orange-main hover:bg-orane-second text-white-main hover:text-black-main transition duration-300">submit</button>
+                            <p className="text-sm font-bold">Search by {variable.value}</p>
+                            <label className='text-xs opacity-40'>Index</label>
+                            <div className='space-y-3'>
+                                <input value={searchIndex[i]} onChange={e => HandleChange(e, i, variable.type)} placeholder="value" className="focus:outline-none bg-slate-gray p-4 h-5 rounded-md text-sm"></input>
+                                <button onClick={() => SearchNodeAtIndex(variable.value, i)} className="text-xs font-bold rounded-md py-2 px-4 text-black bg-cyan-light transition duration-300">submit</button>
+                            </div>
                         </div>
                         : null
                     );

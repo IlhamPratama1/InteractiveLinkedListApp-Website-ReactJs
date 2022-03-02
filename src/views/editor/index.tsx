@@ -20,6 +20,7 @@ import NodeEditor from './node';
 import CodeEditor from './code';
 import ToolEditor from './tools';
 import Navbar from '../template/navbar';
+import ZoomEditor from './zoom';
 
 
 export default function EditorView() {
@@ -123,10 +124,11 @@ export default function EditorView() {
     }, [CheckInitialData])
 
     return (
-        <div className="mx-auto">
+        <div className="h-screen mx-auto bg-white-gray">
             <Navbar />
             <ToolEditor />
             <CodeEditor />
+            <ZoomEditor />
             <NodeEditor />
         </div>
     );

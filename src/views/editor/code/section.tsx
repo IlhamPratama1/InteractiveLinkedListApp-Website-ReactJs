@@ -1,5 +1,6 @@
 // Lib
 import { useSelector } from 'react-redux';
+import { TerminalIcon } from '@heroicons/react/outline';
 
 // Redux component
 import { selectCode } from '../../../state/dispatch';
@@ -19,14 +20,18 @@ export default function Section({ setModalOpen }: CodeSectionType) {
     function OpenModal() { setModalOpen(true); }
 
     return(
-        <div className="bg-yellow-main w-84 rounded-xl">
-            <div onClick={OpenModal} className="cursor-pointer bg-orange-main flex items-center p-4 space-x-4 rounded-xl">
-                <img className="w-8" alt="insert" src="/static/icons/coding.png" />
-                <p className="font-bold text-xl font-source text-black">Source Code</p>
+        <div className="bg-white drop-shadow-6xl rounded-md w-100 p-4 space-y-3">
+            <div className="flex items-center space-x-2">
+                <TerminalIcon className='w-10 h-10' />
+                <div className='font-roboto'>
+                    <h1 className='text-sm font-bold'>Source Code</h1>
+                    <p className='text-xs opacity-40'>c++</p>
+                </div>
             </div>
-            <div>
-                {code.substring(0, 234)}
+            <div className='font-roboto text-sm'>
+                {code.substring(0, 550)}
             </div>
+            <button onClick={OpenModal} className='focus:outline-none bg-cyan-light text-black rounded-md px-5 py-2 font-bold text-sm'>Detail</button>
         </div>
     );
 }
