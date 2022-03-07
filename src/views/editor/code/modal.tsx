@@ -1,6 +1,7 @@
 // Lib
 import { useSelector } from 'react-redux';
 import { TerminalIcon } from '@heroicons/react/outline';
+import SyntaxHighlighter from 'react-syntax-highlighter';
 
 // Redux component
 import { selectCode } from '../../../state/dispatch';
@@ -32,8 +33,10 @@ export default function Modal({ setModalOpen }: CodeSectionType) {
                                 <p className='text-sm opacity-40'>c++</p>
                             </div>
                         </div>
-                        <div className="overflow-auto h-96 text-sm pr-2">
-                            {code}
+                        <div className="overflow-auto h-96 text-sm">
+                            <SyntaxHighlighter language="cpp" customStyle={{ backgroundColor: "#FCFCFC" }}>
+                                {code}
+                            </SyntaxHighlighter>
                         </div>
                         <div className="flex items-center space-x-4">
                             <button className="bg-cyan-light text-blue-dark font-bold rounded-md text-sm px-5 py-2 focus:outline-none transition duration-300" onClick={CopyCode}>Copy</button>

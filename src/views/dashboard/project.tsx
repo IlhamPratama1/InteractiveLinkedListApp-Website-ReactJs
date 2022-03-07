@@ -3,17 +3,20 @@ import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Hashids from 'hashids';
+import { Link } from 'react-router-dom';
 
 // Redux Component
 import { State } from '../../state';
 import { UserStateInterface } from '../../interface';
 import { ListType, QuestType, StateDataType } from '../../type';
 
+// React Component
+import NewProject from './newProject';
+import ListProject from './listProject';
+
 // External function
 import { GetMyLists } from '../../api/listRequest';
 import { PostNewList } from '../../api/listRequest';
-import NewProject from './newProject';
-import ListProject from './listProject';
 import { GetMyQuests } from '../../api/questRequest';
 
 
@@ -105,7 +108,7 @@ export default function ProjectView() {
                             }).slice(0, 3)
                         }
                     </div>
-                    <button className="focus:outline-none flex mx-auto rounded-md px-10 py-3 bg-blue-dark text-white hover:text-yellow font-bold font-roboto text-sm md:text-md lg:text-lg transition duration-300">All</button>
+                    <Link to={`/dashboard/saved`} className="mx-auto flex justify-center items-center rounded-md w-24 h-12 bg-blue-dark text-white hover:text-yellow font-bold font-roboto text-sm md:text-md lg:text-lg transition duration-300">All</Link>
                 </div>
             </div>
 
@@ -141,7 +144,7 @@ export default function ProjectView() {
                             }).slice(2, 4)
                         }
                     </div>
-                    <button className="focus:outline-none flex mx-auto rounded-md px-10 py-3 bg-blue-dark text-white hover:text-yellow font-bold font-roboto text-sm md:text-md lg:text-lg transition duration-300">All</button>
+                    <Link to={`/dashboard/quest`} className="mx-auto flex justify-center items-center rounded-md w-24 h-12 bg-blue-dark text-white hover:text-yellow font-bold font-roboto text-sm md:text-md lg:text-lg transition duration-300">All</Link>
                 </div>
             </div>
 
