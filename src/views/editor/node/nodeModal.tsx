@@ -15,7 +15,7 @@ export default function NodeModal({ index, data }: NodeModalType ) {
 
     // --- React render function
     const inputDisabledValue = (disabledValue: string | number) => {
-        return <input disabled value={disabledValue} className="focus:outline-none focus:border-purple-main p-4 h-5 w-44 border rounded-xl"></input>
+        return <input disabled value={disabledValue} className="focus:outline-none px-2 py-2 w-full rounded-sm text-sm"></input>
     }
     const RenderNodeValue = (variable: StructFormType, i: number) => {
         if (projectType === 'single') {
@@ -46,12 +46,11 @@ export default function NodeModal({ index, data }: NodeModalType ) {
     }
 
     return (
-        <div className="py-4 px-4 bg-purple-third rounded-xl space-y-4">
+        <div className="py-4 px-4 bg-white rounded-sm space-y-3 drop-shadow-9xl font-roboto">
             {structData.map((variable, i) => {
                 return(
                     <div key={i} className="space-y-1">
-                        <label className="font-source text-lg">{variable.value}</label>
-                        <br />
+                        <label className="text-sm font-bold opacity-60">{variable.value}</label>
                         {RenderNodeValue(variable, i)}
                     </div>
                 );

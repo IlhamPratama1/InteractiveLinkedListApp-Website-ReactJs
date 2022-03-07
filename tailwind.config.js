@@ -23,8 +23,9 @@ module.exports = {
         'slate-gray': '#FAFAFA',
         'white-gray': '#FCFCFC',
         'cyan-light': '#6FFFE9',
-        'green-light': '#E2FFFB',
         'cyan-dark': '#5BC0BE',
+        'green-light': '#E2FFFB',
+        'green-dark': '#9DD9D8',
         'blue-light': '#3A506B',
         'blue-dark': '#1C2541',
         'orange': '#F57359',
@@ -38,6 +39,7 @@ module.exports = {
         '6xl': '0 20px 16px rgba(233, 233, 233, 1)',
         '7xl': '0 4px 24px rgba(233, 233, 233, 1)',
         '8xl': '0 4px 10px rgba(244, 244, 244, 1)',
+        '9xl': '0 20px 20px rgba(241, 241, 241, 1)',
       }
     },
   },

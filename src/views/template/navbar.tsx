@@ -39,7 +39,7 @@ export default function Navbar() {
             </div>
             {modalOpen === 1 && 
                 /* --- User Modal --- */
-                <div className='w-56 h-72 bg-white drop-shadow-4xl absolute right-8 rounded-md pt-5 space-y-3 text-center font-roboto'>
+                <div className='absolute z-10 w-56 h-72 bg-white drop-shadow-4xl absolute right-8 rounded-md pt-5 space-y-3 text-center font-roboto'>
                     <div className='flex justify-center'><div className='bg-cyan-dark w-20 h-20 rounded-full'></div></div>
                     <h1 className='font-bold text-lg'>Ilham Pratama</h1>
                     <div className='space-y-1 text-xs'>
@@ -56,7 +56,7 @@ export default function Navbar() {
             }
             {modalOpen === 2 && 
                 /* --- User Modal --- */
-                <div className='w-82 h-96 bg-white drop-shadow-4xl absolute right-8 rounded-md font-roboto p-5 space-y-3'>
+                <div className='absolute z-10 w-82 h-96 bg-white drop-shadow-4xl absolute right-8 rounded-md font-roboto p-5 space-y-3'>
                     <h1 className='font-bold text-lg'>Quest</h1>
                     <div className='space-y-4 h-83 overflow-auto pr-3'>
                         <div className='flex items-center space-x-2'>
@@ -113,7 +113,7 @@ export default function Navbar() {
             }
             {modalOpen === 3 && 
                 /* --- User Modal --- */
-                <div className='w-82 h-96 bg-white drop-shadow-4xl absolute right-8 rounded-md font-roboto p-5 space-y-3'>
+                <div className='absolute z-10 w-82 h-96 bg-white drop-shadow-4xl absolute right-8 rounded-md font-roboto p-5 space-y-3'>
                     <h1 className='font-bold text-lg'>Notification</h1>
                     <div className='h-82 overflow-auto space-y-3 pr-3'>
                         <div className='flex space-x-2'>

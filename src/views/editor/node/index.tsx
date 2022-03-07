@@ -13,7 +13,7 @@ export default function NodeEditor() {
     const nodeData: Array<any> = useSelector(selectNode);
     
     return (
-        <div className="mx-auto w-4/5 flex justify-evenly">
+        <div className="mx-auto h-3/5 flex justify-evenly items-center">
             {nodeData.map((data, i) => {
                 return (
                     <Node key={i} index={i} data={data}  />

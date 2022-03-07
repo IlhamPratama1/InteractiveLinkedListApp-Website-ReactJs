@@ -42,10 +42,10 @@ export default function EditModal({ index, data }: NodeModalType ) {
 
     // --- React render component
     const inputDisabledValue = (disabledValue: string | number, placeholder: string) => {
-        return <input disabled value={disabledValue} placeholder={placeholder} className="focus:outline-none focus:border-purple-main p-4 h-5 w-44 border rounded-xl"></input>
+        return <input disabled value={disabledValue} placeholder={placeholder} className="focus:outline-none px-2 py-2 w-full rounded-sm text-sm"></input>
     }
     const inputValue = (variable: StructFormType) => {
-        return <input value={data[variable.value] || ''} onChange={e => UpdateNodeForm(variable, e)} placeholder={variable.type} className="focus:outline-none focus:border-purple-main p-4 h-5 w-44 border rounded-xl"></input>
+        return <input value={data[variable.value] || ''} onChange={e => UpdateNodeForm(variable, e)} placeholder={variable.type} className="focus:outline-none p-2 py-2 w-full border rounded-sm text-sm"></input>
     }
     const RenderNodeValue = (variable: StructFormType, i: number) => {
         if (projectType === 'single') {
@@ -76,17 +76,16 @@ export default function EditModal({ index, data }: NodeModalType ) {
     }
 
     return (
-        <div className="py-4 px-4 bg-purple-third rounded-xl space-y-4">
+        <div className="py-4 px-4 bg-white rounded-sm space-y-3 drop-shadow-9xl font-roboto">
             {structData.map((variable, i) => {
                 return(
                     <div key={i} className="space-y-1">
-                        <label className="font-source text-lg">{variable.value}</label>
-                        <br />
+                        <label className="text-sm font-bold opacity-50">{variable.value}</label>
                         {RenderNodeValue(variable, i)}
                     </div>
                 );
             })}
-            <button onClick={SubmitNodeData} className="text-xs font-bold font-playfair py-2 px-4 bg-purple-main hover:bg-purple-second text-white-main hover:text-black-main transition duration-300">submit</button>
+            <button onClick={SubmitNodeData} className="focus:outline-none bg-cyan-light text-black rounded-md px-5 py-2 font-bold text-sm">submit</button>
         </div> 
     );
 }

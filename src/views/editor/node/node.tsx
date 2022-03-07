@@ -2,7 +2,7 @@
 import { useSelector } from "react-redux";
 
 // Redux component
-import { selectSearch, selectTool, useHookDispatch } from "../../../state/dispatch";
+import { selectTool, useHookDispatch } from "../../../state/dispatch";
 import { ToolStateInterface } from "../../../interface";
 
 // React component
@@ -18,7 +18,6 @@ type NodeType = {
 export default function Node({ index, data }: NodeType) {
     // --- Redux State
     const { nodeIndex, editIndex }: ToolStateInterface = useSelector(selectTool);
-    const searchResult: number = useSelector(selectSearch);
     const { OpenNodeIndex, CloseNode } = useHookDispatch();
 
     // --- Func
@@ -40,10 +39,10 @@ export default function Node({ index, data }: NodeType) {
     }
 
     return (
-        <div className="w-52">
+        <div className="w-48 space-y-3">
             <div className="flex justify-center">
-                <button onClick={HandleNodeButton} className={`focus:outline-none cursore-pointer py-4 px-12 text-xl text-white rounded-xl bg-purple-main
-                    ${ searchResult === index ? 'bg-purple-main' : 'bg-purple-second'}`}>{index}</button>
+                <button onClick={HandleNodeButton} className={`focus:outline-none py-3 px-12 rounded-md text-lg
+                    ${ nodeIndex === index ? 'bg-cyan-dark' : 'bg-cyan-light'}`}>{index}</button>
             </div>
             {RenderNodeModal()}
         </div>

@@ -33,7 +33,7 @@ export default function Modal({ setModalOpen }: CodeSectionType) {
                             </div>
                         </div>
                         <div className="overflow-auto h-96 text-sm pr-2">
-                            {code}{code}
+                            {code}
                         </div>
                         <div className="flex items-center space-x-4">
                             <button className="bg-cyan-light text-blue-dark font-bold rounded-md text-sm px-5 py-2 focus:outline-none transition duration-300" onClick={CopyCode}>Copy</button>
