@@ -31,7 +31,7 @@ export default function Section({ setModalOpen }: CodeSectionType) {
             </div>
             <div className='font-roboto text-sm'>
                 <SyntaxHighlighter language="cpp" customStyle={{ backgroundColor: "#FCFCFC" }}>
-                    {code.substring(0, 238)}
+                    {code.substring(0, 235)}
                 </SyntaxHighlighter>
             </div>
             <button onClick={OpenModal} className='focus:outline-none bg-cyan-light text-black rounded-md px-5 py-2 font-bold text-sm'>Detail</button>

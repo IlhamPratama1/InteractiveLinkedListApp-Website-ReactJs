@@ -1,5 +1,6 @@
 // Lib
 import { useSelector } from "react-redux";
+import { TransformComponent } from "react-zoom-pan-pinch";
 
 // Redux component
 import { selectNode } from "../../../state/dispatch";
@@ -13,12 +14,12 @@ export default function NodeEditor() {
     const nodeData: Array<any> = useSelector(selectNode);
     
     return (
-        <div className="mx-auto h-3/5 flex justify-evenly items-center">
-            {nodeData.map((data, i) => {
-                return (
-                    <Node key={i} index={i} data={data}  />
-                );
-            })}
-        </div>
+        <TransformComponent>
+            <div className="w-screen h-screen-lg flex justify-evenly items-center">
+                {nodeData.map((data, i) => {
+                    return ( <Node key={i} index={i} data={data} /> );
+                })}
+            </div>
+        </TransformComponent>
     );
 }

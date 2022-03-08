@@ -8,6 +8,7 @@ import { QuestType, StateDataType } from "../../type";
 import { UserStateInterface } from "../../interface";
 import { GetMyQuests } from "../../api/questRequest";
 import { State } from "../../state";
+import QuestList from "./components/questList";
 
 
 export default function QuestView() {
@@ -27,7 +28,6 @@ export default function QuestView() {
     }, []);
 
     useEffect(() => {
-        if (!auth.token) navigate('/login');
         if (quests.isLoading && auth.token) FetchUserList();
     }, [auth.token, navigate, quests.isLoading, FetchUserList]);
 
@@ -47,10 +47,12 @@ export default function QuestView() {
                         {quests.isLoading ? null :
                             quests.data.map((quest, i) => {
                                 return (
-                                    <div key={i} className={`border-l-8 ${quest.isComplete ? 'border-cyan-dark' : 'border-orange'}  pl-4 space-y-2`}>
-                                        <h1 className='font-roboto text-md'>{quest.quest.detail}</h1>
-                                        <h1 className='font-roboto text-sm opacity-40 capitalize'>{quest.quest.type} Linked List</h1>
-                                    </div>
+                                    <QuestList 
+                                        key={i}
+                                        isComplete={true}
+                                        detail={quest.quest.detail}
+                                        type={quest.quest.type}
+                                    />
                                 );
                             })
                         }
@@ -62,10 +64,12 @@ export default function QuestView() {
                         {quests.isLoading ? null :
                             quests.data.map((quest, i) => {
                                 return (
-                                    <div key={i} className={`border-l-8 ${quest.isComplete ? 'border-cyan-dark' : 'border-orange'}  pl-4 space-y-2`}>
-                                        <h1 className='font-roboto text-md'>{quest.quest.detail}</h1>
-                                        <h1 className='font-roboto text-sm opacity-40 capitalize'>{quest.quest.type} Linked List</h1>
-                                    </div>
+                                    <QuestList
+                                        key={i}
+                                        isComplete={false}
+                                        detail={quest.quest.detail}
+                                        type={quest.quest.type}
+                                    />
                                 );
                             })
                         }
@@ -77,10 +81,12 @@ export default function QuestView() {
                         {quests.isLoading ? null :
                             quests.data.map((quest, i) => {
                                 return (
-                                    <div key={i} className={`border-l-8 ${quest.isComplete ? 'border-cyan-dark' : 'border-orange'}  pl-4 space-y-2`}>
-                                        <h1 className='font-roboto text-md'>{quest.quest.detail}</h1>
-                                        <h1 className='font-roboto text-sm opacity-40 capitalize'>{quest.quest.type} Linked List</h1>
-                                    </div>
+                                    <QuestList
+                                        key={i}
+                                        isComplete={true}
+                                        detail={quest.quest.detail}
+                                        type={quest.quest.type}
+                                    />
                                 );
                             })
                         }
@@ -92,10 +98,12 @@ export default function QuestView() {
                         {quests.isLoading ? null :
                             quests.data.map((quest, i) => {
                                 return (
-                                    <div key={i} className={`border-l-8 ${quest.isComplete ? 'border-cyan-dark' : 'border-orange'}  pl-4 space-y-2`}>
-                                        <h1 className='font-roboto text-md'>{quest.quest.detail}</h1>
-                                        <h1 className='font-roboto text-sm opacity-40 capitalize'>{quest.quest.type} Linked List</h1>
-                                    </div>
+                                    <QuestList
+                                        key={i}
+                                        isComplete={false}
+                                        detail={quest.quest.detail}
+                                        type={quest.quest.type}
+                                    />
                                 );
                             })
                         }

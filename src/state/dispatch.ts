@@ -15,3 +15,4 @@ export const selectNode = (state: State) => state.node;
 export const selectTool = (state: State) => state.tool;
 export const selectSearch = (state: State) => state.search;
 export const selectQuest = (state: State) => state.quest;
+export const selectProfile = (state: State) => state.profile;

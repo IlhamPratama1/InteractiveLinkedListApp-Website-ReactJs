@@ -66,3 +66,9 @@ export interface QuestStateInterface {
         type: string
     }
 }
+
+// Initial Profile State in Reducer
+export interface ProfileStateInterface {
+    username: string,
+    email: string
+}

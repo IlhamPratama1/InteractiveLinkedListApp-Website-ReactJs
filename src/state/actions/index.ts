@@ -7,3 +7,4 @@ export * from './codeAction';
 export * from './toolAction';
 export * from './searchAction';
 export * from './questAction';
+export * from './profileAction';

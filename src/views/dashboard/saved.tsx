@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { ArrowSmLeftIcon, ArrowSmRightIcon } from "@heroicons/react/solid";
 
 // React Component
-import ListProject from "./listProject";
+import ListProject from "./components/projectList";
 
 // Redux component
 import { UserStateInterface } from "../../interface";
@@ -33,7 +33,6 @@ export default function SavedView() {
     }, []);
 
     useEffect(() => {
-        if (!auth.token) navigate('/login');
         if (lists.isLoading && auth.token) FetchUserList();
     }, [auth.token, navigate, lists.isLoading, FetchUserList]);
 
@@ -56,10 +55,11 @@ export default function SavedView() {
                 </div>
             </div>
             <div className="pagination flex justify-center space-x-3">
-                <button className="w-10 h-10 bg-cyan-light text-blue-dark rounded-sm flex items-center justify-center"><ArrowSmLeftIcon className="w-7 h-7" /></button>
-                <button className="w-10 h-10 bg-blue-dark text-white rounded-sm flex items-center justify-center font-bold font-roboto">1</button>
-                <button className="w-10 h-10 bg-cyan-light text-blue-dark rounded-sm flex items-center justify-center font-bold font-roboto">2</button>
-                <button className="w-10 h-10 bg-cyan-light text-blue-dark rounded-sm flex items-center justify-center"><ArrowSmRightIcon className="w-7 h-7" /></button>
+                <button className="w-10 h-10 bg-cyan-light hover:bg-cyan-dark text-white rounded-sm flex items-center justify-center rounded-md transition duration-300"><ArrowSmLeftIcon className="w-7 h-7" /></button>
+                <button className="w-10 h-10 bg-blue-light hover:bg-cyan-dark text-white rounded-sm flex items-center justify-center font-bold font-roboto rounded-md transition duration-300">1</button>
+                <button className="w-10 h-10 bg-cyan-light hover:bg-cyan-dark text-blue-dark rounded-sm flex items-center justify-center font-bold font-roboto rounded-md transition duration-300">2</button>
+                <button className="w-10 h-10 bg-cyan-light hover:bg-cyan-dark text-blue-dark rounded-sm flex items-center justify-center font-bold font-roboto rounded-md transition duration-300">3</button>
+                <button className="w-10 h-10 bg-cyan-light hover:bg-cyan-dark text-white rounded-sm flex items-center justify-center rounded-md transition duration-300"><ArrowSmRightIcon className="w-7 h-7" /></button>
             </div>
         </div>
     );

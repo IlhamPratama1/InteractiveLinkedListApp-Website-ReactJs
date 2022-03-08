@@ -1,7 +1,8 @@
 // lib
-import { useCallback, useEffect } from 'react';
-import { useParams } from "react-router-dom";
-import { useDispatch } from 'react-redux';
+import React, { useCallback, useEffect } from 'react';
+import { useParams, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import { TransformWrapper } from 'react-zoom-pan-pinch';
 
 // External funtion
 import { GetListDetail } from '../../api/listRequest';
@@ -9,17 +10,20 @@ import { DecodeId } from '../../encrypt/hashId';
 import { GetNodeDetail, PostNewNode } from '../../api/nodeRequest';
 import { GetCodeDetail, PostNewCode, PostNewLog, PostNewOperation, PostNewSearchLog } from '../../api/codeRequest';
 import { GetMyQuests } from '../../api/questRequest';
+import { GetMyProfile } from '../../api/userRequest';
 
 // Redux component
-import { CodeType, ListType, LogType, NodeType, OperationType, QuestType, SearchLogType } from '../../type';
-import { StructAction, CodeAction, NodeAction, ListAction, SearchAction, QuestAction } from '../../state/actions';
+import { CodeType, ListType, LogType, NodeType, OperationType, ProfileType, QuestType, SearchLogType } from '../../type';
+import { StructAction, CodeAction, NodeAction, ListAction, SearchAction, QuestAction, ProfileAction } from '../../state/actions';
 import { ActionType } from '../../state/action-types';
+import { UserStateInterface } from '../../interface';
+import { State } from '../../state';
 
 // React component
 import NodeEditor from './node';
 import CodeEditor from './code';
 import ToolEditor from './tools';
-import Navbar from '../template/navbar';
+import Navbar from '../template/editorNavbar';
 import ZoomEditor from './zoom';
 
 
@@ -27,6 +31,10 @@ export default function EditorView() {
     // --- Lib
     const dispatch = useDispatch();
     let { encodedId } = useParams();
+    let navigate = useNavigate();
+
+    // --- Redux State
+    const auth: UserStateInterface = useSelector((state: State) => state.auth);
 
     // --- Func
     const SetInitialNode = useCallback( async () => {
@@ -90,6 +98,7 @@ export default function EditorView() {
         const decodedId = Number(DecodeId(encodedId));
         const listDetail: ListType = await GetListDetail(decodedId);
         const quests: Array<QuestType> = await GetMyQuests();
+        const profile: ProfileType = await GetMyProfile();
 
         dispatch<ListAction>({
             type: ActionType.SETTYPE,
@@ -110,6 +119,13 @@ export default function EditorView() {
             type: ActionType.SETQUESTDATA,
             payload: quests
         });
+        dispatch<ProfileAction>({
+            type: ActionType.SETPROFILE,
+            payload: {
+                username: profile.username,
+                email: profile.email
+            }
+        });
 
         if (listDetail.code) SetInitialCode();
         else CreateNewCodeData();
@@ -120,16 +136,30 @@ export default function EditorView() {
     }, [encodedId, dispatch, SetInitialCode, SetInitialNode, CreateNewCodeData, CreateNewNodeData]);
 
     useEffect(() => {
-        CheckInitialData();
-    }, [CheckInitialData])
+        if (!auth.token) navigate('/login');
+        else CheckInitialData();
+    }, [CheckInitialData, auth.token, navigate])
 
     return (
         <div className="h-screen mx-auto bg-white-gray">
-            <Navbar />
-            <ToolEditor />
-            <CodeEditor />
-            <ZoomEditor />
-            <NodeEditor />
+            <TransformWrapper
+                initialScale={1}
+                minScale={1}
+                maxScale={10} >
+                {({ zoomIn, zoomOut, resetTransform, ...rest }) => (
+                    <React.Fragment>
+                        <Navbar />
+                        <ToolEditor />
+                        <ZoomEditor
+                            ZoomIn={zoomIn}
+                            ZoomOut={zoomOut}
+                            ResetZoom={resetTransform}
+                        />
+                        <NodeEditor />
+                        <CodeEditor />
+                    </React.Fragment>
+                )}
+            </TransformWrapper>
         </div>
     );
 }

@@ -4,10 +4,10 @@ import { OfficeBuildingIcon, TemplateIcon, SaveIcon, ClipboardListIcon, UserCirc
 import { Link, useLocation } from 'react-router-dom';
 
 // Axios
-import axiosInstance from '../../axios';
+import axiosInstance from '../../../axios';
 
 // Redux Component
-import { useHookDispatch } from '../../state/dispatch';
+import { useHookDispatch } from '../../../state/dispatch';
 
 // Type
 type DashboardNavType = {
@@ -19,7 +19,7 @@ type LinkRefType = {
     children: ReactNode
 }
 
-export default function DashboardNav({ children }: DashboardNavType) {
+export default function DashboardNavbar({ children }: DashboardNavType) {
     // --- Lib
     const location = useLocation();
     const { LogoutUser } = useHookDispatch();
@@ -30,7 +30,6 @@ export default function DashboardNav({ children }: DashboardNavType) {
 		axiosInstance.defaults.headers.common['x-access-token'] = false;
         LogoutUser();
     }
-
 
     // --- Render Component
     function DashboardMenu(props: LinkRefType) {
@@ -72,7 +71,7 @@ export default function DashboardNav({ children }: DashboardNavType) {
                         <div className='w-14 h-14 rounded-full bg-cyan-dark'></div>
                         <div className='font-roboto'>
                             <h1 className='font-bold text-lg'>Ilham Pratama</h1>
-                            <button onClick={SignOut} className='font-bold text-lg opacity-40 hover:underline transition duration-300'>Sign Out</button>
+                            <button onClick={SignOut} className='focus:outline-none font-bold text-md opacity-40 hover:underline transition duration-300'>Sign Out</button>
                         </div>
                     </div>
                 </div>

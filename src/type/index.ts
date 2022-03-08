@@ -102,3 +102,10 @@ export type QuestType = {
         type: string
     }
 }
+
+export type ProfileType = {
+    username: string,
+    email: string,
+    lists: number,
+    quests: number
+}

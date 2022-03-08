@@ -1,16 +1,2 @@
 * structView -> error state
 * type -> listType, nodeModalType
-
-// --- route
-    let navigate = useNavigate();
-
-    // --- redux
-    const { LogoutUser } = useHookDispatch();
-
-    // --- Func
-    function SignOut() {
-        localStorage.removeItem('access_token');
-		axiosInstance.defaults.headers.common['x-access-token'] = false;
-        LogoutUser();
-        navigate('/login');
-    }

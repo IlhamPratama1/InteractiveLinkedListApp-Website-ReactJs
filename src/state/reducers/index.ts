@@ -2,6 +2,7 @@ import { combineReducers } from "redux";
 import authReducer from "./authReducer";
 import codeReducer from "./codeReducer";
 import nodeReducer from "./nodeReducer";
+import profileReducer from "./profileReducer";
 import questReducer from "./questReducer";
 import searchReducer from "./searchReducer";
 import structReducer from "./structReducer";
@@ -17,7 +18,8 @@ const reducers = combineReducers({
     node: nodeReducer,
     tool: toolReducer,
     search: searchReducer,
-    quest: questReducer
+    quest: questReducer,
+    profile: profileReducer
 });
 
 export default reducers;

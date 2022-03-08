@@ -17,7 +17,7 @@ import { StructFormValidation } from '../../validation/structFormValidation';
 import { doubleLinkedData, singleLinkedData } from './initialStructData';
 
 // React component
-import { StructDisabledSelectInput, StructDisabledValueInput, StructSelectInput, StructValueInput } from './structTypeInput';
+import { StructDisabledSelectInput, StructDisabledValueInput, StructSelectInput, StructValueInput } from './components/structTypeInput';
 import { GetListDetail } from '../../api/listRequest';
 
 

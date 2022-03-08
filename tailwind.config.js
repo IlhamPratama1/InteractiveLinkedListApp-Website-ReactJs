@@ -8,13 +8,15 @@ module.exports = {
         '82': '20.5rem',
         '100': '27.5rem',
         '173': '73rem',
+        'screen-xl': '120vw'
       },
       height: {
         '18': '4.5rem',
         '82': '22rem',
         '83': '23.5rem',
         '96': '28.625rem',
-        '138': '38.5rem'
+        '138': '38.5rem',
+        'screen-lg': '92.5vh'
       },
       fontFamily: {
         'roboto': ['Roboto',],

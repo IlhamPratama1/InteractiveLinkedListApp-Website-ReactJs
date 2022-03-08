@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
-import { StructStateInterface } from "../../interface";
-import { selectStruct } from "../../state/dispatch";
-import { StructFormType } from "../../type";
+import { StructStateInterface } from "../../../interface";
+import { selectStruct } from "../../../state/dispatch";
+import { StructFormType } from "../../../type";
 
 
 type InputType = {

@@ -4,8 +4,8 @@ import Hashids from 'hashids';
 import { XIcon, SwitchHorizontalIcon, LinkIcon, RefreshIcon } from "@heroicons/react/solid";
 
 // Redux Component
-import { ListType } from "../../type";
-import { DeleteList, GetListDetail } from "../../api/listRequest";
+import { ListType } from "../../../type";
+import { DeleteList, GetListDetail } from "../../../api/listRequest";
 
 
 type ListProjectType = {
@@ -13,7 +13,7 @@ type ListProjectType = {
     FetchUserList: Function
 }
 
-export default function ListProject({ list, FetchUserList }: ListProjectType) {
+export default function ProjectList({ list, FetchUserList }: ListProjectType) {
     // --- Lib
     const hashids = new Hashids(process.env.REACT_APP_HASH_ID, 20);
     const Navigate = useNavigate();

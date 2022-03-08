@@ -11,13 +11,14 @@ import { UserStateInterface } from '../../interface';
 import { ListType, QuestType, StateDataType } from '../../type';
 
 // React Component
-import NewProject from './newProject';
-import ListProject from './listProject';
+import NewProject from './components/newProject';
+import ListProject from './components/projectList';
 
 // External function
 import { GetMyLists } from '../../api/listRequest';
 import { PostNewList } from '../../api/listRequest';
 import { GetMyQuests } from '../../api/questRequest';
+import QuestList from './components/questList';
 
 
 export default function ProjectView() {
@@ -55,7 +56,6 @@ export default function ProjectView() {
     }, []);
 
     useEffect(() => {
-        if (!auth.token) navigate('/login');
         if (lists.isLoading && quests.isLoading && auth.token) FetchUserList();
     }, [auth.token, navigate, lists.isLoading, quests.isLoading, FetchUserList]);
 
@@ -125,10 +125,12 @@ export default function ProjectView() {
                         {quests.isLoading ? null :
                             quests.data.map((quest, i) => {
                                 return (
-                                    <div key={i} className={`border-l-8 border-cyan-dark pl-4 space-y-2`}>
-                                        <h1 className='font-roboto text-md'>{quest.quest.detail}</h1>
-                                        <h1 className='font-roboto text-sm opacity-40 capitalize'>{quest.quest.type} Linked List</h1>
-                                    </div>
+                                    <QuestList
+                                        key={i}
+                                        isComplete={true}
+                                        detail={quest.quest.detail}
+                                        type={quest.quest.type}
+                                    />
                                 );
                             }).slice(0, 2)
                         }
@@ -136,10 +138,12 @@ export default function ProjectView() {
                         {quests.isLoading ? null :
                             quests.data.map((quest, i) => {
                                 return (
-                                    <div key={i} className={`border-l-8 border-orange pl-4 space-y-2`}>
-                                        <h1 className='font-roboto text-md'>{quest.quest.detail}</h1>
-                                        <h1 className='font-roboto text-sm opacity-40 capitalize'>{quest.quest.type} Linked List</h1>
-                                    </div>
+                                    <QuestList
+                                        key={i} 
+                                        isComplete={false}
+                                        detail={quest.quest.detail}
+                                        type={quest.quest.type}
+                                    />
                                 );
                             }).slice(2, 4)
                         }

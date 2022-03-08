@@ -1,16 +1,22 @@
 // Lib
 import { useState } from 'react';
 import { ClipboardListIcon, BellIcon } from '@heroicons/react/outline';
-import { PencilIcon, BadgeCheckIcon, CheckCircleIcon, XCircleIcon, InformationCircleIcon } from '@heroicons/react/solid';
+import { PencilIcon, BadgeCheckIcon, InformationCircleIcon } from '@heroicons/react/solid';
+import { useSelector } from 'react-redux';
 
 // Redux Component
+import { selectQuest, selectStruct } from '../../../state/dispatch';
+import ProfileModal from './components/profileModal';
+import QuestList from './components/questList';
 
-// External Component
 
-
-export default function Navbar() {
+export default function EditorNavbar() {
     // --- React State
     const [ modalOpen, setModalOpen ] = useState<number>(0);
+
+    // --- Redux State
+    const { structName } = useSelector(selectStruct);
+    const quests = useSelector(selectQuest);
 
     function SetModalOpen(index: number) {
         if (index === modalOpen) 
@@ -23,7 +29,7 @@ export default function Navbar() {
             <div className="h-18 bg-white drop-shadow-3xl px-8 flex items-center justify-between">
                 <div className='font-roboto'>
                     <div className='flex space-x-1'>
-                        <h1 className='text-lg'>StructName</h1>
+                        <h1 className='text-lg'>{structName}</h1>
                         <PencilIcon className='w-5 opacity-60' />
                     </div>
                     <div className='flex space-x-1'>
@@ -38,76 +44,23 @@ export default function Navbar() {
                 </div>
             </div>
             {modalOpen === 1 && 
-                /* --- User Modal --- */
-                <div className='absolute z-10 w-56 h-72 bg-white drop-shadow-4xl absolute right-8 rounded-md pt-5 space-y-3 text-center font-roboto'>
-                    <div className='flex justify-center'><div className='bg-cyan-dark w-20 h-20 rounded-full'></div></div>
-                    <h1 className='font-bold text-lg'>Ilham Pratama</h1>
-                    <div className='space-y-1 text-xs'>
-                        <h1 className='opacity-60'>pratamailham206@gmail.com</h1>
-                        <h1 className='opacity-80 font-bold'>User</h1>
-                    </div>
-                    <div className='space-y-3'>
-                        <div className='h-px w-full bg-blue-dark opacity-20'></div>
-                        <h1 className='text-sm'>Profile</h1>
-                        <div className='h-px w-full bg-blue-dark opacity-20'></div>
-                        <h1 className='text-sm'>Sign Out</h1>
-                    </div>
-                </div>
+                <ProfileModal />                
             }
             {modalOpen === 2 && 
                 /* --- User Modal --- */
                 <div className='absolute z-10 w-82 h-96 bg-white drop-shadow-4xl absolute right-8 rounded-md font-roboto p-5 space-y-3'>
                     <h1 className='font-bold text-lg'>Quest</h1>
                     <div className='space-y-4 h-83 overflow-auto pr-3'>
-                        <div className='flex items-center space-x-2'>
-                            <CheckCircleIcon className='w-11 h-11 text-cyan-dark' />
-                            <div className=''>
-                                <h1 className='text-sm'>Add New Node in Single Linked List</h1>
-                                <h1 className='text-xs opacity-40'>Single Linked List</h1>
-                            </div>
-                        </div>
-                        <div className='flex items-center space-x-2'>
-                            <XCircleIcon className='w-11 h-11 text-red' />
-                            <div className=''>
-                                <h1 className='text-sm'>Add New Node in Single Linked List</h1>
-                                <h1 className='text-xs opacity-40'>Single Linked List</h1>
-                            </div>
-                        </div>
-                        <div className='flex items-center space-x-2'>
-                            <CheckCircleIcon className='w-11 h-11 text-cyan-dark' />
-                            <div className=''>
-                                <h1 className='text-sm'>Add New Node in Single Linked List</h1>
-                                <h1 className='text-xs opacity-40'>Single Linked List</h1>
-                            </div>
-                        </div>
-                        <div className='flex items-center space-x-2'>
-                            <XCircleIcon className='w-11 h-11 text-red' />
-                            <div className=''>
-                                <h1 className='text-sm'>Add New Node in Single Linked List</h1>
-                                <h1 className='text-xs opacity-40'>Single Linked List</h1>
-                            </div>
-                        </div>
-                        <div className='flex items-center space-x-2'>
-                            <CheckCircleIcon className='w-11 h-11 text-cyan-dark' />
-                            <div className=''>
-                                <h1 className='text-sm'>Add New Node in Single Linked List</h1>
-                                <h1 className='text-xs opacity-40'>Single Linked List</h1>
-                            </div>
-                        </div>
-                        <div className='flex items-center space-x-2'>
-                            <XCircleIcon className='w-11 h-11 text-red' />
-                            <div className=''>
-                                <h1 className='text-sm'>Add New Node in Single Linked List</h1>
-                                <h1 className='text-xs opacity-40'>Single Linked List</h1>
-                            </div>
-                        </div>
-                        <div className='flex items-center space-x-2'>
-                            <XCircleIcon className='w-11 h-11 text-red' />
-                            <div className=''>
-                                <h1 className='text-sm'>Add New Node in Single Linked List</h1>
-                                <h1 className='text-xs opacity-40'>Single Linked List</h1>
-                            </div>
-                        </div>
+                        {quests.map((quest, i) => {
+                            return (
+                                <QuestList 
+                                    key={i}
+                                    isComplete={quest.isComplete}
+                                    detail={quest.quest.detail}
+                                    type={quest.quest.type}
+                                />
+                            );
+                        })}
                     </div>
                 </div>
             }
