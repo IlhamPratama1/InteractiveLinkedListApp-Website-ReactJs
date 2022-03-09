@@ -15,3 +15,15 @@
 ::-webkit-scrollbar-thumb:hover {
     background: #b3ddd6;
 }
+
+.moveable-control {
+    display: none !important;
+}
+
+.moveable-line {
+    display: none !important;
+}
+
+.rCSwtyrwf {
+    z-index: 1 !important;
+}

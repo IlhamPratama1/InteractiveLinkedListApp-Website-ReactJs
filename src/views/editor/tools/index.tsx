@@ -28,7 +28,7 @@ export default function ToolEditor() {
     const {
         SetNodeData, OpenEditNodeIndex, ResetNode,
         OpenToolIndex, CloseTool,
-        SetLastOperation, ResetCode
+        SetLastOperation, ResetCode,
     } = useHookDispatch();
 
     // --- Func
@@ -98,7 +98,7 @@ export default function ToolEditor() {
                     <button title='Remove Node Index' className="focus:outline-none" onClick={() => OpenToolInIndex(3)} >
                         <TrashIcon className="w-8 h-8 text-black hover:text-cyan-dark transition duration-300" />
                     </button>
-                    <button title='Remove Logs' onClick={RemoveCodeAndLog} >
+                    <button title='Remove Logs' className="focus:outline-none" onClick={RemoveCodeAndLog} >
                         <FireIcon className="w-8 h-8 text-black hover:text-cyan-dark transition duration-300" />
                     </button>
                     <button title='Remove All Node' className="focus:outline-none" onClick={RemoveAllNode} >

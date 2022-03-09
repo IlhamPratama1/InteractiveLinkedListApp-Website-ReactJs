@@ -19,4 +19,9 @@ interface CloseDetailNode {
     type: ActionType.CLOSEDETAILINDEX
 }
 
-export type ToolAction = OpenNodeAction | EditNodeAction | OpenToolAction | CloseDetailNode;
+interface SetDisabledPinch {
+    type: ActionType.SETDISABLEDPINCH,
+    payload: boolean
+}
+
+export type ToolAction = OpenNodeAction | EditNodeAction | OpenToolAction | CloseDetailNode | SetDisabledPinch;

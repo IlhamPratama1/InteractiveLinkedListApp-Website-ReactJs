@@ -15,7 +15,12 @@ export default function SearchTool() {
     const projectType: string = useSelector(selectProjectType);
     const nodeData: Array<any> = useSelector(selectNode);
     const { structData }: StructStateInterface = useSelector(selectStruct);
-    const { GenerateCode, SetLastOperation, OpenNodeIndex, SetSearchLog, SetSearchResult, CloseTool, SetQuestComplete } = useHookDispatch();
+    const { 
+        GenerateCode, SetLastOperation, 
+        OpenNodeIndex, SetSearchLog, 
+        SetSearchResult, SetQuestComplete,
+        CloseTool
+    } = useHookDispatch();
 
     // --- State
     const [ searchIndex, setSearchIndex ] = useState<Array<string | number>>(GenerateArray());
@@ -47,8 +52,8 @@ export default function SearchTool() {
             }
         }
         SetSearchLog(valueBy);
-        SetLastOperation(`search${valueBy}`);
         CloseTool();
+        SetLastOperation(`search${valueBy}`);
         GenerateCode(Number(data), data, valueBy);
         SetQuestComplete('search', projectType);
     }

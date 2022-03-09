@@ -16,7 +16,7 @@ import { GetMyProfile } from '../../api/userRequest';
 import { CodeType, ListType, LogType, NodeType, OperationType, ProfileType, QuestType, SearchLogType } from '../../type';
 import { StructAction, CodeAction, NodeAction, ListAction, SearchAction, QuestAction, ProfileAction } from '../../state/actions';
 import { ActionType } from '../../state/action-types';
-import { UserStateInterface } from '../../interface';
+import { ToolStateInterface, UserStateInterface } from '../../interface';
 import { State } from '../../state';
 
 // React component
@@ -35,6 +35,7 @@ export default function EditorView() {
 
     // --- Redux State
     const auth: UserStateInterface = useSelector((state: State) => state.auth);
+    const { disabledPinch }: ToolStateInterface = useSelector((state: State) => state.tool);
 
     // --- Func
     const SetInitialNode = useCallback( async () => {
@@ -145,6 +146,8 @@ export default function EditorView() {
             <TransformWrapper
                 initialScale={1}
                 minScale={1}
+                disabled={disabledPinch}
+                panning={ {excluded: ["input", "button"]} }
                 maxScale={10} >
                 {({ zoomIn, zoomOut, resetTransform, ...rest }) => (
                     <React.Fragment>

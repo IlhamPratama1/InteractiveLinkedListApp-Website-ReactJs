@@ -10,6 +10,7 @@ import StructView from "../struct";
 import SavedView from "./saved";
 import QuestView from "./quest";
 import ProfileView from "./profile";
+import ExampleView from "./example";
 
 // Redux Component
 import { UserStateInterface } from "../../interface";
@@ -35,6 +36,7 @@ export default function DashboardView() {
                     element={<Navigate to="/dashboard/project" />}
                 />
                 <Route path="/project" element={<ProjectView />} />
+                <Route path="/example" element={<ExampleView />} />
                 <Route path="/struct/:type/:encodedId" element={<StructView />} />
                 <Route path="/saved" element={<SavedView />} />
                 <Route path="/quest" element={<QuestView />} />

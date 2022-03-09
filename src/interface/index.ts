@@ -52,7 +52,8 @@ export interface CodeStateInterface {
 export interface ToolStateInterface {
     toolIndex: number,
     nodeIndex: number,
-    editIndex: number
+    editIndex: number,
+    disabledPinch: boolean
 }
 
 // Initial Search state in reducer

@@ -15,9 +15,11 @@ export default function NodeEditor() {
     
     return (
         <TransformComponent>
-            <div className="w-screen h-screen-lg flex justify-evenly items-center">
+            <div className="w-screen h-screen-lg">
                 {nodeData.map((data, i) => {
-                    return ( <Node key={i} index={i} data={data} /> );
+                    return ( 
+                        <Node key={i} index={i} data={data} />
+                    );
                 })}
             </div>
         </TransformComponent>
