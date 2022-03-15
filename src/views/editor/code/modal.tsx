@@ -38,7 +38,7 @@ export default function Modal({ setModalOpen }: CodeSectionType) {
                                 {code}
                             </SyntaxHighlighter>
                         </div>
-                        <div className="flex items-center space-x-4">
+                        <div className="flex items-center justify-end space-x-4">
                             <button className="bg-cyan-light text-blue-dark font-bold rounded-md text-sm px-5 py-2 focus:outline-none transition duration-300" onClick={CopyCode}>Copy</button>
                             <button className="bg-blue-dark text-cyan-light font-bold rounded-md text-sm px-5 py-2 focus:outline-none transition duration-300" onClick={CloseModal} >Close</button>
                         </div>

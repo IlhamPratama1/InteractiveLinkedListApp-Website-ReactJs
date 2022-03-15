@@ -4,6 +4,7 @@
 }
 
 ::-webkit-scrollbar-track {
+    background: #FCFCFC;
     border-radius: 100vh;
 }
 
@@ -22,8 +23,4 @@
 
 .moveable-line {
     display: none !important;
-}
-
-.rCSwtyrwf {
-    z-index: 1 !important;
 }

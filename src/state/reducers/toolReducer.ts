@@ -5,8 +5,7 @@ import { ToolAction } from "../actions"
 const initialState: ToolStateInterface = {
     toolIndex: -1,
     nodeIndex: -1,
-    editIndex: -1,
-    disabledPinch: false
+    editIndex: -1
 }
 
 const toolReducer = (state: ToolStateInterface = initialState, action: ToolAction) => {
@@ -32,11 +31,6 @@ const toolReducer = (state: ToolStateInterface = initialState, action: ToolActio
                 ...state,
                 nodeIndex: -1,
                 editIndex: -1
-            };
-        case ActionType.SETDISABLEDPINCH:
-            return state = {
-                ...state,
-                disabledPinch: action.payload
             };
         default:
             return state;

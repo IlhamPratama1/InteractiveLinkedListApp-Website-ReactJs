@@ -2,7 +2,6 @@
 import React, { useCallback, useEffect } from 'react';
 import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { TransformWrapper } from 'react-zoom-pan-pinch';
 
 // External funtion
 import { GetListDetail } from '../../api/listRequest';
@@ -16,7 +15,7 @@ import { GetMyProfile } from '../../api/userRequest';
 import { CodeType, ListType, LogType, NodeType, OperationType, ProfileType, QuestType, SearchLogType } from '../../type';
 import { StructAction, CodeAction, NodeAction, ListAction, SearchAction, QuestAction, ProfileAction } from '../../state/actions';
 import { ActionType } from '../../state/action-types';
-import { ToolStateInterface, UserStateInterface } from '../../interface';
+import { UserStateInterface } from '../../interface';
 import { State } from '../../state';
 
 // React component
@@ -35,7 +34,6 @@ export default function EditorView() {
 
     // --- Redux State
     const auth: UserStateInterface = useSelector((state: State) => state.auth);
-    const { disabledPinch }: ToolStateInterface = useSelector((state: State) => state.tool);
 
     // --- Func
     const SetInitialNode = useCallback( async () => {
@@ -143,26 +141,13 @@ export default function EditorView() {
 
     return (
         <div className="h-screen mx-auto bg-white-gray">
-            <TransformWrapper
-                initialScale={1}
-                minScale={1}
-                disabled={disabledPinch}
-                panning={ {excluded: ["input", "button"]} }
-                maxScale={10} >
-                {({ zoomIn, zoomOut, resetTransform, ...rest }) => (
-                    <React.Fragment>
-                        <Navbar />
-                        <ToolEditor />
-                        <ZoomEditor
-                            ZoomIn={zoomIn}
-                            ZoomOut={zoomOut}
-                            ResetZoom={resetTransform}
-                        />
-                        <NodeEditor />
-                        <CodeEditor />
-                    </React.Fragment>
-                )}
-            </TransformWrapper>
+            <React.Fragment>
+                <Navbar />
+                <ToolEditor />
+                <ZoomEditor />
+                <NodeEditor />
+                <CodeEditor />
+            </React.Fragment>
         </div>
     );
 }

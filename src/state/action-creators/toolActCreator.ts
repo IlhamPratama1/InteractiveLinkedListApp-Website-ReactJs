@@ -54,12 +54,3 @@ export const CloseTool = () => {
         });
     }
 }
-
-export const SetDisabledPinch = (value: boolean) => {
-    return (dispatch: Dispatch<ToolAction>) => {
-        dispatch({
-            type: ActionType.SETDISABLEDPINCH,
-            payload: value
-        });
-    }
-}

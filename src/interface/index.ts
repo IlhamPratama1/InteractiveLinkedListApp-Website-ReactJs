@@ -53,7 +53,6 @@ export interface ToolStateInterface {
     toolIndex: number,
     nodeIndex: number,
     editIndex: number,
-    disabledPinch: boolean
 }
 
 // Initial Search state in reducer
