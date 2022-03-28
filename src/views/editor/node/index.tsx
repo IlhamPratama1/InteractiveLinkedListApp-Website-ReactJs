@@ -1,5 +1,5 @@
 // Lib
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import { useSelector } from "react-redux";
 import Xarrow, { anchorType, Xwrapper } from "react-xarrows";
 
@@ -59,6 +59,7 @@ export default function NodeEditor() {
             return (
                 nodeData.length > 1 ?
                 <Xarrow
+                    key={index}
                     strokeWidth={2} 
                     color='#9DD9D8' 
                     start={`elem${index}`} 
@@ -71,9 +72,13 @@ export default function NodeEditor() {
             );
         }
     }
+
+    useLayoutEffect(() => {
+        if(nodeData.length !== 0) console.log("node update");
+    }, [nodeData.length]);
     
     return (
-        <div className="absolute w-screen h-screen-lg overflow-hidden">
+        <div className="absolute w-screen h-screen-lg overflow-hidden flex items-center justify-center">
             <Xwrapper>
                 {nodeData.map((data, i) => {
                     return ( 

@@ -47,8 +47,8 @@ export default function Node({ index, data }: NodeType) {
     }
 
     return (
-        <Draggable  handle="button" onDrag={updateXarrow} onStop={updateXarrow}>
-            <div ref={targetRef} className="w-48 space-y-3 absolute">
+        <Draggable handle="button" onDrag={updateXarrow} onStop={updateXarrow}>
+            <div ref={targetRef} className="w-48 space-y-3">
                 <div className="flex justify-center">
                     <button id={`elem${index}`} onClick={HandleNodeButton} className={`focus:outline-none py-3 px-12 rounded-md text-lg transition duration-300
                         ${ nodeIndex === index ? 'bg-cyan-dark' : 'bg-cyan-light'}`}>{index}</button>
