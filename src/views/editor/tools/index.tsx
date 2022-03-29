@@ -55,7 +55,7 @@ export default function ToolEditor() {
 
     // --- Node Func
     function AddNewNodeInTail() {
-        let newNode: Array<any> = [...nodeData, {}];
+        let newNode: Array<any> = [...nodeData, {"key": Date.now()}];
         SetNodeData(newNode);
         SetLastOperation('add');
         OpenEditNodeIndex(newNode.length - 1);

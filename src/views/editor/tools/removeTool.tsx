@@ -29,13 +29,17 @@ export default function RemoveTool() {
     }
 
     // --- OnSubmit
-    function RemoveNodeAtIndex() {
+    function RemoveNodeAtIndex(e: React.MouseEvent) {
+        e.preventDefault();
+
         const index: number = Number(deleteIndex);
         let array: Array<any> = [...nodeData];
         array.splice(index, 1);
+
         SetLastOperation('delete');
         SetNodeData(array);
         CloseTool();
+        
         GenerateCode(index, index, '');
         UpdateNodeData(listId, array);
         SetQuestComplete('delete', projectType);
@@ -43,14 +47,14 @@ export default function RemoveTool() {
 
     return(
         <div className="bg-white drop-shadow-8xl p-4 rounded-md">
-            <div className='w-48 font-roboto space-y-2'>
+            <form className='w-48 font-roboto space-y-2'>
                 <p className="text-sm font-bold">Delete in Index</p>
                 <label className='text-xs opacity-40'>Index</label>
                 <div className='space-y-3'>
                     <input value={deleteIndex} onChange={e => HandleChange(e)} placeholder="index" className="focus:outline-none bg-slate-gray p-4 h-5 rounded-md text-sm"></input>
-                    <button onClick={RemoveNodeAtIndex} className="text-xs font-bold rounded-md py-2 px-4 text-black bg-cyan-light transition duration-300">Submit</button>
+                    <button onClick={e => RemoveNodeAtIndex(e)} className="text-xs font-bold rounded-md py-2 px-4 text-black bg-cyan-light transition duration-300">Submit</button>
                 </div>
-            </div>
+            </form>
         </div>
     );
 }

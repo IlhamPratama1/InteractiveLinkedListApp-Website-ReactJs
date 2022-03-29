@@ -1,5 +1,5 @@
 // Lib
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 // Redux component
@@ -21,7 +21,7 @@ export default function InsertTool() {
     // --- Func
     function InsertNode(insertIndex: number, operation: string) {
         let array: Array<any> = [...nodeData];
-        array.splice(insertIndex, 0, {});
+        array.splice(insertIndex, 0, {"key": Date.now()});
         SetLastOperation(operation);
         SetNodeData(array);
         OpenEditNodeIndex(insertIndex);
@@ -29,11 +29,13 @@ export default function InsertTool() {
     }
 
     // --- OnSubmit
-    function InsertNodeBeforeIndex() {
+    function InsertNodeBeforeIndex(e: React.MouseEvent) {
+        e.preventDefault();
         InsertNode(Number(insertBeforeIndex), 'before');
     }
 
-    function InsertNodeAfterIndex() {
+    function InsertNodeAfterIndex(e: React.MouseEvent) {
+        e.preventDefault();
         InsertNode(Number(insertAfterIndex) + 1, 'after');
     }
 
@@ -58,7 +60,7 @@ export default function InsertTool() {
                     <label className='text-xs opacity-40'>Index</label>
                     <div className='space-y-3'>
                         <input type="text" value={insertBeforeIndex} onChange={handleChangeInsertBefore} placeholder="index" className="focus:outline-none bg-slate-gray p-4 h-5 rounded-md text-sm"></input>
-                        <button onClick={InsertNodeBeforeIndex} className="text-xs font-bold rounded-md py-2 px-4 text-black bg-cyan-light transition duration-300">Submit</button>
+                        <button type='submit' onClick={e => InsertNodeBeforeIndex(e)} className="text-xs font-bold rounded-md py-2 px-4 text-black bg-cyan-light transition duration-300">Submit</button>
                     </div>
                 </div>
                 <div className='space-y-2'>
@@ -66,7 +68,7 @@ export default function InsertTool() {
                     <label className='text-xs opacity-40'>Index</label>
                     <div className='space-y-3'>
                         <input type="text" value={insertAfterIndex} onChange={handleChangeInsertAfter} placeholder="index" className="focus:outline-none bg-slate-gray p-4 h-5 rounded-md text-sm"></input>
-                        <button onClick={InsertNodeAfterIndex} className="text-xs font-bold rounded-md py-2 px-4 text-black bg-cyan-light transition duration-300">Submit</button>
+                        <button type='submit' onClick={e => InsertNodeAfterIndex(e)} className="text-xs font-bold rounded-md py-2 px-4 text-black bg-cyan-light transition duration-300">Submit</button>
                     </div>
                 </div>
             </form>

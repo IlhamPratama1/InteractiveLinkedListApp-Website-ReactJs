@@ -2,6 +2,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import Xarrow, { anchorType, Xwrapper } from "react-xarrows";
+import { useTransition, animated } from "react-spring";
 
 // Redux component
 import { selectNode, selectProjectType } from "../../../state/dispatch";
@@ -14,6 +15,16 @@ export default function NodeEditor() {
     // --- Redux State
     const nodeData: Array<any> = useSelector(selectNode);
     const projectType: string = useSelector(selectProjectType);
+
+    const transition = useTransition(nodeData, {
+        keys: node => node.key,
+        from: { opacity: 0 },
+        enter: { opacity: 1 },
+        leave: { opacity: 0 },
+        config: () => ({
+          duration: 500
+        })
+    });
 
     const RenderArrowType = (index: number) => {
         const tAnchor: anchorType = { position: "auto", offset: { y: -10 } }
@@ -53,21 +64,18 @@ export default function NodeEditor() {
                 </React.Fragment>
                 : null
             );
-        }
-
-        if(projectType === 'circular') {
+        } else {
             return (
-                nodeData.length > 1 ?
-                <Xarrow
-                    key={index}
-                    strokeWidth={2} 
-                    color='#9DD9D8' 
-                    start={`elem${index}`} 
-                    end={`elem${index === nodeData.length - 1 ? 0 : index + 1}`}
-                    startAnchor={index === nodeData.length - 1 ? 'top' : 'auto'}
-                    endAnchor={index === nodeData.length - 1 ? 'top' : 'auto'}
-                    _cpy1Offset={index === nodeData.length - 1 ? -100 : 0}
-                    _cpy2Offset={index === nodeData.length - 1 ? -100 : 0} />
+                nodeData.length > 1
+                    ? <Xarrow
+                        strokeWidth={2} 
+                        color='#9DD9D8' 
+                        start={`elem${index === 0 ? nodeData.length - 1 : index - 1}`} 
+                        end={`elem${index === 0 ? 0 : index}`}
+                        startAnchor={index === 0 ? 'top' : 'auto'}
+                        endAnchor={index === 0 ? 'top' : 'auto'}
+                        _cpy1Offset={index === 0 ? -100 : 0}
+                        _cpy2Offset={index === 0 ? -100 : 0} />
                 : null
             );
         }
@@ -76,16 +84,12 @@ export default function NodeEditor() {
     return (
         <div className="absolute w-screen h-screen-lg overflow-hidden flex items-center justify-center">
             <Xwrapper>
-                {nodeData.map((data, i) => {
-                    return ( 
-                        <Node key={i} index={i} data={data} />
-                    );
-                })}
-                {nodeData.map((data, i) => {
-                    return(
-                        RenderArrowType(i)
-                    );
-                })}
+                {transition((styles, data, t, i) => (
+                    <animated.div key={i} style={{...styles,}} >
+                       <Node index={i} data={data} />
+                       {RenderArrowType(i)}
+                    </animated.div>
+                ))}
             </Xwrapper>
         </div>
     );

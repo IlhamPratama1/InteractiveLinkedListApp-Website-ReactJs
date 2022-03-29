@@ -1,5 +1,5 @@
 // Lib
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 // Redux component
@@ -43,7 +43,9 @@ export default function SearchTool() {
     }
 
     // --- Func
-    function SearchNodeAtIndex(valueBy: string, ind: number) {
+    function SearchNodeAtIndex(valueBy: string, ind: number, e: React.MouseEvent) {
+        e.preventDefault();
+
         const data = searchIndex[ind];
         for (let i = 0; i < nodeData.length; i++) {
             if (nodeData[i][valueBy] === searchIndex[ind]) {
@@ -51,9 +53,11 @@ export default function SearchTool() {
                 OpenNodeIndex(i);
             }
         }
+
         SetSearchLog(valueBy);
         CloseTool();
         SetLastOperation(`search${valueBy}`);
+
         GenerateCode(Number(data), data, valueBy);
         SetQuestComplete('search', projectType);
     }
@@ -73,14 +77,14 @@ export default function SearchTool() {
                 {structData.map((variable, i) => {
                     return(
                         checkToolValue(i) ?
-                        <div key={i} className="space-y-2">
+                        <form key={i} className="space-y-2">
                             <p className="text-sm font-bold">Search by {variable.value}</p>
                             <label className='text-xs opacity-40'>Index</label>
                             <div className='space-y-3'>
                                 <input value={searchIndex[i]} onChange={e => HandleChange(e, i, variable.type)} placeholder="value" className="focus:outline-none bg-slate-gray p-4 h-5 rounded-md text-sm"></input>
-                                <button onClick={() => SearchNodeAtIndex(variable.value, i)} className="text-xs font-bold rounded-md py-2 px-4 text-black bg-cyan-light transition duration-300">submit</button>
+                                <button onClick={(e) => SearchNodeAtIndex(variable.value, i, e)} className="text-xs font-bold rounded-md py-2 px-4 text-black bg-cyan-light transition duration-300">submit</button>
                             </div>
-                        </div>
+                        </form>
                         : null
                     );
                 })}
