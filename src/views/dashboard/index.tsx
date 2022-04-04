@@ -16,6 +16,8 @@ import ExampleView from "./example";
 import { UserStateInterface } from "../../interface";
 import { State } from "../../state";
 
+// Css
+import '../css/holeOverlay.css';
 
 export default function DashboardView() {
     // --- lib

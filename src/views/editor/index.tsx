@@ -1,7 +1,8 @@
 // lib
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
+import Cookies from 'universal-cookie';
 
 // External funtion
 import { GetListDetail } from '../../api/listRequest';
@@ -24,6 +25,7 @@ import CodeEditor from './code';
 import ToolEditor from './tools';
 import Navbar from '../template/editorNavbar';
 import ZoomEditor from './zoom';
+import TutorialView from './tutorials';
 
 
 export default function EditorView() {
@@ -34,6 +36,9 @@ export default function EditorView() {
 
     // --- Redux State
     const auth: UserStateInterface = useSelector((state: State) => state.auth);
+
+    // --- React State
+    const [ firstTime, setFirstTime ] = useState<boolean>(true);
 
     // --- Func
     const SetInitialNode = useCallback( async () => {
@@ -136,7 +141,11 @@ export default function EditorView() {
 
     useEffect(() => {
         if (!auth.token) navigate('/login');
-        else CheckInitialData();
+        else {
+            const cookies = new Cookies();
+            setFirstTime(cookies.get('thirdTutorial'));
+            CheckInitialData();
+        }
     }, [CheckInitialData, auth.token, navigate])
 
     return (
@@ -147,6 +156,10 @@ export default function EditorView() {
                 <ZoomEditor />
                 <NodeEditor />
                 <CodeEditor />
+                {firstTime 
+                    ? null
+                    : <TutorialView setFirstTime={setFirstTime} /> 
+                }
             </React.Fragment>
         </div>
     );
