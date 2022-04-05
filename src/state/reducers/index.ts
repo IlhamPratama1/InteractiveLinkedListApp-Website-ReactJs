@@ -8,6 +8,7 @@ import searchReducer from "./searchReducer";
 import structReducer from "./structReducer";
 import toolReducer from "./toolReducer";
 import typeReducer from "./typeReducer";
+import snackbarReducer from "./snackbarReducer";
 
 // To Combine All Reducers
 const reducers = combineReducers({
@@ -19,7 +20,8 @@ const reducers = combineReducers({
     tool: toolReducer,
     search: searchReducer,
     quest: questReducer,
-    profile: profileReducer
+    profile: profileReducer,
+    snackbar: snackbarReducer
 });
 
 export default reducers;

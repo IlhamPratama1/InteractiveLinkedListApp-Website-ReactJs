@@ -72,3 +72,11 @@ export interface ProfileStateInterface {
     username: string,
     email: string
 }
+
+
+// Initial Snackbar State in reducer
+export interface SnackbarStateInterface {
+    open: boolean,
+    message: string,
+    type: number
+}

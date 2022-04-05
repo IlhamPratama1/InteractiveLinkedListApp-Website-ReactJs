@@ -26,6 +26,7 @@ import ToolEditor from './tools';
 import Navbar from '../template/editorNavbar';
 import ZoomEditor from './zoom';
 import TutorialView from './tutorials';
+import Snackbar from '../template/snackbar/snackbar';
 
 
 export default function EditorView() {
@@ -161,6 +162,7 @@ export default function EditorView() {
                     : <TutorialView setFirstTime={setFirstTime} /> 
                 }
             </React.Fragment>
+            <Snackbar timeout={2000} />
         </div>
     );
 }

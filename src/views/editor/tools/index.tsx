@@ -29,6 +29,7 @@ export default function ToolEditor() {
         SetNodeData, OpenEditNodeIndex, ResetNode,
         OpenToolIndex, CloseTool,
         SetLastOperation, ResetCode,
+        OpenSnackbar
     } = useHookDispatch();
 
     // --- Func
@@ -60,6 +61,7 @@ export default function ToolEditor() {
         SetLastOperation('add');
         OpenEditNodeIndex(newNode.length - 1);
         CloseTool();
+        OpenSnackbar('ASolilee joss', 0);
     }
 
     function RemoveAllNode() {

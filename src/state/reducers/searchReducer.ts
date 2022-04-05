@@ -1,5 +1,6 @@
 import { ActionType } from "../action-types";
 import { SearchAction } from "../actions";
+
 const searchReducer = (state: number = -1, action: SearchAction) => {
     switch (action.type) {
         case ActionType.SETSEARCHRESULT:
