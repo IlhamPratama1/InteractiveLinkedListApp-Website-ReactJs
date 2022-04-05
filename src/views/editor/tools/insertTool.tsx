@@ -16,7 +16,7 @@ export default function InsertTool() {
 
     // --- Redux State
     const nodeData = useSelector(selectNode);
-    const { SetNodeData, SetLastOperation, OpenEditNodeIndex, CloseTool } = useHookDispatch();
+    const { SetNodeData, SetLastOperation, OpenEditNodeIndex, CloseTool, OpenSnackbar } = useHookDispatch();
 
     // --- Func
     function InsertNode(insertIndex: number, operation: string) {
@@ -25,18 +25,29 @@ export default function InsertTool() {
         SetLastOperation(operation);
         SetNodeData(array);
         OpenEditNodeIndex(insertIndex);
-        CloseTool();
     }
 
     // --- OnSubmit
     function InsertNodeBeforeIndex(e: React.MouseEvent) {
         e.preventDefault();
-        InsertNode(Number(insertBeforeIndex), 'before');
+        if (Number(insertBeforeIndex) > nodeData.length - 1) 
+            OpenSnackbar('Index out of bonds', 1);
+        else
+            InsertNode(Number(insertBeforeIndex), 'before');
+
+        CloseTool();
     }
 
     function InsertNodeAfterIndex(e: React.MouseEvent) {
         e.preventDefault();
-        InsertNode(Number(insertAfterIndex) + 1, 'after');
+        if (nodeData.length === 0)
+            OpenSnackbar("Cannot 'insert after' in empty node", 1);
+        else if (Number(insertAfterIndex) > nodeData.length - 1)
+            OpenSnackbar('Index out of bonds', 1);
+        else
+            InsertNode(Number(insertAfterIndex) + 1, 'after');
+
+        CloseTool();
     }
 
     // --- OnChange

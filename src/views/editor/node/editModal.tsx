@@ -1,5 +1,6 @@
 // Lib
 import { useSelector } from "react-redux";
+import { useState } from "react";
 
 // Redux component
 import { selectCode, selectNode, selectProjectType, selectStruct } from "../../../state/dispatch";
@@ -20,6 +21,9 @@ export default function EditModal({ index, data }: NodeModalType ) {
     const { listId, structData }: StructStateInterface = useSelector(selectStruct);
     const { SetNodeData, CloseDetailNode, GenerateCode, SetQuestComplete } = useHookDispatch();
 
+    // --- React State
+    const [ error, setError ] = useState<any>({});
+
     // --- OnChange
     function UpdateNodeForm (variable: StructFormType, event: React.ChangeEvent<HTMLInputElement>) {
         const re: RegExp = CheckRegexValidation(variable.type);
@@ -34,6 +38,18 @@ export default function EditModal({ index, data }: NodeModalType ) {
 
     // --- OnSubmit
     function SubmitNodeData () {
+        let errorMessage: any = {};
+        let isError = false;
+        for (let i = 1; i < structData.length; i++) {
+            if (data[structData[i].value] === undefined || data[structData[i].value] === '') {
+                errorMessage[structData[i].type] = 'value cannot empty';
+                isError = true;
+            } 
+            if (i === structData.length - 1 && isError) {
+                setError(errorMessage);
+                return;
+            }
+        };
         CloseDetailNode();
         GenerateCode(index, index, '');
         UpdateNodeData(listId, nodeData);
@@ -82,6 +98,7 @@ export default function EditModal({ index, data }: NodeModalType ) {
                     <div key={i} className="space-y-1">
                         <label className="text-sm font-bold opacity-50">{variable.value}</label>
                         {RenderNodeValue(variable, i)}
+                        <span className="text-sm" style={{ color: "red" }}>{error[variable.type]}</span>
                     </div>
                 );
             })}

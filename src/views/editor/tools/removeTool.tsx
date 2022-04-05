@@ -18,7 +18,7 @@ export default function RemoveTool() {
     // --- Redux state 
     const nodeData: Array<any> = useSelector(selectNode);
     const projectType: string = useSelector(selectProjectType);
-    const { SetLastOperation, SetQuestComplete, SetNodeData, CloseTool, GenerateCode } = useHookDispatch();
+    const { SetLastOperation, SetQuestComplete, SetNodeData, CloseTool, GenerateCode, OpenSnackbar } = useHookDispatch();
     const { listId }: StructStateInterface = useSelector(selectStruct);
 
     // --- OnChange
@@ -33,6 +33,12 @@ export default function RemoveTool() {
         e.preventDefault();
 
         const index: number = Number(deleteIndex);
+        if (index > nodeData.length - 1) {
+            OpenSnackbar('Index out of bonds', 1);
+            CloseTool();
+            return;
+        }
+
         let array: Array<any> = [...nodeData];
         array.splice(index, 1);
 
