@@ -5,7 +5,7 @@ import { UpdateNodeData } from '../../../api/nodeRequest';
 
 // Redux component
 import { StructStateInterface } from '../../../interface';
-import { selectNode, selectProjectType, selectStruct, useHookDispatch } from '../../../state/dispatch';
+import { selectNode, selectProjectType, selectStruct, selectTool, useHookDispatch } from '../../../state/dispatch';
 
 // External function
 import { CheckRegexValidation } from '../../../regex';
@@ -17,8 +17,9 @@ export default function RemoveTool() {
 
     // --- Redux state 
     const nodeData: Array<any> = useSelector(selectNode);
+    const { editIndex } = useSelector(selectTool);
     const projectType: string = useSelector(selectProjectType);
-    const { SetLastOperation, SetQuestComplete, SetNodeData, CloseTool, GenerateCode, OpenSnackbar } = useHookDispatch();
+    const { SetLastOperation, SetQuestComplete, SetNodeData, CloseTool, GenerateCode, OpenSnackbar, OpenNodeIndex } = useHookDispatch();
     const { listId }: StructStateInterface = useSelector(selectStruct);
 
     // --- OnChange
@@ -31,6 +32,12 @@ export default function RemoveTool() {
     // --- OnSubmit
     function RemoveNodeAtIndex(e: React.MouseEvent) {
         e.preventDefault();
+
+        if (editIndex !== -1) {
+            OpenSnackbar('You must fill empty node first', 1);
+            OpenNodeIndex(editIndex);
+            return;
+        }
 
         const index: number = Number(deleteIndex);
         if (index > nodeData.length - 1) {

@@ -24,11 +24,11 @@ export default function ToolEditor() {
     const nodeData: Array<any> = useSelector(selectNode);
     const { listId }: StructStateInterface = useSelector(selectStruct);
     const code: CodeStateInterface = useSelector(selectCode);
-    const { toolIndex }: ToolStateInterface = useSelector(selectTool);
+    const { toolIndex, editIndex }: ToolStateInterface = useSelector(selectTool);
     const {
         SetNodeData, OpenEditNodeIndex, ResetNode,
-        OpenToolIndex, CloseTool,
-        SetLastOperation, ResetCode,
+        OpenToolIndex, CloseTool, OpenSnackbar,
+        SetLastOperation, ResetCode, OpenNodeIndex
     } = useHookDispatch();
 
     // --- Func
@@ -55,6 +55,11 @@ export default function ToolEditor() {
 
     // --- Node Func
     function AddNewNodeInTail() {
+        if (editIndex !== -1) {
+            OpenSnackbar('You must fill empty node first', 1);
+            OpenNodeIndex(editIndex);
+            return;
+        }
         let newNode: Array<any> = [...nodeData, {"key": Date.now()}];
         SetNodeData(newNode);
         SetLastOperation('add');

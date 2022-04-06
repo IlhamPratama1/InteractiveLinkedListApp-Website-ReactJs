@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 // Redux component
-import { selectNode, useHookDispatch } from '../../../state/dispatch';
+import { selectNode, selectTool, useHookDispatch } from '../../../state/dispatch';
 
 // External function
 import { CheckRegexValidation } from '../../../regex';
@@ -16,10 +16,17 @@ export default function InsertTool() {
 
     // --- Redux State
     const nodeData = useSelector(selectNode);
-    const { SetNodeData, SetLastOperation, OpenEditNodeIndex, CloseTool, OpenSnackbar } = useHookDispatch();
+    const { editIndex } = useSelector(selectTool);
+    const { SetNodeData, SetLastOperation, OpenEditNodeIndex, CloseTool, OpenSnackbar, OpenNodeIndex } = useHookDispatch();
 
     // --- Func
     function InsertNode(insertIndex: number, operation: string) {
+        if (editIndex !== -1) {
+            OpenSnackbar('You must fill empty node first', 1);
+            OpenNodeIndex(editIndex);
+            return;
+        }
+
         let array: Array<any> = [...nodeData];
         array.splice(insertIndex, 0, {"key": Date.now()});
         SetLastOperation(operation);
