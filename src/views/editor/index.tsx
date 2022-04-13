@@ -97,9 +97,13 @@ export default function EditorView() {
             type: ActionType.SETNODE,
             payload: node.data
         });
-    }, [encodedId, dispatch])
+    }, [encodedId, dispatch]);
 
     const CheckInitialData = useCallback( async () => {
+        dispatch<NodeAction>({
+            type: ActionType.RESETNODE
+        });
+        
         const decodedId = Number(DecodeId(encodedId));
         const listDetail: ListType = await GetListDetail(decodedId);
         const quests: Array<QuestType> = await GetMyQuests();

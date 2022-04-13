@@ -32,6 +32,8 @@ const toolReducer = (state: ToolStateInterface = initialState, action: ToolActio
                 nodeIndex: -1,
                 editIndex: -1
             };
+        case ActionType.RESETALLTOOLS:
+            return state = initialState;
         default:
             return state;
     }

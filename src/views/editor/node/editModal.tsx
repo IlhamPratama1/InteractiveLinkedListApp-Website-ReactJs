@@ -11,6 +11,7 @@ import { StructStateInterface } from "../../../interface";
 // External function
 import { CheckRegexValidation } from "../../../regex";
 import { UpdateNodeData } from "../../../api/nodeRequest";
+import { NodeFormValidation } from "../../../validation/nodeFormValidation";
 
 
 export default function EditModal({ index, data }: NodeModalType ) {
@@ -38,18 +39,11 @@ export default function EditModal({ index, data }: NodeModalType ) {
 
     // --- OnSubmit
     function SubmitNodeData () {
-        let errorMessage: any = {};
-        let isError = false;
-        for (let i = 1; i < structData.length; i++) {
-            if (data[structData[i].value] === undefined || data[structData[i].value] === '') {
-                errorMessage[structData[i].type] = 'value cannot empty';
-                isError = true;
-            } 
-            if (i === structData.length - 1 && isError) {
-                setError(errorMessage);
-                return;
-            }
-        };
+        let start: number = projectType === 'double' ? 2 : 1;
+        
+        if(NodeFormValidation(start, data, structData, setError))
+            return;
+
         CloseDetailNode();
         GenerateCode(index, index, '');
         UpdateNodeData(listId, nodeData);

@@ -1,11 +1,14 @@
-// Lin
-import { useSelector } from "react-redux";
+// Lib
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { TemplateIcon, ViewGridAddIcon, CollectionIcon, SearchCircleIcon, TrashIcon, FolderRemoveIcon, FireIcon, PencilAltIcon } from "@heroicons/react/outline";
 
 // Redux Component
 import { selectCode, selectNode, selectStruct, selectTool, useHookDispatch } from "../../../state/dispatch";
 import { CodeStateInterface, StructStateInterface, ToolStateInterface } from "../../../interface";
+import { SearchAction, ToolAction } from "../../../state/actions";
+import { ActionType } from "../../../state/action-types";
 
 // React Component
 import InsertTool from "./insertTool";
@@ -17,8 +20,9 @@ import { UpdateNodeData } from "../../../api/nodeRequest";
 import { UpdateCodeData, UpdateLogData, UpdateOperationData, UpdateSearchLogData } from "../../../api/codeRequest";
 
 export default function ToolEditor() {
-    // --- Router
+    // --- Lib
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     // --- Redux component
     const nodeData: Array<any> = useSelector(selectNode);
@@ -81,6 +85,15 @@ export default function ToolEditor() {
         UpdateLogData(code.id, []);
         UpdateSearchLogData(code.id, []);
     }
+
+    useEffect(() => {
+        dispatch<SearchAction>({
+            type: ActionType.RESETSEARCHRESULT
+        });
+        dispatch<ToolAction>({
+            type: ActionType.RESETALLTOOLS
+        });
+    }, [dispatch]);
 
     return (
         <div className="absolute z-20 mt-8 ml-8 flex space-x-6 items-start">

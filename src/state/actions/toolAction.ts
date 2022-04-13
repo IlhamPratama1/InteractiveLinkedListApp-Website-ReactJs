@@ -19,4 +19,8 @@ interface CloseDetailNode {
     type: ActionType.CLOSEDETAILINDEX
 }
 
-export type ToolAction = OpenNodeAction | EditNodeAction | OpenToolAction | CloseDetailNode;
+interface ResetAllTool {
+    type: ActionType.RESETALLTOOLS
+}
+
+export type ToolAction = OpenNodeAction | EditNodeAction | OpenToolAction | CloseDetailNode | ResetAllTool;

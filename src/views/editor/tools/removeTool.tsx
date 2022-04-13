@@ -36,6 +36,7 @@ export default function RemoveTool() {
         if (editIndex !== -1) {
             OpenSnackbar('You must fill empty node first', 1);
             OpenNodeIndex(editIndex);
+            CloseTool();
             return;
         }
 

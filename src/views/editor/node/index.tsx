@@ -2,7 +2,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import Xarrow, { anchorType, Xwrapper } from "react-xarrows";
-import { useTransition, animated } from "react-spring";
 
 // Redux component
 import { selectNode, selectProjectType } from "../../../state/dispatch";
@@ -15,16 +14,6 @@ export default function NodeEditor() {
     // --- Redux State
     const nodeData: Array<any> = useSelector(selectNode);
     const projectType: string = useSelector(selectProjectType);
-
-    const transition = useTransition(nodeData, {
-        keys: node => node.key,
-        from: { opacity: 0 },
-        enter: { opacity: 1 },
-        leave: { opacity: 0 },
-        config: () => ({
-          duration: 500
-        })
-    });
 
     const RenderArrowType = (index: number) => {
         const tAnchor: anchorType = { position: "auto", offset: { y: -10 } }
@@ -84,11 +73,11 @@ export default function NodeEditor() {
     return (
         <div className="absolute w-screen h-screen-lg overflow-hidden flex items-center justify-center">
             <Xwrapper>
-                {transition((styles, data, t, i) => (
-                    <animated.div key={i} style={{...styles,}} >
+                {nodeData.map((data, i) => (
+                    <div key={i}>
                        <Node index={i} data={data} />
                        {RenderArrowType(i)}
-                    </animated.div>
+                    </div>
                 ))}
             </Xwrapper>
         </div>
