@@ -19,7 +19,11 @@ export default function RemoveTool() {
     const nodeData: Array<any> = useSelector(selectNode);
     const { editIndex } = useSelector(selectTool);
     const projectType: string = useSelector(selectProjectType);
-    const { SetLastOperation, SetQuestComplete, SetNodeData, CloseTool, GenerateCode, OpenSnackbar, OpenNodeIndex } = useHookDispatch();
+    const {
+        SetLastOperation, SetQuestComplete, SetNodeData,
+        CloseTool, GenerateCode, OpenSnackbar,
+        OpenNodeIndex, SetAnimation, ResetAllTools,
+    } = useHookDispatch();
     const { listId }: StructStateInterface = useSelector(selectStruct);
 
     // --- OnChange
@@ -33,6 +37,7 @@ export default function RemoveTool() {
     function RemoveNodeAtIndex(e: React.MouseEvent) {
         e.preventDefault();
 
+        // Validation #1
         if (editIndex !== -1) {
             OpenSnackbar('You must fill empty node first', 1);
             OpenNodeIndex(editIndex);
@@ -40,6 +45,7 @@ export default function RemoveTool() {
             return;
         }
 
+        // Validation #2
         const index: number = Number(deleteIndex);
         if (index > nodeData.length - 1) {
             OpenSnackbar('Index out of bonds', 1);
@@ -47,15 +53,28 @@ export default function RemoveTool() {
             return;
         }
 
+        // Set Node data
         let array: Array<any> = [...nodeData];
         array.splice(index, 1);
 
+        // Set last operation
         SetLastOperation('delete');
-        SetNodeData(array);
-        CloseTool();
+
+        // close all tool modal
+        ResetAllTools();
+
+        // Set Animation
+        SetAnimation(index, 'destroy', () => {
+            SetNodeData(array);
+        });
         
+        // Generate Code
         GenerateCode(index, index, '');
+
+        // Save node data request api
         UpdateNodeData(listId, array);
+
+        // Check quest complete
         SetQuestComplete('delete', projectType);
     }
 

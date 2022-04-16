@@ -80,3 +80,10 @@ export interface SnackbarStateInterface {
     message: string,
     type: number
 }
+
+// Initial Animation State in Reducer
+export interface AnimStateInterface {
+    index: number,
+    type: string,
+    callback: Function
+}

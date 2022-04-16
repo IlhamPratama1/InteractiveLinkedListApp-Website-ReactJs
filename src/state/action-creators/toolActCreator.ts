@@ -54,3 +54,11 @@ export const CloseTool = () => {
         });
     }
 }
+
+export const ResetAllTools = () => {
+    return (dispatch: Dispatch<ToolAction>) => {
+        dispatch({
+            type: ActionType.RESETALLTOOLS
+        });
+    }
+}

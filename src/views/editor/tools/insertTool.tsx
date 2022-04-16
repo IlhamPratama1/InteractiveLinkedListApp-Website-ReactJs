@@ -17,21 +17,31 @@ export default function InsertTool() {
     // --- Redux State
     const nodeData = useSelector(selectNode);
     const { editIndex } = useSelector(selectTool);
-    const { SetNodeData, SetLastOperation, OpenEditNodeIndex, CloseTool, OpenSnackbar, OpenNodeIndex } = useHookDispatch();
+    const { 
+        SetNodeData, SetLastOperation, SetAnimation,
+        CloseTool, OpenSnackbar, OpenNodeIndex,
+    } = useHookDispatch();
 
     // --- Func
     function InsertNode(insertIndex: number, operation: string) {
+
+        // Validation
         if (editIndex !== -1) {
             OpenSnackbar('You must fill empty node first', 1);
             OpenNodeIndex(editIndex);
             return;
         }
 
+        // Set Node data
         let array: Array<any> = [...nodeData];
-        array.splice(insertIndex, 0, {"key": Date.now()});
-        SetLastOperation(operation);
+        array.splice(insertIndex, 0, {});
         SetNodeData(array);
-        OpenEditNodeIndex(insertIndex);
+
+        // Set Last operation
+        SetLastOperation(operation);
+        
+        // Set Animation
+        SetAnimation(insertIndex, 'spawn', () => {});
     }
 
     // --- OnSubmit

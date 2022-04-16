@@ -9,3 +9,4 @@ export * from './searchAction';
 export * from './questAction';
 export * from './profileAction';
 export * from './snackbarAction';
+export * from './animAction';

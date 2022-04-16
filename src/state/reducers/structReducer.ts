@@ -26,6 +26,8 @@ const structReducer = (state: StructStateInterface = initialState, action: Struc
                 ...state,
                 structName: action.payload
             };
+        case ActionType.RESETSTRUCTDATA:
+            return state = initialState;
         default:
             return state;
     }

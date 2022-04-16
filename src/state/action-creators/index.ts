@@ -8,3 +8,4 @@ export * from './nodeActiCreator';
 export * from './searchActCreator';
 export * from './questActCreator';
 export * from './snackbarActCreator';
+export * from './animActCreator';

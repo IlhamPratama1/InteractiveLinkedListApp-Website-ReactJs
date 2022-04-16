@@ -1,11 +1,14 @@
 // Lib
 import { useNavigate } from "react-router-dom";
 import Hashids from 'hashids';
+import { useDispatch } from "react-redux";
 import { XIcon, SwitchHorizontalIcon, LinkIcon, RefreshIcon } from "@heroicons/react/solid";
 
 // Redux Component
 import { ListType } from "../../../type";
 import { DeleteList, GetListDetail } from "../../../api/listRequest";
+import { StructAction } from "../../../state/actions";
+import { ActionType } from "../../../state/action-types";
 
 
 type ListProjectType = {
@@ -17,12 +20,17 @@ export default function ProjectList({ list, FetchUserList }: ListProjectType) {
     // --- Lib
     const hashids = new Hashids(process.env.REACT_APP_HASH_ID, 20);
     const Navigate = useNavigate();
+    const dispatch = useDispatch();
 
     // --- Func
     async function OpenListProject() {
         const listProject: ListType = await GetListDetail(list.id);
-        if (listProject.struct === null)
+        dispatch<StructAction>({
+            type: ActionType.RESETSTRUCTDATA
+        });
+        if (listProject.struct === null) {
             Navigate(`/dashboard/struct/${list.type}/${hashids.encode(list.id)}`);
+        }
         else
             Navigate(`/editor/${hashids.encode(list.id)}`);
     }

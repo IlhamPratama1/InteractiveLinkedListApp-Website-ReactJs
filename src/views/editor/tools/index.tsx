@@ -30,9 +30,9 @@ export default function ToolEditor() {
     const code: CodeStateInterface = useSelector(selectCode);
     const { toolIndex, editIndex }: ToolStateInterface = useSelector(selectTool);
     const {
-        SetNodeData, OpenEditNodeIndex, ResetNode,
+        SetNodeData, SetAnimation, ResetNode,
         OpenToolIndex, CloseTool, OpenSnackbar,
-        SetLastOperation, ResetCode, OpenNodeIndex
+        SetLastOperation, ResetCode, OpenNodeIndex,
     } = useHookDispatch();
 
     // --- Func
@@ -59,15 +59,25 @@ export default function ToolEditor() {
 
     // --- Node Func
     function AddNewNodeInTail() {
+
+        // Validation
         if (editIndex !== -1) {
             OpenSnackbar('You must fill empty node first', 1);
             OpenNodeIndex(editIndex);
             return;
         }
-        let newNode: Array<any> = [...nodeData, {"key": Date.now()}];
+
+        // Set node array value
+        let newNode: Array<any> = [...nodeData, {}];
         SetNodeData(newNode);
+
+        // Set last operation
         SetLastOperation('add');
-        OpenEditNodeIndex(newNode.length - 1);
+
+        // Set Animation
+        SetAnimation(newNode.length - 1, 'spawn', () => {});
+
+        // Close Tool Modal
         CloseTool();
     }
 

@@ -16,4 +16,8 @@ interface StructDataAction {
     payload: Array<StructFormInterface>
 }
 
-export type StructAction = SetStructAction | StructNameAction | StructDataAction;
+interface ResetStructAction {
+    type: ActionType.RESETSTRUCTDATA,
+}
+
+export type StructAction = SetStructAction | StructNameAction | StructDataAction | ResetStructAction;
