@@ -33,6 +33,7 @@ export default function ToolEditor() {
         SetNodeData, SetAnimation, ResetNode,
         OpenToolIndex, CloseTool, OpenSnackbar,
         SetLastOperation, ResetCode, OpenNodeIndex,
+        ResetAllTools,
     } = useHookDispatch();
 
     // --- Func
@@ -66,6 +67,8 @@ export default function ToolEditor() {
             OpenNodeIndex(editIndex);
             return;
         }
+        // close all tool modal
+        ResetAllTools();
 
         // Set node array value
         let newNode: Array<any> = [...nodeData, {}];
@@ -76,9 +79,6 @@ export default function ToolEditor() {
 
         // Set Animation
         SetAnimation(newNode.length - 1, 'spawn', () => {});
-
-        // Close Tool Modal
-        CloseTool();
     }
 
     function RemoveAllNode() {

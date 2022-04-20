@@ -43,25 +43,10 @@ module.exports = {
         '8xl': '0 4px 10px rgba(244, 244, 244, 1)',
         '9xl': '0 20px 20px rgba(241, 241, 241, 1)',
       },
-      animation: {
-        fade: 'fadeIn 0.5s, fadeOut 0.5s 1.5s',
-      },
-
-      keyframes: theme => ({
-        fadeIn: {
-          '0%': { opacity: 0 },
-          '100%': { opacity: 1 },
-        },
-        fadeOut: {
-          '0%': { opacity: 1 },
-          '100%': { opacity: 0 },
-        }
-      }),
     },
   },
   variants: {
     extend: {
-      animation: ['motion-safe'],
     }
   },
   plugins: [],

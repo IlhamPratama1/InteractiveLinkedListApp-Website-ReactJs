@@ -19,7 +19,7 @@ export default function InsertTool() {
     const { editIndex } = useSelector(selectTool);
     const { 
         SetNodeData, SetLastOperation, SetAnimation,
-        CloseTool, OpenSnackbar, OpenNodeIndex,
+        ResetAllTools, OpenSnackbar, OpenNodeIndex,
     } = useHookDispatch();
 
     // --- Func
@@ -47,24 +47,26 @@ export default function InsertTool() {
     // --- OnSubmit
     function InsertNodeBeforeIndex(e: React.MouseEvent) {
         e.preventDefault();
+
+        ResetAllTools();
+
         if (Number(insertBeforeIndex) > nodeData.length - 1) 
             OpenSnackbar('Index out of bonds', 1);
         else
             InsertNode(Number(insertBeforeIndex), 'before');
-
-        CloseTool();
     }
 
     function InsertNodeAfterIndex(e: React.MouseEvent) {
         e.preventDefault();
+
+        ResetAllTools();
+
         if (nodeData.length === 0)
             OpenSnackbar("Cannot 'insert after' in empty node", 1);
         else if (Number(insertAfterIndex) > nodeData.length - 1)
             OpenSnackbar('Index out of bonds', 1);
         else
             InsertNode(Number(insertAfterIndex) + 1, 'after');
-
-        CloseTool();
     }
 
     // --- OnChange

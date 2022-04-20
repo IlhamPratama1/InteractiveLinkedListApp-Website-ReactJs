@@ -1,6 +1,6 @@
 // Lib
 import { useSelector } from "react-redux";
-import { useState } from "react";
+import React, { useState } from "react";
 
 // Redux component
 import { selectCode, selectNode, selectProjectType, selectStruct } from "../../../state/dispatch";
@@ -38,7 +38,8 @@ export default function EditModal({ index, data }: NodeModalType ) {
     }
 
     // --- OnSubmit
-    function SubmitNodeData () {
+    function SubmitNodeData (e: React.MouseEvent) {
+        e.preventDefault();
         let start: number = projectType === 'double' ? 2 : 1;
         
         if(NodeFormValidation(start, data, structData, setError))
@@ -86,7 +87,7 @@ export default function EditModal({ index, data }: NodeModalType ) {
     }
 
     return (
-        <div className="py-4 px-4 bg-white rounded-sm space-y-3 drop-shadow-9xl font-roboto">
+        <form className="py-4 px-4 bg-white rounded-sm space-y-3 drop-shadow-9xl font-roboto">
             {structData.map((variable, i) => {
                 return(
                     <div key={i} className="space-y-1">
@@ -96,7 +97,7 @@ export default function EditModal({ index, data }: NodeModalType ) {
                     </div>
                 );
             })}
-            <button onClick={SubmitNodeData} className="focus:outline-none bg-cyan-light text-black rounded-md px-5 py-2 font-bold text-sm">submit</button>
-        </div> 
+            <button onClick={(e) => SubmitNodeData(e)} className="focus:outline-none bg-cyan-light text-black rounded-md px-5 py-2 font-bold text-sm">submit</button>
+        </form> 
     );
 }

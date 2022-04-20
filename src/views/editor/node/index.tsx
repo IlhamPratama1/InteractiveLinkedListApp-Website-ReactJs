@@ -40,7 +40,9 @@ export default function NodeEditor() {
                         strokeWidth={2} 
                         color='#9DD9D8' 
                         start={`elem${index - 1}`} 
-                        end={`elem${index}`} />
+                        end={`elem${index}`} 
+                        animateDrawing={0.5}
+                    />
                     : null
                 );
                 
@@ -55,14 +57,18 @@ export default function NodeEditor() {
                             endAnchor={tAnchor}
                             color='#9DD9D8' 
                             start={`elem${index - 1}`} 
-                            end={`elem${index}`} />
+                            end={`elem${index}`}
+                            animateDrawing={0.25}
+                        />
                         <Xarrow
                             strokeWidth={2}
                             startAnchor={bAnchor}
                             endAnchor={bAnchor}
                             color='#9DD9D8' 
                             start={`elem${index}`} 
-                            end={`elem${index - 1}`} />
+                            end={`elem${index - 1}`}
+                            animateDrawing={0.25}
+                        />
                     </React.Fragment>
                     : null
                 );
@@ -79,7 +85,9 @@ export default function NodeEditor() {
                             startAnchor={index === 0 ? 'top' : 'auto'}
                             endAnchor={index === 0 ? 'top' : 'auto'}
                             _cpy1Offset={index === 0 ? -100 : 0}
-                            _cpy2Offset={index === 0 ? -100 : 0} />
+                            _cpy2Offset={index === 0 ? -100 : 0}
+                            animateDrawing={0.5}
+                        />
                     : null
                 );
         };
@@ -106,6 +114,7 @@ export default function NodeEditor() {
                 duration: initialValue
             })
             .to(refObject, {
+                delay: 0.25,
                 opacity: value,
                 scale: value,
                 duration: 0.5,
@@ -137,6 +146,7 @@ export default function NodeEditor() {
                 duration: 0.5,
                 ease: "power1.inOut",
                 onComplete: () => {
+                    
                     // Reset ref
                     gsap.to(refObject, {
                         opacity: 1,
@@ -171,13 +181,13 @@ export default function NodeEditor() {
 
 
     return (
-        <div className="absolute w-screen h-screen-lg overflow-hidden flex items-center justify-center">
+        <div className="absolute w-screen h-screen-lg overflow-hidden">
             <Xwrapper>
                 {nodeData.map((data, i) => (
-                    <div key={i}>
-                       <div ref={nodeRef[i]}><Node index={i} data={data} /></div>
-                       {RenderArrowType(i)}
-                    </div>
+                    <Node key={i} index={i} data={data} nodeRef={nodeRef[i]} />
+                ))}
+                {nodeData.map((data, i) => (
+                    RenderArrowType(i)
                 ))}
             </Xwrapper>
         </div>

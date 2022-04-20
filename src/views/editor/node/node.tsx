@@ -1,8 +1,7 @@
 // Lib
-import React from "react";
+import { RefObject } from "react";
 import { useSelector } from "react-redux";
 import Draggable from "react-draggable";
-import { useRef } from "react";
 import { useXarrow } from "react-xarrows";
 
 // Redux component
@@ -16,12 +15,12 @@ import NodeModal from "./nodeModal";
 
 type NodeType = {
     index: number,
-    data: any
+    data: any,
+    nodeRef: RefObject<HTMLDivElement>,
 }
 
-export default function Node({ index, data }: NodeType) {
+export default function Node({ index, data, nodeRef }: NodeType) {
     // --- Lib
-    const targetRef = useRef<HTMLDivElement>(null);
     const updateXarrow = useXarrow();
 
     // --- Redux State
@@ -48,7 +47,11 @@ export default function Node({ index, data }: NodeType) {
 
     return (
         <Draggable handle="button" onDrag={updateXarrow} onStop={updateXarrow}>
-            <div ref={targetRef} className="w-48 space-y-3">
+            <div ref={nodeRef} className='absolute w-48 space-y-3' 
+                style={{ 
+                    left: `${25 + index * 12.5}rem`,
+                    top: `7.5rem`,
+                }}>
                 <div className="flex justify-center">
                     <button id={`elem${index}`} onClick={HandleNodeButton} className={`focus:outline-none py-3 px-12 rounded-md text-lg transition duration-300
                         ${ nodeIndex === index ? 'bg-cyan-dark' : 'bg-cyan-light'}`}>{index}</button>
