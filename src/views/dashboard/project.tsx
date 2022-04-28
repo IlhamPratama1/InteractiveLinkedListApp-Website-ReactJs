@@ -100,7 +100,7 @@ export default function ProjectView() {
                         <img className='scale-90' src='/static/illustrations/phone.svg' alt='project' />
                         <div className='space-y-3 font-roboto'>
                             <h1 className='font-bold text-3xl'>Open Saved Project</h1>
-                            <p className='text-md opacity-60'>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                            <p className='text-md opacity-60'>Project Saved in Database by Struct Name and Linked List type. Click All to see all saved project.</p>
                         </div>
                         <div className='space-y-5'>
                             {lists.isLoading ? null :
@@ -125,7 +125,7 @@ export default function ProjectView() {
                         <img className='scale-90' src='/static/illustrations/laptop.svg' alt='project' />
                         <div className='space-y-3 font-roboto'>
                             <h1 className='font-bold text-3xl'>Quest</h1>
-                            <p className='text-md opacity-60'>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                            <p className='text-md opacity-60'>Follow quest's instruction to complete all quest below. Click all to see avaiable quest.</p>
                         </div>
                         <div className='space-y-4'>
                             <h1 className='font-roboto font-bold text-md'>Complete</h1>

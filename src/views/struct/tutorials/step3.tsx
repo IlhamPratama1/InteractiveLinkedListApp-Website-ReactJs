@@ -16,9 +16,9 @@ export default function Step3({ NextFunction, SkipFunction }: StepType) {
             <div className={`absolute z-30 bg-transparent w-80 h-20 ${projectType === 'double' ? 'bottom-[23rem]' : 'bottom-[29rem]'} right-[42.7rem] rounded-md hole`}></div>
             <div className={`absolute z-40 ${projectType === 'double' ? 'bottom-[23rem]' : 'bottom-[29rem]'} right-[13rem]`}>
                 <TutorialModal 
-                    title="ASdasdsa"
-                    subtitle="c++"
-                    about="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+                    title="Add New Variable"
+                    subtitle="step 3"
+                    about="you can add more variable by click 'add new data' or finish your struct by click submit"
                     nextEvent={NextFunction}
                     skipEvent={SkipFunction}
                 />

@@ -19,7 +19,6 @@ export default function TutorialView({ setFirstTime }: TutorialType) {
         <Step1 NextFunction={NextStep} SkipFunction={SkipStep} />,
         <Step2 NextFunction={NextStep} SkipFunction={SkipStep} />,
         <Step3 NextFunction={NextStep} SkipFunction={SkipStep} />
-        
     ];
 
     // Function

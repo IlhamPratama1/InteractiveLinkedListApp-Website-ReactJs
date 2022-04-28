@@ -1,7 +1,5 @@
 // Lib
-import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 // React component
 import DashboardNav from "../template/dashboardNavbar";
@@ -12,24 +10,10 @@ import QuestView from "./quest";
 import ProfileView from "./profile";
 import ExampleView from "./example";
 
-// Redux Component
-import { UserStateInterface } from "../../interface";
-import { State } from "../../state";
-
 // Css
 import '../css/holeOverlay.css';
 
 export default function DashboardView() {
-    // --- lib
-    let navigate = useNavigate();
-
-    // --- Redux State
-    const auth: UserStateInterface = useSelector((state: State) => state.auth);
-
-    useEffect(() => {
-        if (!auth.token) navigate('/login');
-    }, [auth.token, navigate]);
-    
     return(
         <DashboardNav>
             <Routes>

@@ -12,9 +12,9 @@ export default function Step1({ NextFunction, SkipFunction }: StepType) {
             <div className="absolute z-30 bg-transparent w-20 h-32 top-[17rem] left-6 rounded-md hole"></div>
             <div className="absolute z-40 top-[17rem] left-32">
                 <TutorialModal 
-                    title="Josjsos"
-                    subtitle="c++"
-                    about="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+                    title="Search or Delete Node"
+                    subtitle="step 2"
+                    about="To make Search or Delete operation. then fill form and submit to perform the operation."
                     nextEvent={NextFunction}
                     skipEvent={SkipFunction}
                 />

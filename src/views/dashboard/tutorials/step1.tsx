@@ -12,9 +12,9 @@ export default function Step1({ NextFunction, SkipFunction }: StepType) {
             <div className="absolute z-30 bg-transparent w-96 h-80 bottom-48 left-96 rounded-md hole"></div>
             <div className="absolute z-40 bottom-48 left-[50rem]">
                 <TutorialModal 
-                    title="Source Code"
-                    subtitle="c++"
-                    about="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+                    title="Create New Project"
+                    subtitle="step 1"
+                    about="This is dashboard page. if you want to create new project, select linked list project type you want to create, there are three types: Single linked list, Double linked list, Circular linked list. click to choose."
                     nextEvent={NextFunction}
                     skipEvent={SkipFunction}
                 />

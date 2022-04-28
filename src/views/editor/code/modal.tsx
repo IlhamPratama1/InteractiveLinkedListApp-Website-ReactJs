@@ -1,4 +1,6 @@
 // Lib
+import axios from 'axios';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { TerminalIcon } from '@heroicons/react/outline';
 import SyntaxHighlighter from 'react-syntax-highlighter';
@@ -17,9 +19,27 @@ export default function Modal({ setModalOpen }: CodeSectionType) {
     // --- Redux state
     const { code }: CodeStateInterface = useSelector(selectCode);
 
+    // State
+    const [ output, setOutput ] = useState<string>('');
+
     // --- Func
     function CloseModal() { setModalOpen(false); }
     function CopyCode() { navigator.clipboard.writeText(code); }
+    async function Compile() {
+        const res = await axios.post("/", {
+            clientId: '57b1254b6bd64b74f43b6d0fba331451',
+            clientSecret: '5d5d2ade9beb326d441c7d6842b08739730a2296f445c73d59d6a653ab277402',
+            script: code,
+            language: 'cpp',
+            versionIndex: 0
+        }, {
+            headers: {
+                'Content-type': 'application/json',
+                accept: 'application/json',
+            }
+        });
+        setOutput(res.data.output);
+    }
 
     return(
         <div className='font-roboto'>
@@ -33,13 +53,20 @@ export default function Modal({ setModalOpen }: CodeSectionType) {
                                 <p className='text-sm opacity-40'>c++</p>
                             </div>
                         </div>
-                        <div className="overflow-auto h-96 text-sm">
-                            <SyntaxHighlighter language="cpp" customStyle={{ backgroundColor: "#FCFCFC" }}>
-                                {code}
-                            </SyntaxHighlighter>
+                        <div className='flex space-x-4'>
+                            <div className="overflow-auto h-96 text-sm grow">
+                                <SyntaxHighlighter language="cpp" customStyle={{ backgroundColor: "#FCFCFC" }}>
+                                    {code}
+                                </SyntaxHighlighter>
+                            </div>
+                            <div className='w-96 space-y-3'>
+                                <h1 className='text-md font-bold'>Output:</h1>
+                                    <textarea className='p-4 bg-white-gray overflow-auto w-full h-[26.3rem]' value={output} />
+                            </div>
                         </div>
                         <div className="flex items-center justify-end space-x-4">
                             <button className="bg-cyan-light text-blue-dark font-bold rounded-md text-sm px-5 py-2 focus:outline-none transition duration-300" onClick={CopyCode}>Copy</button>
+                            <button className="bg-cyan-dark text-white-gray font-bold rounded-md text-sm px-5 py-2 focus:outline-none transition duration-300" onClick={Compile}>Compile</button>
                             <button className="bg-blue-dark text-cyan-light font-bold rounded-md text-sm px-5 py-2 focus:outline-none transition duration-300" onClick={CloseModal} >Close</button>
                         </div>
                     </div>

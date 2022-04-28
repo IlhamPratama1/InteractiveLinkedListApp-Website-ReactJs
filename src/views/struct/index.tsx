@@ -92,7 +92,7 @@ export default function StructView() {
         const list: ListType = await GetListDetail(decodedId);
         
         if (list.struct)
-            navigate(`/dashboard/`);
+            navigate(`/editor/${encodedId}`);
         else
             InitializeStruct();
     }, [navigate, InitializeStruct, encodedId]);

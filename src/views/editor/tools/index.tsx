@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { TemplateIcon, ViewGridAddIcon, CollectionIcon, SearchCircleIcon, TrashIcon, FolderRemoveIcon, FireIcon, PencilAltIcon } from "@heroicons/react/outline";
+import { TemplateIcon, ViewGridAddIcon, CollectionIcon, SearchCircleIcon, TrashIcon, FolderRemoveIcon, FireIcon } from "@heroicons/react/outline";
 
 // Redux Component
 import { selectCode, selectNode, selectStruct, selectTool, useHookDispatch } from "../../../state/dispatch";
@@ -131,9 +131,6 @@ export default function ToolEditor() {
                     </button>
                     <button title='Remove All Node' className="focus:outline-none" onClick={RemoveAllNode} >
                         <FolderRemoveIcon className="w-8 h-8 text-black hover:text-cyan-dark transition duration-300" />
-                    </button>
-                    <button title='Edit Node' className="focus:outline-none">
-                        <PencilAltIcon className="w-8 h-8 text-black hover:text-cyan-dark transition duration-300" />
                     </button>
                 </div>
             </div>

@@ -37,7 +37,7 @@ export default function QuestView() {
                 <img className='w-96' src='/static/illustrations/quest.svg' alt='quest' />
                 <div className="space-y-2">
                     <h1 className='font-bold text-3xl'>Quest List</h1>
-                    <p className='w-96 text-md opacity-60'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                    <p className='w-[32rem] text-md opacity-60'>Follow quest's instruction to complete all quest below. Complete quest by type of Linked List: Single Linked List, Double Linked List, Circular Linked List and play on editor.</p>
                 </div>
             </div>
             <div className="grid grid-cols-4 gap-4">

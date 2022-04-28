@@ -45,7 +45,7 @@ export default function ProfileView() {
                         <img className='w-96' src='/static/illustrations/profile.svg' alt='profile' />
                         <div className="space-y-2">
                             <h1 className='font-bold text-3xl'>My Profile</h1>
-                            <p className='w-96 text-md opacity-60'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                            <p className='w-96 text-md opacity-60'>Detail information about user profile. click Edit to change profile</p>
                         </div>
                     </div>
                 </div>
