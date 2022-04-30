@@ -4,8 +4,8 @@ import { useSelector } from 'react-redux';
 import { UpdateNodeData } from '../../../api/nodeRequest';
 
 // Redux component
-import { StructStateInterface } from '../../../interface';
-import { selectNode, selectProjectType, selectStruct, selectTool, useHookDispatch } from '../../../state/dispatch';
+import { StructStateInterface, UserStateInterface } from '../../../interface';
+import { selectAuth, selectNode, selectProjectType, selectStruct, selectTool, useHookDispatch } from '../../../state/dispatch';
 
 // External function
 import { CheckRegexValidation } from '../../../regex';
@@ -19,12 +19,13 @@ export default function RemoveTool() {
     const nodeData: Array<any> = useSelector(selectNode);
     const { editIndex } = useSelector(selectTool);
     const projectType: string = useSelector(selectProjectType);
+    const { listId }: StructStateInterface = useSelector(selectStruct);
+    const { token }: UserStateInterface = useSelector(selectAuth);
     const {
         SetLastOperation, SetQuestComplete, SetNodeData,
         CloseTool, GenerateCode, OpenSnackbar,
         OpenNodeIndex, SetAnimation, ResetAllTools,
     } = useHookDispatch();
-    const { listId }: StructStateInterface = useSelector(selectStruct);
 
     // --- OnChange
     function HandleChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -72,7 +73,7 @@ export default function RemoveTool() {
         GenerateCode(index, index, '');
 
         // Save node data request api
-        UpdateNodeData(listId, array);
+        if(token) UpdateNodeData(listId, array);
 
         // Check quest complete
         SetQuestComplete('delete', projectType);

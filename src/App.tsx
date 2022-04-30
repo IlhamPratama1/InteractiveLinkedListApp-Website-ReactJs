@@ -19,7 +19,7 @@ function App() {
         <Route path="/login" element={<LoginView />} />
         <Route path="/register" element={<RegisterView />} />
         <Route path="/dashboard/*" element={<DashboardView />} />
-        <Route path="/editor/:encodedId" element={<EditorView />} />
+        <Route path="/editor/:type/:encodedId" element={<EditorView />} />
       </Routes>
     </div>
   );

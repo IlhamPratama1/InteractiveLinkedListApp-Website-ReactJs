@@ -61,7 +61,7 @@ export default function Modal({ setModalOpen }: CodeSectionType) {
                             </div>
                             <div className='w-96 space-y-3'>
                                 <h1 className='text-md font-bold'>Output:</h1>
-                                    <textarea className='p-4 bg-white-gray overflow-auto w-full h-[26.3rem]' value={output} />
+                                    <textarea disabled className='p-4 bg-white-gray overflow-auto w-full h-[26.3rem]' value={output} />
                             </div>
                         </div>
                         <div className="flex items-center justify-end space-x-4">

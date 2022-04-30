@@ -17,7 +17,7 @@ export default function HeroSection() {
                         <p className="text-md md:text-md lg:text-lg xl:text-xl">Web-based learning media, with interesting interactions where users can explore by creating linked-list, adding, searching, deleting node through the tools contained in the application. After the user performs the operation on the linked list, the source code will generate as a reference for how the user can implement the linked list that they created in their respective programs.</p>
                         <div className="flex space-x-4 lg:space-x-8">
                             <Link to={'/login'} className="rounded-md px-10 py-3 bg-cyan-light hover:bg-cyan-dark text-blue-dark font-bold text-sm md:text-md lg:text-lg transition duration-500">Login</Link>
-                            <Link to={'/register'} className="rounded-md px-10 py-3 bg-blue-dark hover:text-cyan-dark text-cyan-light font-bold text-sm md:text-md lg:text-lg transition duration-500">Try Now</Link>
+                            <Link to={'/dashboard'} className="rounded-md px-10 py-3 bg-blue-dark hover:text-cyan-dark text-cyan-light font-bold text-sm md:text-md lg:text-lg transition duration-500">Try Now</Link>
                         </div>
                     </div>
                 </div>

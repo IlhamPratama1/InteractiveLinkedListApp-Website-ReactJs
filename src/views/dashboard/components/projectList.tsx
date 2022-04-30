@@ -32,7 +32,7 @@ export default function ProjectList({ list, FetchUserList }: ListProjectType) {
             Navigate(`/dashboard/struct/${list.type}/${hashids.encode(list.id)}`);
         }
         else
-            Navigate(`/editor/${hashids.encode(list.id)}`);
+            Navigate(`/editor/${listProject.type}/${hashids.encode(list.id)}`);
     }
     
     async function DeleteListData() {

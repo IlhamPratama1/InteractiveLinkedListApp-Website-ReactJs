@@ -5,7 +5,7 @@ import CodeGenerator from "../../code/codeGenerator";
 import SingleLinkCodeGerator from "../../code/singleCodeGenerator";
 import DoubleLinkCodeGenerator from "../../code/doubleCodeGenerator";
 import CircularLinkCodeGenerator from "../../code/circularCodeGenerator";
-import { CodeStateInterface, StructStateInterface } from "../../interface";
+import { CodeStateInterface, StructStateInterface, UserStateInterface } from "../../interface";
 import { ActionType } from "../action-types";
 import { CodeAction } from "../actions";
 
@@ -43,6 +43,7 @@ export const GenerateCode = (index: number, data: string | number, searchType: s
         const { id, operation, log, lastOperation, searchLog }: CodeStateInterface = getState().code;
         const { listId, structName, structData }: StructStateInterface = getState().struct;
         const nodeData: Array<any> = getState().node;
+        const { token }: UserStateInterface = getState().auth;
         
         let sourceCode: CodeGenerator;
         switch (projectType) {
@@ -73,10 +74,12 @@ export const GenerateCode = (index: number, data: string | number, searchType: s
 
         let code = sourceCode.GenerateSourceCode(operationArr, searchLog) + mainFunction;
 
-        UpdateCodeData(listId, code);
-        UpdateOperationData(id, operationArr);
-        UpdateLogData(id, logArr);
-        UpdateSearchLogData(id, searchLog);
+        if (token) {
+            UpdateCodeData(listId, code);
+            UpdateOperationData(id, operationArr);
+            UpdateLogData(id, logArr);
+            UpdateSearchLogData(id, searchLog);
+        }
 
         return dispatch({
             type: ActionType.SETCODELOGOPERATION,

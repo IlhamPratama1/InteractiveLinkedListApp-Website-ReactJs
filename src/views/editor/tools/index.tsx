@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { TemplateIcon, ViewGridAddIcon, CollectionIcon, SearchCircleIcon, TrashIcon, FolderRemoveIcon, FireIcon } from "@heroicons/react/outline";
 
 // Redux Component
-import { selectCode, selectNode, selectStruct, selectTool, useHookDispatch } from "../../../state/dispatch";
-import { CodeStateInterface, StructStateInterface, ToolStateInterface } from "../../../interface";
+import { selectAuth, selectCode, selectNode, selectStruct, selectTool, useHookDispatch } from "../../../state/dispatch";
+import { CodeStateInterface, StructStateInterface, ToolStateInterface, UserStateInterface } from "../../../interface";
 import { SearchAction, ToolAction } from "../../../state/actions";
 import { ActionType } from "../../../state/action-types";
 
@@ -29,6 +29,7 @@ export default function ToolEditor() {
     const { listId }: StructStateInterface = useSelector(selectStruct);
     const code: CodeStateInterface = useSelector(selectCode);
     const { toolIndex, editIndex }: ToolStateInterface = useSelector(selectTool);
+    const { token }: UserStateInterface = useSelector(selectAuth);
     const {
         SetNodeData, SetAnimation, ResetNode,
         OpenToolIndex, CloseTool, OpenSnackbar,
@@ -84,16 +85,19 @@ export default function ToolEditor() {
     function RemoveAllNode() {
         ResetNode();
         CloseTool();
-        UpdateNodeData(listId, []);
+        if (token) UpdateNodeData(listId, []);
     }
 
     function RemoveCodeAndLog() {
         ResetCode();
         CloseTool();
-        UpdateCodeData(listId, '');
-        UpdateOperationData(code.id, []);
-        UpdateLogData(code.id, []);
-        UpdateSearchLogData(code.id, []);
+
+        if (token) {
+            UpdateCodeData(listId, '');
+            UpdateOperationData(code.id, []);
+            UpdateLogData(code.id, []);
+            UpdateSearchLogData(code.id, []);
+        }
     }
 
     useEffect(() => {

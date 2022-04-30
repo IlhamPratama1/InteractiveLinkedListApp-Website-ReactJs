@@ -44,8 +44,11 @@ export default function ProjectView() {
     }
 
     async function SubmitListType() {
-        const list: ListType = await PostNewList(selectedProject);
-        const encodedId: string = hashids.encode(list.id);
+        let encodedId: string = 'try';
+        if (auth.token) {
+            const list: ListType = await PostNewList(selectedProject);
+            encodedId = hashids.encode(list.id);
+        }
         navigate(`/dashboard/struct/${selectedProject}/${encodedId}`);
     }
 
@@ -59,11 +62,9 @@ export default function ProjectView() {
     }, []);
 
     useEffect(() => {
-        if (lists.isLoading && quests.isLoading && auth.token) { 
-            const cookies = new Cookies();
-            setFirstTime(cookies.get('firstTutorial'));
-            FetchUserList();
-        }
+        const cookies = new Cookies();
+        setFirstTime(cookies.get('firstTutorial'));
+        if (lists.isLoading && quests.isLoading && auth.token) FetchUserList();
     }, [auth.token, navigate, lists.isLoading, quests.isLoading, FetchUserList]);
 
     return(

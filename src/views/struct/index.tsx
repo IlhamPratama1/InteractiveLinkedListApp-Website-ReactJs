@@ -6,8 +6,8 @@ import Cookies from 'universal-cookie';
 
 // Redux component
 import { ListType, StructFormType } from '../../type';
-import { selectProjectType, selectStruct, useHookDispatch } from '../../state/dispatch';
-import { StructStateInterface } from '../../interface';
+import { selectAuth, selectProjectType, selectStruct, useHookDispatch } from '../../state/dispatch';
+import { StructStateInterface, UserStateInterface } from '../../interface';
 import { ActionType } from '../../state/action-types';
 import { ListAction, StructAction } from '../../state/actions';
 
@@ -29,7 +29,8 @@ export default function StructView() {
     let navigate = useNavigate();
     
     // --- Redux state
-    const { structName, structData }: StructStateInterface = useSelector(selectStruct);
+    const struct: StructStateInterface = useSelector(selectStruct);
+    const auth: UserStateInterface = useSelector(selectAuth);
     const { SetStructName, SetStructData } = useHookDispatch();
     const projectType: string = useSelector(selectProjectType);
 
@@ -39,9 +40,9 @@ export default function StructView() {
 
     // --- OnChange
     function UpdateItem (prop: string, event: React.ChangeEvent<HTMLSelectElement>| React.ChangeEvent<HTMLInputElement>, index: number) {
-        const old: StructFormType = structData[index];
+        const old: StructFormType = struct.structData[index];
         const updated: StructFormType = { ...old, [prop]: event.target.value }
-        const clone: Array<StructFormType> = [...structData];
+        const clone: Array<StructFormType> = [...struct.structData];
         clone[index] = updated;
         SetStructData(clone);
     }
@@ -50,7 +51,7 @@ export default function StructView() {
     function AddNewFormData(event: React.MouseEvent) {
         event.preventDefault();
         var formObj: StructFormType = { type: 'int', value: '' };
-        let newFormArray: Array<StructFormType> = [...structData];
+        let newFormArray: Array<StructFormType> = [...struct.structData];
         newFormArray.push(formObj);
         SetStructData(newFormArray);
     }
@@ -58,10 +59,15 @@ export default function StructView() {
     async function SubmitStructFormData(event: React.MouseEvent) {
         event.preventDefault();
 
-        const formIsValid: boolean = StructFormValidation(structName, structData, setError);
+        const formIsValid: boolean = StructFormValidation(struct.structName, struct.structData, setError);
         if(formIsValid) {
-            const struct = await PostNewStruct(structName, structData, Number(DecodeId(encodedId)));
-            navigate(`/editor/${EncodeId(struct.listId)}`);
+            if (auth.token) {
+                const structs = await PostNewStruct(struct.structName, struct.structData, Number(DecodeId(encodedId)));
+                encodedId = EncodeId(structs.listId)
+            } else {
+                localStorage.setItem('struct_data', JSON.stringify(struct));
+            }
+            navigate(`/editor/${projectType}/${encodedId}`);
         }
     }
 
@@ -73,26 +79,26 @@ export default function StructView() {
                 payload: type
             });
         if (type === 'double') {
-            const data = doubleLinkedData(structName);
+            const data = doubleLinkedData(struct.structName);
             dispatch<StructAction>({
                 type : ActionType.SETSTRUCTDATA,
                 payload : data
             });
         } else {
-            const data = singleLinkedData(structName);
+            const data = singleLinkedData(struct.structName);
             dispatch<StructAction>({
                 type : ActionType.SETSTRUCTDATA,
                 payload : data
             });
         }
-    }, [structName, dispatch, type]);
+    }, [struct.structName, dispatch, type]);
 
     const CheckIfStructExist = useCallback( async () => {
         const decodedId = Number(DecodeId(encodedId));
         const list: ListType = await GetListDetail(decodedId);
         
         if (list.struct)
-            navigate(`/editor/${encodedId}`);
+            navigate(`/dashboard`);
         else
             InitializeStruct();
     }, [navigate, InitializeStruct, encodedId]);
@@ -100,8 +106,10 @@ export default function StructView() {
     useEffect(() => {
         const cookies = new Cookies();
         setFirstTime(cookies.get('secondTutorial'));
-        CheckIfStructExist();
-    }, [CheckIfStructExist]);
+
+        if (auth.token) CheckIfStructExist();
+        else InitializeStruct();
+    }, [CheckIfStructExist, auth.token, InitializeStruct]);
 
     return(
         <div className='struct-section'>
@@ -114,11 +122,11 @@ export default function StructView() {
                     <div className="space-y-3 font-roboto">
                         <label className="text-lg">Struct Name</label>
                         <br />
-                        <input value={structName} onChange={e => SetStructName(e.target.value)} className="w-full h-12 border focus:outline-none focus:border-yellow-main p-4"></input>
+                        <input value={struct.structName} onChange={e => SetStructName(e.target.value)} className="w-full h-12 border focus:outline-none focus:border-yellow-main p-4"></input>
                         <br />
                         <span style={{ color: "red" }}>{error["name"]}</span>
                     </div>
-                    {structData.map((data, i) => {
+                    {struct.structData.map((data, i) => {
                         return(
                             <div key={i} className="w-full flex items-center space-y-2 font-roboto">
                                 <div className="pt-2">

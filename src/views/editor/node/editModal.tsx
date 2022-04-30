@@ -3,10 +3,10 @@ import { useSelector } from "react-redux";
 import React, { useState } from "react";
 
 // Redux component
-import { selectCode, selectNode, selectProjectType, selectStruct } from "../../../state/dispatch";
+import { selectAuth, selectCode, selectNode, selectProjectType, selectStruct } from "../../../state/dispatch";
 import { NodeModalType, StructFormType } from "../../../type";
 import { useHookDispatch } from "../../../state/dispatch";
-import { StructStateInterface } from "../../../interface";
+import { StructStateInterface, UserStateInterface } from "../../../interface";
 
 // External function
 import { CheckRegexValidation } from "../../../regex";
@@ -20,6 +20,7 @@ export default function EditModal({ index, data }: NodeModalType ) {
     const nodeData: Array<any> = useSelector(selectNode);
     const { lastOperation } = useSelector(selectCode);
     const { listId, structData }: StructStateInterface = useSelector(selectStruct);
+    const { token }: UserStateInterface = useSelector(selectAuth);
     const { SetNodeData, CloseDetailNode, GenerateCode, SetQuestComplete } = useHookDispatch();
 
     // --- React State
@@ -47,8 +48,10 @@ export default function EditModal({ index, data }: NodeModalType ) {
 
         CloseDetailNode();
         GenerateCode(index, index, '');
-        UpdateNodeData(listId, nodeData);
-        SetQuestComplete(lastOperation, projectType);
+        if (token) {
+            UpdateNodeData(listId, nodeData);
+            SetQuestComplete(lastOperation, projectType);
+        }
     }
 
     // --- React render component

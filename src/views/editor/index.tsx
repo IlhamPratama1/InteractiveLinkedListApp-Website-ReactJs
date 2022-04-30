@@ -16,7 +16,7 @@ import { GetMyProfile } from '../../api/userRequest';
 import { CodeType, ListType, LogType, NodeType, OperationType, ProfileType, QuestType, SearchLogType } from '../../type';
 import { StructAction, CodeAction, NodeAction, ListAction, SearchAction, QuestAction, ProfileAction } from '../../state/actions';
 import { ActionType } from '../../state/action-types';
-import { UserStateInterface } from '../../interface';
+import { StructStateInterface, UserStateInterface } from '../../interface';
 import { State } from '../../state';
 
 // React component
@@ -32,7 +32,7 @@ import Snackbar from '../template/snackbar/snackbar';
 export default function EditorView() {
     // --- Lib
     const dispatch = useDispatch();
-    let { encodedId } = useParams();
+    let { type, encodedId } = useParams();
     let navigate = useNavigate();
 
     // --- Redux State
@@ -144,14 +144,32 @@ export default function EditorView() {
 
     }, [encodedId, dispatch, SetInitialCode, SetInitialNode, CreateNewCodeData, CreateNewNodeData]);
 
+    const CreateInitialData = useCallback( () => {
+        const struct: StructStateInterface = JSON.parse(localStorage.getItem('struct_data') as string);
+        dispatch<ListAction>({
+            type: ActionType.SETTYPE,
+            payload: type ? type : 'single'
+        });
+        dispatch<StructAction>({
+            type: ActionType.SETSTRUCT,
+            payload: {
+                listId: 0,
+                structName: struct.structName,
+                structData: struct.structData
+            }
+        });
+        dispatch<SearchAction>({
+            type: ActionType.RESETSEARCHRESULT
+        });
+    }, [dispatch, type]);
+
     useEffect(() => {
-        if (!auth.token) navigate('/login');
-        else {
-            const cookies = new Cookies();
-            setFirstTime(cookies.get('thirdTutorial'));
-            CheckInitialData();
-        }
-    }, [CheckInitialData, auth.token, navigate])
+        const cookies = new Cookies();
+        setFirstTime(cookies.get('thirdTutorial'));
+        
+        if (!auth.token) CreateInitialData();
+        else CheckInitialData();
+    }, [CheckInitialData, auth.token, navigate, CreateInitialData])
 
     return (
         <div className="h-screen mx-auto bg-white-gray">
