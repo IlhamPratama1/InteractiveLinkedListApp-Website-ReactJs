@@ -22,6 +22,7 @@ import { GetListDetail } from '../../api/listRequest';
 import { StructDisabledSelectInput, StructDisabledValueInput, StructSelectInput, StructValueInput } from './components/structTypeInput';
 import TutorialView from './tutorials';
 
+
 export default function StructView() {
     // --- Lib
     const dispatch = useDispatch();

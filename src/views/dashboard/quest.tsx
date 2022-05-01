@@ -2,6 +2,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 // Redux component
 import { QuestType, StateDataType } from "../../type";
@@ -40,11 +41,18 @@ export default function QuestView() {
                     <p className='w-[32rem] text-md opacity-60'>Follow quest's instruction to complete all quest below. Complete quest by type of Linked List: Single Linked List, Double Linked List, Circular Linked List and play on editor.</p>
                 </div>
             </div>
-            <div className="grid grid-cols-4 gap-4">
+            { auth.token ?
+                <div className="grid grid-cols-4 gap-4">
                 <div className="space-y-8">
                     <h1 className='font-roboto font-bold text-lg'>Single Linked List</h1>
                     <div className="space-y-4">
-                        {quests.isLoading ? null :
+                        {quests.isLoading ? 
+                            <>
+                                <div className='animate-pulse h-12 radius-md bg-slate-gray'></div>
+                                <div className='animate-pulse h-12 radius-md bg-slate-gray'></div>
+                                <div className='animate-pulse h-12 radius-md bg-slate-gray'></div>
+                                <div className='animate-pulse h-12 radius-md bg-slate-gray'></div>
+                            </> :
                             quests.data.map((quest, i) => {
                                 return (
                                     <QuestList 
@@ -61,7 +69,13 @@ export default function QuestView() {
                 <div className="space-y-8">
                     <h1 className='font-roboto font-bold text-lg'>Single Linked List</h1>
                     <div className="space-y-4">
-                        {quests.isLoading ? null :
+                        {quests.isLoading ? 
+                            <>
+                                <div className='animate-pulse h-12 radius-md bg-slate-gray'></div>
+                                <div className='animate-pulse h-12 radius-md bg-slate-gray'></div>
+                                <div className='animate-pulse h-12 radius-md bg-slate-gray'></div>
+                                <div className='animate-pulse h-12 radius-md bg-slate-gray'></div>
+                            </> :
                             quests.data.map((quest, i) => {
                                 return (
                                     <QuestList
@@ -78,7 +92,13 @@ export default function QuestView() {
                 <div className="space-y-8">
                     <h1 className='font-roboto font-bold text-lg'>Single Linked List</h1>
                     <div className="space-y-4">
-                        {quests.isLoading ? null :
+                        {quests.isLoading ? 
+                            <>
+                                <div className='animate-pulse h-12 radius-md bg-slate-gray'></div>
+                                <div className='animate-pulse h-12 radius-md bg-slate-gray'></div>
+                                <div className='animate-pulse h-12 radius-md bg-slate-gray'></div>
+                                <div className='animate-pulse h-12 radius-md bg-slate-gray'></div>
+                            </> :
                             quests.data.map((quest, i) => {
                                 return (
                                     <QuestList
@@ -95,7 +115,13 @@ export default function QuestView() {
                 <div className="space-y-8">
                     <h1 className='font-roboto font-bold text-lg'>Single Linked List</h1>
                     <div className="space-y-4">
-                        {quests.isLoading ? null :
+                        {quests.isLoading ? 
+                            <>
+                                <div className='animate-pulse h-12 radius-md bg-slate-gray'></div>
+                                <div className='animate-pulse h-12 radius-md bg-slate-gray'></div>
+                                <div className='animate-pulse h-12 radius-md bg-slate-gray'></div>
+                                <div className='animate-pulse h-12 radius-md bg-slate-gray'></div>
+                            </> :
                             quests.data.map((quest, i) => {
                                 return (
                                     <QuestList
@@ -109,7 +135,11 @@ export default function QuestView() {
                         }
                     </div>
                 </div>
-            </div>
+                </div>:
+                <div className='grid grid-cols-4 gap-4 text-center py-11'>
+                    <h1 className='font-roboto text-lg'><Link to={`/login`} className="underline text-cyan-dark" >Sign in</Link> see available quest</h1>
+                </div>
+            }
         </div>
     );
 }

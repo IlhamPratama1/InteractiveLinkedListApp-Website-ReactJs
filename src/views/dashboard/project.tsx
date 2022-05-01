@@ -103,19 +103,29 @@ export default function ProjectView() {
                             <h1 className='font-bold text-3xl'>Open Saved Project</h1>
                             <p className='text-md opacity-60'>Project Saved in Database by Struct Name and Linked List type. Click All to see all saved project.</p>
                         </div>
-                        <div className='space-y-5'>
-                            {lists.isLoading ? null :
-                                lists.data.map((list, i) => {
-                                    return (
-                                        <ListProject
-                                            key={i}
-                                            list={list}
-                                            FetchUserList={FetchUserList}
-                                        />
-                                    );
-                                }).slice(0, 3)
-                            }
-                        </div>
+                        { auth.token ? 
+                            <div className='space-y-5'>
+                                {lists.isLoading 
+                                    ?   <>
+                                            <div className='animate-pulse h-24 radius-md bg-slate-gray'></div>
+                                            <div className='animate-pulse h-24 radius-md bg-slate-gray'></div>
+                                            <div className='animate-pulse h-24 radius-md bg-slate-gray'></div>
+                                        </>
+                                    : lists.data.map((list, i) => {
+                                        return (
+                                            <ListProject
+                                                key={i}
+                                                list={list}
+                                                FetchUserList={FetchUserList}
+                                            />
+                                        );
+                                    }).slice(0, 3)
+                                }
+                            </div> :
+                            <div className='text-center py-10'>
+                                <h1 className='font-roboto text-lg'><Link to={`/login`} className="underline text-cyan-dark" >Sign in</Link> to see saved project</h1>
+                            </div>
+                        }
                         <Link to={`/dashboard/saved`} className="mx-auto flex justify-center items-center rounded-md w-24 h-12 bg-blue-dark text-white hover:text-yellow font-bold font-roboto text-sm md:text-md lg:text-lg transition duration-300">All</Link>
                     </div>
                 </div>
@@ -128,34 +138,47 @@ export default function ProjectView() {
                             <h1 className='font-bold text-3xl'>Quest</h1>
                             <p className='text-md opacity-60'>Follow quest's instruction to complete all quest below. Click all to see avaiable quest.</p>
                         </div>
-                        <div className='space-y-4'>
-                            <h1 className='font-roboto font-bold text-md'>Complete</h1>
-                            {quests.isLoading ? null :
-                                quests.data.map((quest, i) => {
-                                    return (
-                                        <QuestList
-                                            key={i}
-                                            isComplete={true}
-                                            detail={quest.quest.detail}
-                                            type={quest.quest.type}
-                                        />
-                                    );
-                                }).slice(0, 2)
-                            }
-                            <h1 className='font-roboto font-bold text-md'>InComplete</h1>
-                            {quests.isLoading ? null :
-                                quests.data.map((quest, i) => {
-                                    return (
-                                        <QuestList
-                                            key={i} 
-                                            isComplete={false}
-                                            detail={quest.quest.detail}
-                                            type={quest.quest.type}
-                                        />
-                                    );
-                                }).slice(2, 4)
-                            }
-                        </div>
+                        { auth.token ? 
+                            <div className='space-y-4'>
+                                <h1 className='font-roboto font-bold text-md'>Complete</h1>
+                                {quests.isLoading
+                                    ?   <>
+                                            <div className='animate-pulse h-12 radius-md bg-slate-gray'></div>
+                                            <div className='animate-pulse h-12 radius-md bg-slate-gray'></div>
+                                        </>
+                                    : quests.data.map((quest, i) => {
+                                        return (
+                                            <QuestList
+                                                key={i}
+                                                isComplete={true}
+                                                detail={quest.quest.detail}
+                                                type={quest.quest.type}
+                                            />
+                                        );
+                                    }).slice(0, 2)
+                                }
+                                <h1 className='font-roboto font-bold text-md'>InComplete</h1>
+                                {quests.isLoading
+                                    ?   <>
+                                            <div className='animate-pulse h-12 radius-md bg-slate-gray'></div>
+                                            <div className='animate-pulse h-12 radius-md bg-slate-gray'></div>
+                                        </>
+                                    : quests.data.map((quest, i) => {
+                                        return (
+                                            <QuestList
+                                                key={i} 
+                                                isComplete={false}
+                                                detail={quest.quest.detail}
+                                                type={quest.quest.type}
+                                            />
+                                        );
+                                    }).slice(2, 4)
+                                }
+                            </div> :
+                            <div className='text-center py-11'>
+                                <h1 className='font-roboto text-lg'><Link to={`/login`} className="underline text-cyan-dark" >Sign in</Link> see available quest</h1>
+                            </div>
+                        }
                         <Link to={`/dashboard/quest`} className="mx-auto flex justify-center items-center rounded-md w-24 h-12 bg-blue-dark text-white hover:text-yellow font-bold font-roboto text-sm md:text-md lg:text-lg transition duration-300">All</Link>
                     </div>
                 </div>

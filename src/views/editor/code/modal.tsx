@@ -26,6 +26,7 @@ export default function Modal({ setModalOpen }: CodeSectionType) {
     function CloseModal() { setModalOpen(false); }
     function CopyCode() { navigator.clipboard.writeText(code); }
     async function Compile() {
+        setOutput('Compiling...');
         const res = await axios.post("/", {
             clientId: '57b1254b6bd64b74f43b6d0fba331451',
             clientSecret: '5d5d2ade9beb326d441c7d6842b08739730a2296f445c73d59d6a653ab277402',

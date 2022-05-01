@@ -78,6 +78,7 @@ export default function NodeEditor() {
                 return (
                     nodeData.length > 1
                         ? <Xarrow
+                            key={index}
                             strokeWidth={2} 
                             color='#9DD9D8' 
                             start={`elem${index === 0 ? nodeData.length - 1 : index - 1}`} 

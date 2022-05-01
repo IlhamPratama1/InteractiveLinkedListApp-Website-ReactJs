@@ -23,7 +23,7 @@ export default function DashboardNavbar({ children }: DashboardNavType) {
     // --- Lib
     const location = useLocation();
     const { LogoutUser } = useHookDispatch();
-    
+   
     // --- OnSubmit
     function SignOut() {
         localStorage.removeItem('access_token');
@@ -70,7 +70,7 @@ export default function DashboardNavbar({ children }: DashboardNavType) {
                     <div className='flex space-x-3 items-center'>
                         <div className='w-14 h-14 rounded-full bg-cyan-dark'></div>
                         <div className='font-roboto'>
-                            <h1 className='font-bold text-lg'>Ilham Pratama</h1>
+                            <h1 className='font-bold text-lg'>User</h1>
                             <button onClick={SignOut} className='focus:outline-none font-bold text-md opacity-40 hover:underline transition duration-300'>Sign Out</button>
                         </div>
                     </div>

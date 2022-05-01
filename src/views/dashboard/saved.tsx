@@ -3,6 +3,7 @@ import { useEffect, useState, useCallback } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ArrowSmLeftIcon, ArrowSmRightIcon } from "@heroicons/react/solid";
+import { Link } from 'react-router-dom';
 
 // React Component
 import ListProject from "./components/projectList";
@@ -47,10 +48,20 @@ export default function SavedView() {
                     </div>
                 </div>
                 <div className="grid grid-cols-4 gap-4">
-                    {lists.isLoading ? null :
-                        lists.data.map((list, i) => {
-                            return ( <ListProject key={i} list={list} FetchUserList={FetchUserList} /> );
-                        })
+                    { auth.token 
+                        ? lists.isLoading ? 
+                            <>
+                                <div className='animate-pulse h-24 radius-md bg-slate-gray'></div>
+                                <div className='animate-pulse h-24 radius-md bg-slate-gray'></div>
+                                <div className='animate-pulse h-24 radius-md bg-slate-gray'></div>
+                                <div className='animate-pulse h-24 radius-md bg-slate-gray'></div>
+                            </> :
+                            lists.data.map((list, i) => {
+                                return ( <ListProject key={i} list={list} FetchUserList={FetchUserList} /> );
+                        }) :
+                        <div className='text-center py-11'>
+                            <h1 className='font-roboto text-lg'><Link to={`/login`} className="underline text-cyan-dark" >Sign in</Link> see saved project</h1>
+                        </div>
                     }
                 </div>
             </div>
