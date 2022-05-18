@@ -25,6 +25,7 @@ export default function NodeEditor() {
 
     // --- React state
     const [nodeRef, setNodeRef] = useState<Array<RefObject<HTMLDivElement>>>([]);
+    const [arrowRef, setArrowRef] = useState<Array<RefObject<HTMLDivElement>>>([]);
 
     const RenderArrowType = (index: number) => {
         const tAnchor: anchorType = { position: "auto", offset: { y: -10 } }
@@ -35,14 +36,14 @@ export default function NodeEditor() {
             case 'single':
                 return (
                     index !== 0 && index < nodeData.length ?
-                    <Xarrow
-                        key={index}
-                        strokeWidth={2} 
-                        color='#9DD9D8' 
-                        start={`elem${index - 1}`} 
-                        end={`elem${index}`} 
-                        animateDrawing={0.5}
-                    />
+                    <div ref={arrowRef[index]} key={index} >
+                        <Xarrow
+                            strokeWidth={2} 
+                            color='#9DD9D8' 
+                            start={`elem${index - 1}`} 
+                            end={`elem${index}`}
+                        />
+                    </div>
                     : null
                 );
                 
@@ -50,7 +51,7 @@ export default function NodeEditor() {
             case 'double':
                 return (
                     index !== 0 && index < nodeData.length ?
-                    <React.Fragment key={index}>
+                    <div ref={arrowRef[index]} key={index}>
                         <Xarrow
                             strokeWidth={2} 
                             startAnchor={tAnchor}
@@ -58,7 +59,6 @@ export default function NodeEditor() {
                             color='#9DD9D8' 
                             start={`elem${index - 1}`} 
                             end={`elem${index}`}
-                            animateDrawing={0.25}
                         />
                         <Xarrow
                             strokeWidth={2}
@@ -67,9 +67,8 @@ export default function NodeEditor() {
                             color='#9DD9D8' 
                             start={`elem${index}`} 
                             end={`elem${index - 1}`}
-                            animateDrawing={0.25}
                         />
-                    </React.Fragment>
+                    </div>
                     : null
                 );
 
@@ -77,18 +76,20 @@ export default function NodeEditor() {
             default:
                 return (
                     nodeData.length > 1
-                        ? <Xarrow
-                            key={index}
-                            strokeWidth={2} 
-                            color='#9DD9D8' 
-                            start={`elem${index === 0 ? nodeData.length - 1 : index - 1}`} 
-                            end={`elem${index === 0 ? 0 : index}`}
-                            startAnchor={index === 0 ? 'top' : 'auto'}
-                            endAnchor={index === 0 ? 'top' : 'auto'}
-                            _cpy1Offset={index === 0 ? -100 : 0}
-                            _cpy2Offset={index === 0 ? -100 : 0}
-                            animateDrawing={0.5}
-                        />
+                        ?
+                        <div ref={arrowRef[index]} key={index}>
+                            <Xarrow
+                                key={index}
+                                strokeWidth={2} 
+                                color='#9DD9D8' 
+                                start={`elem${index === 0 ? nodeData.length - 1 : index - 1}`} 
+                                end={`elem${index === 0 ? 0 : index}`}
+                                startAnchor={index === 0 ? 'top' : 'auto'}
+                                endAnchor={index === 0 ? 'top' : 'auto'}
+                                _cpy1Offset={index === 0 ? -100 : 0}
+                                _cpy2Offset={index === 0 ? -100 : 0}
+                            />
+                        </div>
                     : null
                 );
         };
@@ -99,23 +100,19 @@ export default function NodeEditor() {
         setNodeRef(nodeRef => (
           Array(nodeData.length).fill(undefined).map((_, i) => nodeRef[i] || createRef())
         ));
+        setArrowRef(arrowRef => (
+            Array(nodeData.length).fill(undefined).map((_, i) => arrowRef[i] || createRef())
+        ));
     }, [nodeData.length]);
 
-    // --- Node animation
+     // --- Node animation
     const SpawnNodeAnimation = useCallback((
         index: number, refObject: HTMLDivElement | null,
-        initialValue: number, value: number,
+        value: number,
     ) => {
         gsap.timeline()
-            .from(refObject, {
-                startAt: {
-                    opacity: initialValue,
-                    scale: initialValue
-                },
-                duration: initialValue
-            })
             .to(refObject, {
-                delay: 0.25,
+                delay: 0.15,
                 opacity: value,
                 scale: value,
                 duration: 0.5,
@@ -137,11 +134,12 @@ export default function NodeEditor() {
     }, [dispatch]);
 
     const DestroyNodeAnimation = useCallback((
-        refObject: HTMLDivElement | null,
+        nodeObject: HTMLDivElement | null,
+        arrowObject: HTMLDivElement | null,
         value: number, callback: Function
     ) => {
         gsap.timeline()
-            .to(refObject, {
+            .to(nodeObject, {
                 opacity: value,
                 scale: value,
                 duration: 0.5,
@@ -149,7 +147,12 @@ export default function NodeEditor() {
                 onComplete: () => {
                     
                     // Reset ref
-                    gsap.to(refObject, {
+                    gsap.to(nodeObject, {
+                        opacity: 1,
+                        scale: 1,
+                        duration: 0
+                    });
+                    gsap.to(arrowObject, {
                         opacity: 1,
                         scale: 1,
                         duration: 0
@@ -166,19 +169,65 @@ export default function NodeEditor() {
             });
     }, [dispatch]);
 
+    // --- Arrow animation
+    const SpawnArrowAnimation = useCallback((
+        arrowObject: HTMLDivElement | null,
+        nodeObject: HTMLDivElement | null,
+        initialValue: number, value: number,
+    ) => {
+        gsap.timeline()
+        .from(arrowObject, {
+            startAt: {
+                opacity: initialValue,
+            },
+            duration: initialValue
+        })
+        .from(nodeObject, {
+            startAt: {
+                opacity: initialValue,
+            },
+            duration: initialValue
+        })
+        .to(arrowObject, {
+            delay: animState.index === 0 ? 0 : 0.15,
+            opacity: value,
+            duration: animState.index === 0 ? 0 : 0.25,
+            ease: "linear",
+            onComplete: () => {
+                SpawnNodeAnimation(animState.index, nodeRef[animState.index].current, 1);
+            }
+        });
+    }, [animState.index, nodeRef, SpawnNodeAnimation]);
+
+    const DestroyArrowAnimation = useCallback((
+        arrowObject: HTMLDivElement | null,
+        nodeObject: HTMLDivElement | null,
+        value: number
+    ) => {
+        gsap.timeline()
+            .to(arrowObject, {
+                opacity: value,
+                duration: 0.5,
+                ease: "power1.inOut",
+                onComplete: () => {
+                    return DestroyNodeAnimation(nodeObject, arrowObject, 0, animState.callback);
+                }
+            });
+    }, [DestroyNodeAnimation, animState]);
+
     // --- Execute animation
     useEffect(() => {
-        if (nodeRef[animState.index] !== undefined) {
+        if (arrowRef[animState.index] !== undefined && nodeRef[animState.index] !== undefined) {
             switch (animState.type) {
                 case 'spawn':
-                    return SpawnNodeAnimation(animState.index, nodeRef[animState.index].current, 0, 1);
+                    return SpawnArrowAnimation(arrowRef[animState.index].current, nodeRef[animState.index].current, 0, 1);
                 case 'destroy':
-                    return DestroyNodeAnimation(nodeRef[animState.index].current, 0, animState.callback);
+                    return DestroyArrowAnimation(arrowRef[animState.index].current, nodeRef[animState.index].current, 0);
                 default:
                     return;
             }
         }
-    }, [animState, nodeRef, SpawnNodeAnimation, DestroyNodeAnimation]);
+    }, [animState, arrowRef, nodeRef, SpawnArrowAnimation, DestroyArrowAnimation]);
 
 
     return (
