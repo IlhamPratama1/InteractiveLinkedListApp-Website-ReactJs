@@ -9,10 +9,8 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
 
     pol: {
         max: dbConfig.pool.max,
-        min: dbConfig.pool.min,
-        acquire: dbConfig.pool.acquire,
-        idle: dbConfig.pool.idle
-    },
+        min: dbConfig.pool.min
+    }
     /* dialectOptions: {
         ssl: {
             require: true,

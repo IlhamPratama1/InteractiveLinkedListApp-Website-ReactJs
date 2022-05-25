@@ -1,0 +1,55 @@
+version: '3.7'
+
+services:
+  interactive-linked-list-database:
+    container_name: interactive-linked-list-database
+    image: postgres:14.2-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=Ilham11pratama
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - interactive-linked-list-data:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+    networks:
+    - interactive-linked-list-network
+  interactive-linked-list-api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      target: base
+    environment:
+      CHOKIDAR_USEPOLLING: "true"
+    container_name: interactive-linked-list-api
+    networks:
+    - interactive-linked-list-network
+    depends_on:
+      - interactive-linked-list-database
+    links:
+      - interactive-linked-list-database
+    expose:
+      - '8000'
+    ports:
+      - '8000:8000'
+    command: npm run start
+  interactive-linked-list-website:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: base
+    environment:
+      CHOKIDAR_USEPOLLING: "true"
+    container_name: interactive-linked-list-website
+    networks:
+    - interactive-linked-list-network
+    expose:
+      - '3000'
+    ports:
+      - '3000:3000'
+volumes:
+  interactive-linked-list-data:
+
+networks:
+  interactive-linked-list-network:
+    driver: bridge

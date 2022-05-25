@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 // #endregion
 
 // DB Connect
-db.sequelize.sync();
+db.sequelize.sync({ force: false });
 
 // Route
 require('./app/routes/index.routes')(app);
