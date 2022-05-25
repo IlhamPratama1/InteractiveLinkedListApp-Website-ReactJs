@@ -2,7 +2,6 @@
   "name": "interactive-linked-list-app-website-reactjs",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://api.jdoodle.com/v1/execute",
   "dependencies": {
     "@heroicons/react": "^1.0.5",
     "@reduxjs/toolkit": "^1.5.1",

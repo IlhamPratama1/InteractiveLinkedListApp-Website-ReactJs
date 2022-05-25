@@ -111,6 +111,12 @@ export default function NodeEditor() {
         value: number,
     ) => {
         gsap.timeline()
+            .from(refObject, {
+                startAt: {
+                    opacity: 0,
+                },
+                duration: 0
+            })
             .to(refObject, {
                 delay: 0.15,
                 opacity: value,
@@ -144,21 +150,23 @@ export default function NodeEditor() {
                 scale: value,
                 duration: 0.5,
                 ease: "power1.inOut",
-                onComplete: () => {
-                    
+                onComplete: () => {                    
+                        
                     // Reset ref
                     gsap.to(nodeObject, {
                         opacity: 1,
                         scale: 1,
                         duration: 0
                     });
-                    gsap.to(arrowObject, {
-                        opacity: 1,
-                        scale: 1,
-                        duration: 0
-                    });
+                    if (arrowObject !== null) {
+                        gsap.to(arrowObject, {
+                            opacity: 1,
+                            scale: 1,
+                            duration: 0
+                        });
+                    }
 
-                    // Eeset animation
+                    // Reset animation
                     dispatch<AnimAction>({
                         type: ActionType.RESETANIMATION
                     });
@@ -176,27 +184,27 @@ export default function NodeEditor() {
         initialValue: number, value: number,
     ) => {
         gsap.timeline()
-        .from(arrowObject, {
-            startAt: {
-                opacity: initialValue,
-            },
-            duration: initialValue
-        })
-        .from(nodeObject, {
-            startAt: {
-                opacity: initialValue,
-            },
-            duration: initialValue
-        })
-        .to(arrowObject, {
-            delay: animState.index === 0 ? 0 : 0.15,
-            opacity: value,
-            duration: animState.index === 0 ? 0 : 0.25,
-            ease: "linear",
-            onComplete: () => {
-                SpawnNodeAnimation(animState.index, nodeRef[animState.index].current, 1);
-            }
-        });
+            .from(arrowObject, {
+                startAt: {
+                    opacity: initialValue,
+                },
+                duration: initialValue
+            })
+            .from(nodeObject, {
+                startAt: {
+                    opacity: initialValue,
+                },
+                duration: initialValue
+            })
+            .to(arrowObject, {
+                delay: animState.index === 0 ? 0 : 0.15,
+                opacity: value,
+                duration: animState.index === 0 ? 0 : 0.25,
+                ease: "linear",
+                onComplete: () => {
+                    SpawnNodeAnimation(animState.index, nodeRef[animState.index].current, 1);
+                }
+            });
     }, [animState.index, nodeRef, SpawnNodeAnimation]);
 
     const DestroyArrowAnimation = useCallback((
@@ -220,14 +228,18 @@ export default function NodeEditor() {
         if (arrowRef[animState.index] !== undefined && nodeRef[animState.index] !== undefined) {
             switch (animState.type) {
                 case 'spawn':
-                    return SpawnArrowAnimation(arrowRef[animState.index].current, nodeRef[animState.index].current, 0, 1);
+                    if (animState.index === 0) SpawnNodeAnimation(animState.index, nodeRef[animState.index].current, 1);
+                    else SpawnArrowAnimation(arrowRef[animState.index].current, nodeRef[animState.index].current, 0, 1);
+                    break;
                 case 'destroy':
-                    return DestroyArrowAnimation(arrowRef[animState.index].current, nodeRef[animState.index].current, 0);
+                    if (animState.index === 0) DestroyNodeAnimation(nodeRef[animState.index].current, null, 0, animState.callback);
+                    else DestroyArrowAnimation(arrowRef[animState.index].current, nodeRef[animState.index].current, 0);
+                    break;
                 default:
                     return;
             }
         }
-    }, [animState, arrowRef, nodeRef, SpawnArrowAnimation, DestroyArrowAnimation]);
+    }, [animState, arrowRef, nodeRef, SpawnArrowAnimation, DestroyArrowAnimation, SpawnNodeAnimation, DestroyNodeAnimation]);
 
 
     return (

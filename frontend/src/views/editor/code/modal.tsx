@@ -1,5 +1,5 @@
 // Lib
-import axios from 'axios';
+import axiosInstance from '../../../axios';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { TerminalIcon } from '@heroicons/react/outline';
@@ -27,18 +27,7 @@ export default function Modal({ setModalOpen }: CodeSectionType) {
     function CopyCode() { navigator.clipboard.writeText(code); }
     async function Compile() {
         setOutput('Compiling...');
-        const res = await axios.post("/", {
-            clientId: '57b1254b6bd64b74f43b6d0fba331451',
-            clientSecret: '5d5d2ade9beb326d441c7d6842b08739730a2296f445c73d59d6a653ab277402',
-            script: code,
-            language: 'cpp',
-            versionIndex: 0
-        }, {
-            headers: {
-                'Content-type': 'application/json',
-                accept: 'application/json',
-            }
-        });
+        const res = await axiosInstance.post("/code/compile", { code: code });
         setOutput(res.data.output);
     }
 
