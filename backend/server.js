@@ -17,7 +17,24 @@ app.use(express.urlencoded({ extended: true }));
 // #endregion
 
 // DB Connect
-db.sequelize.sync({ force: false });
+db.sequelize.sync({ force: true }).then(() => {
+    initializeData();
+});
+
+function initializeData() {
+    db.roles.create({
+        id: 1,
+        name: 'guest'
+    });
+    db.roles.create({
+        id: 2,
+        name: 'user'
+    });
+    db.roles.create({
+        id: 3,
+        name: 'admin'
+    });
+}
 
 // Route
 require('./app/routes/index.routes')(app);
