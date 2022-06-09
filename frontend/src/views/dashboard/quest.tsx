@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
 
 // Redux component
-import { QuestType, StateDataType } from "../../type";
+import { FourStateDataType, QuestType} from "../../type";
 import { UserStateInterface } from "../../interface";
 import { GetMyQuests } from "../../api/questRequest";
 import { State } from "../../state";
@@ -17,7 +17,7 @@ export default function QuestView() {
     let navigate = useNavigate();
 
     // --- State
-    const [ quests, setQuests ] = useState<StateDataType<QuestType>>({ isLoading: true, data: [] });
+    const [ quests, setQuests ] = useState<FourStateDataType<QuestType>>({ isLoading: true, data: [], data2: [], data3: [], data4: [] });
 
     // --- Redux State
     const auth: UserStateInterface = useSelector((state: State) => state.auth);
@@ -25,7 +25,31 @@ export default function QuestView() {
     // --- Func
     const FetchUserList = useCallback(async () => {
         const data: Array<QuestType> = await GetMyQuests();
-        setQuests({ isLoading: false, data: data });
+        const singleQuest: Array<QuestType> = [];
+        const doubleQuest: Array<QuestType> = [];
+        const circularQuest: Array<QuestType> = [];
+        const universalQuest: Array<QuestType> = [];
+        for (let i = 0; i < data.length; i++) {
+            switch (data[i].quest.type) {
+                case 'single': {
+                    singleQuest.push(data[i]);
+                    break;
+                }
+                case 'double': {
+                    doubleQuest.push(data[i]);
+                    break;
+                }
+                case 'circular': {
+                    circularQuest.push(data[i]);
+                    break;
+                }
+                default: {
+                    universalQuest.push(data[i]);
+                    break;
+                }
+            }
+        }
+        setQuests({ isLoading: false, data: singleQuest, data2: doubleQuest, data3: circularQuest, data4: universalQuest });
     }, []);
 
     useEffect(() => {
@@ -57,7 +81,7 @@ export default function QuestView() {
                                 return (
                                     <QuestList 
                                         key={i}
-                                        isComplete={true}
+                                        isComplete={quest.isComplete}
                                         detail={quest.quest.detail}
                                         type={quest.quest.type}
                                     />
@@ -67,7 +91,7 @@ export default function QuestView() {
                     </div>
                 </div>
                 <div className="space-y-8">
-                    <h1 className='font-roboto font-bold text-lg'>Single Linked List</h1>
+                    <h1 className='font-roboto font-bold text-lg'>Double Linked List</h1>
                     <div className="space-y-4">
                         {quests.isLoading ? 
                             <>
@@ -76,11 +100,11 @@ export default function QuestView() {
                                 <div className='animate-pulse h-12 radius-md bg-slate-gray'></div>
                                 <div className='animate-pulse h-12 radius-md bg-slate-gray'></div>
                             </> :
-                            quests.data.map((quest, i) => {
+                            quests.data2.map((quest, i) => {
                                 return (
                                     <QuestList
                                         key={i}
-                                        isComplete={false}
+                                        isComplete={quest.isComplete}
                                         detail={quest.quest.detail}
                                         type={quest.quest.type}
                                     />
@@ -90,7 +114,7 @@ export default function QuestView() {
                     </div>
                 </div>
                 <div className="space-y-8">
-                    <h1 className='font-roboto font-bold text-lg'>Single Linked List</h1>
+                    <h1 className='font-roboto font-bold text-lg'>Circular Linked List</h1>
                     <div className="space-y-4">
                         {quests.isLoading ? 
                             <>
@@ -99,11 +123,11 @@ export default function QuestView() {
                                 <div className='animate-pulse h-12 radius-md bg-slate-gray'></div>
                                 <div className='animate-pulse h-12 radius-md bg-slate-gray'></div>
                             </> :
-                            quests.data.map((quest, i) => {
+                            quests.data3.map((quest, i) => {
                                 return (
                                     <QuestList
                                         key={i}
-                                        isComplete={true}
+                                        isComplete={quest.isComplete}
                                         detail={quest.quest.detail}
                                         type={quest.quest.type}
                                     />
@@ -113,7 +137,7 @@ export default function QuestView() {
                     </div>
                 </div>
                 <div className="space-y-8">
-                    <h1 className='font-roboto font-bold text-lg'>Single Linked List</h1>
+                    <h1 className='font-roboto font-bold text-lg'>Universal Quest</h1>
                     <div className="space-y-4">
                         {quests.isLoading ? 
                             <>
@@ -122,11 +146,11 @@ export default function QuestView() {
                                 <div className='animate-pulse h-12 radius-md bg-slate-gray'></div>
                                 <div className='animate-pulse h-12 radius-md bg-slate-gray'></div>
                             </> :
-                            quests.data.map((quest, i) => {
+                            quests.data4.map((quest, i) => {
                                 return (
                                     <QuestList
                                         key={i}
-                                        isComplete={false}
+                                        isComplete={quest.isComplete}
                                         detail={quest.quest.detail}
                                         type={quest.quest.type}
                                     />

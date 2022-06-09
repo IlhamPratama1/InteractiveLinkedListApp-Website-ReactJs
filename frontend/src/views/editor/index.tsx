@@ -146,6 +146,12 @@ export default function EditorView() {
 
     const CreateInitialData = useCallback( () => {
         const struct: StructStateInterface = JSON.parse(localStorage.getItem('struct_data') as string);
+        dispatch<NodeAction>({
+            type: ActionType.RESETNODE
+        });
+        dispatch<CodeAction>({
+            type: ActionType.RESETCODE
+        });
         dispatch<ListAction>({
             type: ActionType.SETTYPE,
             payload: type ? type : 'single'

@@ -9,7 +9,7 @@ import Cookies from 'universal-cookie';
 // Redux Component
 import { State } from '../../state';
 import { UserStateInterface } from '../../interface';
-import { ListType, QuestType, StateDataType } from '../../type';
+import { ListType, QuestType, StateDataType, TwoStateDataType } from '../../type';
 
 // React Component
 import NewProject from './components/newProject';
@@ -34,7 +34,7 @@ export default function ProjectView() {
     // --- State
     const projectList = ['single', 'double', 'circular'];
     const [ lists, setLists ] = useState<StateDataType<ListType>>({ isLoading: true, data: [] });
-    const [ quests, setQuests ] = useState<StateDataType<QuestType>>({ isLoading: true, data: [] });
+    const [ quests, setQuests ] = useState<TwoStateDataType<QuestType>>({ isLoading: true, data: [], data2: [] });
     const [ selectedProject, setSelectedProject ] = useState<string>('single');
     const [ firstTime, setFirstTime ] = useState<boolean>(true);
     
@@ -56,9 +56,16 @@ export default function ProjectView() {
     const FetchUserList = useCallback(async () => {
         const data: Array<ListType> = await GetMyLists();
         const questData: Array<QuestType> = await GetMyQuests();
-        const questArray: Array<QuestType> = questData.slice(0, 4).sort((a) => (a.isComplete ? 1 : -1));
+
+        const completeQuestArray: Array<QuestType> = [];
+        const uncompleteQuestArray: Array<QuestType> = [];
+
+        for (let i = 0; i < questData.length; i++) {
+            if (questData[i].isComplete) completeQuestArray.push(questData[i]);
+            else uncompleteQuestArray.push(questData[i]);
+        }
         setLists({ isLoading: false, data: data });
-        setQuests({ isLoading: false, data: questArray });
+        setQuests({ isLoading: false, data: completeQuestArray.slice(0, 4), data2: uncompleteQuestArray.slice(0, 4) });
     }, []);
 
     useEffect(() => {
@@ -140,7 +147,7 @@ export default function ProjectView() {
                         </div>
                         { auth.token ? 
                             <div className='space-y-4'>
-                                <h1 className='font-roboto font-bold text-md'>Complete</h1>
+                                {quests.data.length > 0 ? <h1 className='font-roboto font-bold text-md'>Complete</h1> : null }
                                 {quests.isLoading
                                     ?   <>
                                             <div className='animate-pulse h-12 radius-md bg-slate-gray'></div>
@@ -155,15 +162,15 @@ export default function ProjectView() {
                                                 type={quest.quest.type}
                                             />
                                         );
-                                    }).slice(0, 2)
+                                    }).slice(0, quests.data.length - (quests.data2.length / 2))
                                 }
-                                <h1 className='font-roboto font-bold text-md'>InComplete</h1>
+                                {quests.data2.length > 0 ? <h1 className='font-roboto font-bold text-md'>InComplete</h1> : null }
                                 {quests.isLoading
                                     ?   <>
                                             <div className='animate-pulse h-12 radius-md bg-slate-gray'></div>
                                             <div className='animate-pulse h-12 radius-md bg-slate-gray'></div>
                                         </>
-                                    : quests.data.map((quest, i) => {
+                                    : quests.data2.map((quest, i) => {
                                         return (
                                             <QuestList
                                                 key={i} 
@@ -172,7 +179,7 @@ export default function ProjectView() {
                                                 type={quest.quest.type}
                                             />
                                         );
-                                    }).slice(2, 4)
+                                    }).slice(0, quests.data2.length - (quests.data.length / 2))
                                 }
                             </div> :
                             <div className='text-center py-11'>

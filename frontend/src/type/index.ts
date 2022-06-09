@@ -30,6 +30,20 @@ export type StateDataType<T> = {
     data: Array<T>
 }
 
+export type TwoStateDataType<T> = {
+    isLoading: boolean,
+    data: Array<T>
+    data2: Array<T>
+}
+
+export type FourStateDataType<T> = {
+    isLoading: boolean,
+    data: Array<T>
+    data2: Array<T>
+    data3: Array<T>
+    data4: Array<T>
+}
+
 // GLobal type for input struct
 export type StructFormType = {
     type: string,

@@ -1,6 +1,6 @@
 // Lib
 import { ReactNode } from 'react';
-import { OfficeBuildingIcon, TemplateIcon, SaveIcon, ClipboardListIcon, UserCircleIcon } from '@heroicons/react/outline';
+import { OfficeBuildingIcon, SaveIcon, ClipboardListIcon, UserCircleIcon } from '@heroicons/react/outline';
 import { Link, useLocation } from 'react-router-dom';
 
 // Axios
@@ -49,10 +49,6 @@ export default function DashboardNavbar({ children }: DashboardNavType) {
                         <DashboardMenu pathname='project'>
                             <OfficeBuildingIcon className='w-7' />
                             <h1 className='text-lg font-bold'>Project</h1>
-                        </DashboardMenu>
-                        <DashboardMenu pathname='example'>
-                            <TemplateIcon className='w-7' />
-                            <h1 className='text-lg font-bold'>Example</h1>
                         </DashboardMenu>
                         <DashboardMenu pathname='saved'>
                             <SaveIcon className='w-7' />
