@@ -18,9 +18,9 @@ export function RegisterUserAuth(formData: FormInterface, successCallback: Funct
     .then(() => {
         successCallback(formData, redirect, errorCallback);
     })
-    .catch((err) => {
+    .catch(error => {
         let errors: ErrorMessageInterface = {};
-        errors["404"] = "Error credential: " + err;
+        errors["404"] = error.response.data.message;
         errorCallback(errors);
     });
 }

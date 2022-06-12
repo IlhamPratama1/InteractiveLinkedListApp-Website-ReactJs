@@ -17,9 +17,9 @@ export function LoginUserAuth(formData: FormInterface, successCallback: Function
 		axiosInstance.defaults.headers.common['x-access-token'] = GetAccessToken();
         successCallback(res.data.accessToken);
     })
-    .catch((err) => {
+    .catch(error => {
         let errors: ErrorMessageInterface = {};
-        errors["404"] = "Email not registered: " + err;
+        errors["404"] = error.response.data.message;
         errorCallback(errors);
     });
 }

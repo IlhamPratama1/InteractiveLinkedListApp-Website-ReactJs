@@ -11,6 +11,7 @@ import { FormDataType, ErrorMessageType } from '../../type';
 // External Function
 import { LoginValidation } from '../../validation/loginValidation';
 import { LoginUserAuth } from '../../authentication/login';
+import getGoogleOAuthURL from '../../utils/getGoogleUrl';
 
 
 export default function LoginView() {
@@ -68,12 +69,12 @@ export default function LoginView() {
                     <div className='w-full px-14 md:px-16 lg:px-20 space-y-12'>
                         {/* --- Header --- */}
                         <div className='flex space-x-4'>
-                            <h1 className='font-roboto text-4xl font-bold'>Register</h1>
+                            <h1 className='font-roboto text-4xl font-bold'>Login</h1>
                             <p className='flex items-end font-roboto text-2xl'>or</p>
                             <Link to={'/register'} className='font-roboto text-4xl' style={{
                                     'textDecoration': 'underline',
                                     'textDecorationColor': '#6FFFE9',                            
-                                }}>Login</Link>
+                                }}>Register</Link>
                         </div>
 
                         {/* --- Form --- */}
@@ -94,6 +95,14 @@ export default function LoginView() {
                                 <br />
                                 <span style={{ color: "red" }}>{error["password"]}</span>
                             </div>
+                            <br />
+
+                            {/* --- Forget Password --- */}
+                            <a href={getGoogleOAuthURL()} className='font-roboto text-sm' style={{
+                                'textDecoration': 'underline',
+                                'textDecorationColor': '#5BC0BE',
+                            }}>Login Google</a>
+                            
                             <br />
 
                             {/* --- Forget Password --- */}

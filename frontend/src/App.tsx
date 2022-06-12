@@ -7,6 +7,7 @@ import LoginView from "./views/auth/loginView";
 import RegisterView from "./views/auth/registerView";
 import DashboardView from "./views/dashboard";
 import EditorView from "./views/editor";
+import OauthGoogleView from "./views/auth/oauthGoogle";
 
 // Css
 import './App.css';
@@ -18,6 +19,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<LoginView />} />
         <Route path="/register" element={<RegisterView />} />
+        <Route path="/google/oauth/" element={<OauthGoogleView />} />
         <Route path="/dashboard/*" element={<DashboardView />} />
         <Route path="/editor/:type/:encodedId" element={<EditorView />} />
       </Routes>

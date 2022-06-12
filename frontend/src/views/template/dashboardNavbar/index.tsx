@@ -1,5 +1,6 @@
 // Lib
 import { ReactNode } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { OfficeBuildingIcon, SaveIcon, ClipboardListIcon, UserCircleIcon } from '@heroicons/react/outline';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -22,6 +23,7 @@ type LinkRefType = {
 export default function DashboardNavbar({ children }: DashboardNavType) {
     // --- Lib
     const location = useLocation();
+    const navigate = useNavigate();
     const { LogoutUser } = useHookDispatch();
    
     // --- OnSubmit
@@ -29,6 +31,7 @@ export default function DashboardNavbar({ children }: DashboardNavType) {
         localStorage.removeItem('access_token');
 		axiosInstance.defaults.headers.common['x-access-token'] = false;
         LogoutUser();
+        navigate('/login/')
     }
 
     // --- Render Component
