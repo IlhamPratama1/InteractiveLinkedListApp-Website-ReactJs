@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { TemplateIcon, ViewGridAddIcon, CollectionIcon, SearchCircleIcon, TrashIcon, FolderRemoveIcon, FireIcon } from "@heroicons/react/outline";
 
 // Redux Component
-import { selectAuth, selectCode, selectNode, selectStruct, selectTool, useHookDispatch } from "../../../state/dispatch";
-import { CodeStateInterface, StructStateInterface, ToolStateInterface, UserStateInterface } from "../../../interface";
+import { selectAnim, selectAuth, selectCode, selectNode, selectStruct, selectTool, useHookDispatch } from "../../../state/dispatch";
+import { AnimStateInterface, CodeStateInterface, StructStateInterface, ToolStateInterface, UserStateInterface } from "../../../interface";
 import { SearchAction, ToolAction } from "../../../state/actions";
 import { ActionType } from "../../../state/action-types";
 
@@ -25,17 +25,18 @@ export default function ToolEditor() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    // --- Redux component
+    // --- Redux state
     const nodeData: Array<any> = useSelector(selectNode);
     const { listId }: StructStateInterface = useSelector(selectStruct);
     const code: CodeStateInterface = useSelector(selectCode);
     const { toolIndex, editIndex }: ToolStateInterface = useSelector(selectTool);
+    const { index }: AnimStateInterface = useSelector(selectAnim);
     const { token }: UserStateInterface = useSelector(selectAuth);
     const {
         SetNodeData, SetAnimation, ResetNode,
-        OpenToolIndex, CloseTool, OpenSnackbar,
-        SetLastOperation, ResetCode, OpenNodeIndex,
-        ResetAllTools,
+        OpenToolIndex, OpenSnackbar, SetLastOperation,
+        ResetCode, OpenEditNodeIndex, ResetAllTools,
+        CloseTool
     } = useHookDispatch();
 
     // --- Func
@@ -62,11 +63,13 @@ export default function ToolEditor() {
 
     // --- Node Func
     function AddNewNodeInTail() {
+        // Check anim if running
+        if (index !== -1) return;
 
         // Validation
         if (editIndex !== -1) {
             OpenSnackbar('You must fill empty node first', 1);
-            OpenNodeIndex(editIndex);
+            OpenEditNodeIndex(editIndex);
             return;
         }
         // close all tool modal
@@ -84,12 +87,16 @@ export default function ToolEditor() {
     }
 
     function RemoveAllNode() {
+        if (index !== -1) return;
+
         ResetNode();
-        CloseTool();
+        ResetAllTools();
         if (token) UpdateNodeData(listId, []);
     }
 
     function RemoveCodeAndLog() {
+        if (index !== -1) return;
+
         ResetCode();
         CloseTool();
 

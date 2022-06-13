@@ -84,18 +84,19 @@ export default class CodeGenerator {
         ${this._structName} *ptr;
         ptr = start;
         int index = 0;
+        cout << "- Seach node" << endl;
         while (ptr != NULL) 
         { 
             if (ptr -> ${searchType} == ${searchType}) {
-                cout << "${searchType} : " << ${searchType} << endl;
-                cout << "Ada di INDEX "<< index << endl << endl;
+                cout << " => ${searchType} : " << ${searchType} << endl;
+                cout << " => Node in index "<< index << endl;
                 return start;
             }
             ptr = ptr->next; 
             index++;
         }
-        cout << "${searchType} : " << ${searchType} << endl;
-        cout << "TIDAK ADA" << endl << endl;
+        cout << " => ${searchType} : " << ${searchType} << endl;
+        cout << " => Node data not found" << endl;
         return start; 
     }
     `;
@@ -112,6 +113,7 @@ export default class CodeGenerator {
         }
         let mainFunction = `
     int main(int argc, char *argv[]) {
+        cout << "OPERATION LIST" << endl;
         ${functionOperation}
         start = display(start);
         return 0;

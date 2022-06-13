@@ -32,7 +32,7 @@ export default function StructView() {
     // --- Redux state
     const struct: StructStateInterface = useSelector(selectStruct);
     const auth: UserStateInterface = useSelector(selectAuth);
-    const { SetStructName, SetStructData } = useHookDispatch();
+    const { SetStructName, SetStructData, SetQuestComplete } = useHookDispatch();
     const projectType: string = useSelector(selectProjectType);
 
     // --- State
@@ -64,7 +64,12 @@ export default function StructView() {
         if(formIsValid) {
             if (auth.token) {
                 const structs = await PostNewStruct(struct.structName, struct.structData, Number(DecodeId(encodedId)));
-                encodedId = EncodeId(structs.listId)
+                encodedId = EncodeId(structs.listId);
+                const questData: string[] = struct.structData.map((data) => { return data.type });
+                questData.forEach((data) => {
+                    SetQuestComplete(data, 'struct');
+                });
+                if (questData.length > 3) SetQuestComplete('data', 'struct');
             } else {
                 localStorage.setItem('struct_data', JSON.stringify(struct));
             }

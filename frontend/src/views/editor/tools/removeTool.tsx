@@ -4,8 +4,8 @@ import { useSelector } from 'react-redux';
 import { UpdateNodeData } from '../../../api/nodeRequest';
 
 // Redux component
-import { StructStateInterface, UserStateInterface } from '../../../interface';
-import { selectAuth, selectNode, selectProjectType, selectStruct, selectTool, useHookDispatch } from '../../../state/dispatch';
+import { AnimStateInterface, StructStateInterface, UserStateInterface } from '../../../interface';
+import { selectAnim, selectAuth, selectNode, selectProjectType, selectStruct, selectTool, useHookDispatch } from '../../../state/dispatch';
 
 // External function
 import { CheckRegexValidation } from '../../../regex';
@@ -18,6 +18,7 @@ export default function RemoveTool() {
     // --- Redux state 
     const nodeData: Array<any> = useSelector(selectNode);
     const { editIndex } = useSelector(selectTool);
+    const anim: AnimStateInterface = useSelector(selectAnim);
     const projectType: string = useSelector(selectProjectType);
     const { listId }: StructStateInterface = useSelector(selectStruct);
     const { token }: UserStateInterface = useSelector(selectAuth);
@@ -37,6 +38,9 @@ export default function RemoveTool() {
     // --- OnSubmit
     function RemoveNodeAtIndex(e: React.MouseEvent) {
         e.preventDefault();
+
+        // Check anim if running
+        if (anim.index !== -1) return;
 
         // Validation #1
         if (editIndex !== -1) {

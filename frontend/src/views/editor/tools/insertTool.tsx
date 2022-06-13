@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 // Redux component
-import { selectNode, selectTool, useHookDispatch } from '../../../state/dispatch';
+import { selectAnim, selectNode, selectTool, useHookDispatch } from '../../../state/dispatch';
 
 // External function
 import { CheckRegexValidation } from '../../../regex';
@@ -16,19 +16,20 @@ export default function InsertTool() {
 
     // --- Redux State
     const nodeData = useSelector(selectNode);
+    const { index } = useSelector(selectAnim);
     const { editIndex } = useSelector(selectTool);
     const { 
         SetNodeData, SetLastOperation, SetAnimation,
-        ResetAllTools, OpenSnackbar, OpenNodeIndex,
+        CloseTool, OpenSnackbar, OpenEditNodeIndex,
     } = useHookDispatch();
 
     // --- Func
     function InsertNode(insertIndex: number, operation: string) {
-
+        
         // Validation
         if (editIndex !== -1) {
             OpenSnackbar('You must fill empty node first', 1);
-            OpenNodeIndex(editIndex);
+            OpenEditNodeIndex(editIndex);
             return;
         }
 
@@ -48,7 +49,10 @@ export default function InsertTool() {
     function InsertNodeBeforeIndex(e: React.MouseEvent) {
         e.preventDefault();
 
-        ResetAllTools();
+        // Check anim if running
+        if (index !== -1) return;
+
+        CloseTool();
 
         if (Number(insertBeforeIndex) > nodeData.length - 1) 
             OpenSnackbar('Index out of bonds', 1);
@@ -59,7 +63,10 @@ export default function InsertTool() {
     function InsertNodeAfterIndex(e: React.MouseEvent) {
         e.preventDefault();
 
-        ResetAllTools();
+        // Check anim if running
+        if (index !== -1) return;
+
+        CloseTool();
 
         if (nodeData.length === 0)
             OpenSnackbar("Cannot 'insert after' in empty node", 1);

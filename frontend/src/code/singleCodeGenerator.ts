@@ -77,8 +77,9 @@ export default class SingleLinkCodeGerator extends CodeGenerator {
         struct ${this._structName} *ptr;
         int index = 0;
         ptr = start;
+        cout << endl << "LINKED LIST RESULT :" << endl;
         while(ptr != NULL) {
-            cout << "INDEX " << index << endl;
+            cout << "Index " << index << endl;
             cout << "DATA " << endl;
             ${this.MapDisplayValue()}
             cout << endl;
@@ -113,6 +114,7 @@ export default class SingleLinkCodeGerator extends CodeGenerator {
             new_node -> next = NULL;
             start = new_node;
         }
+        cout << "- Adding new node" << endl;
         return start;
     }
     `;
@@ -142,7 +144,7 @@ export default class SingleLinkCodeGerator extends CodeGenerator {
     	    new_node -> next = ptr -> next;
     	    ptr -> next = new_node;
     	}
-    		
+        cout << "- Insert node before index " << index << endl;
     	return start;
     }
     `;
@@ -166,7 +168,7 @@ export default class SingleLinkCodeGerator extends CodeGenerator {
     	
     	new_node -> next = ptr -> next;
     	ptr -> next = new_node;
-    		
+        cout << "- Insert node after index " << index << endl;
     	return start;
     }
     `;
@@ -194,6 +196,7 @@ export default class SingleLinkCodeGerator extends CodeGenerator {
             deleteNode -> next = NULL;
             free(deleteNode);
         }
+        cout << "- Delete node in index " << index << endl;
         return start;
     }
     `;

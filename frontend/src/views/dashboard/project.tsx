@@ -118,15 +118,19 @@ export default function ProjectView() {
                                             <div className='animate-pulse h-24 radius-md bg-slate-gray'></div>
                                             <div className='animate-pulse h-24 radius-md bg-slate-gray'></div>
                                         </>
-                                    : lists.data.map((list, i) => {
-                                        return (
-                                            <ListProject
-                                                key={i}
-                                                list={list}
-                                                FetchUserList={FetchUserList}
-                                            />
-                                        );
-                                    }).slice(0, 3)
+                                    : lists.data.length > 0
+                                        ? lists.data.map((list, i) => {
+                                            return (
+                                                <ListProject
+                                                    key={i}
+                                                    list={list}
+                                                    FetchUserList={FetchUserList}
+                                                />
+                                            );
+                                        }).slice(0, 3)
+                                        :   <div className='text-center py-10'>
+                                                <h1 className='font-roboto text-lg'>Try to create new project</h1>
+                                            </div>
                                 }
                             </div> :
                             <div className='text-center py-10'>

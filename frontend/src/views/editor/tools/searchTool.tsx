@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 // Redux component
-import { selectNode, selectProjectType, selectStruct, useHookDispatch } from '../../../state/dispatch';
-import { StructStateInterface } from '../../../interface';
+import { selectAnim, selectNode, selectProjectType, selectStruct, useHookDispatch } from '../../../state/dispatch';
+import { AnimStateInterface, StructStateInterface } from '../../../interface';
 
 // External function
 import { CheckRegexValidation } from '../../../regex';
@@ -14,12 +14,13 @@ export default function SearchTool() {
     // --- Redux state
     const projectType: string = useSelector(selectProjectType);
     const nodeData: Array<any> = useSelector(selectNode);
+    const anim: AnimStateInterface = useSelector(selectAnim);
     const { structData }: StructStateInterface = useSelector(selectStruct);
     const { 
         GenerateCode, SetLastOperation, 
         OpenNodeIndex, SetSearchLog, 
         SetSearchResult, SetQuestComplete,
-        CloseTool
+        CloseTool, OpenSnackbar
     } = useHookDispatch();
 
     // --- State
@@ -46,11 +47,17 @@ export default function SearchTool() {
     function SearchNodeAtIndex(valueBy: string, ind: number, e: React.MouseEvent) {
         e.preventDefault();
 
+        // Check anim if running
+        if (anim.index !== -1) return;
+
         const data = searchIndex[ind];
         for (let i = 0; i < nodeData.length; i++) {
             if (nodeData[i][valueBy] === searchIndex[ind]) {
                 SetSearchResult(i);
                 OpenNodeIndex(i);
+            }
+            if (i === nodeData.length - 1 && nodeData[i][valueBy] !== searchIndex[ind]) {
+                OpenSnackbar("Node data not found", 1);
             }
         }
 

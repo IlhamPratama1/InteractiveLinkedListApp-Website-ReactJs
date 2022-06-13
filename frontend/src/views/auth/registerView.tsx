@@ -13,6 +13,7 @@ import { FormDataType, ErrorMessageType } from '../../type';
 import { RegisterValidation } from '../../validation/registerValidation';
 import { LoginUserAuth } from '../../authentication/login';
 import { RegisterUserAuth } from '../../authentication/register';
+import getGoogleOAuthURL from '../../utils/getGoogleUrl';
 
 
 export default function RegisterView() {
@@ -85,59 +86,65 @@ export default function RegisterView() {
                         </div>
 
                         {/* --- Form --- */}
-                        <form className="space-y-6 w-full">
+                        <div>
+                            <form className="space-y-6 w-full">
+                                {/* --- Username --- */}
+                                <div className="space-y-3">
+                                    <label className="font-roboto text-lg">Username</label>
+                                    <input onChange={handleChange('username')} placeholder="Enter your username" className="focus:outline-none focus:border-cyan-dark p-4 w-full h-13 border rounded-md"></input>
+                                    <br />
+                                    <span style={{ color: "red" }}>{error["username"]}</span>
+                                </div>
 
-                            {/* --- Username --- */}
-                            <div className="space-y-3">
-                                <label className="font-roboto text-lg">Username</label>
-                                <input onChange={handleChange('username')} placeholder="Enter your username" className="focus:outline-none focus:border-cyan-dark p-4 w-full h-13 border rounded-md"></input>
+                                {/* --- Email --- */}
+                                <div className="space-y-3">
+                                    <label className="font-roboto text-lg">Email</label>
+                                    <input onChange={handleChange('email')} placeholder="Enter your email" className="focus:outline-none focus:border-cyan-dark p-4 w-full h-13 border rounded-md"></input>
+                                    <br />
+                                    <span style={{ color: "red" }}>{error["email"]}</span>
+                                </div>
+
+                                {/* --- Password --- */}
+                                <div className="space-y-3">
+                                    <label className="font-roboto text-lg">Password</label>
+                                    <input type="password" required onChange={handleChange('password')}  placeholder="Enter your password" className="focus:outline-none focus:border-cyan-dark p-4 w-full h-13 border rounded-md"></input>
+                                    <br />
+                                    <span style={{ color: "red" }}>{error["password"]}</span>
+                                </div>
+
+                                {/* --- Confirm --- */}
+                                <div className="space-y-3">
+                                    <label className="font-roboto text-lg">Confirm Password</label>
+                                    <input type="password" required onChange={handleChange('confirmPassword')}  placeholder="Retype your password" className="focus:outline-none focus:border-cyan-dark p-4 w-full h-13 border rounded-md"></input>
+                                    <br />
+                                    <span style={{ color: "red" }}>{error["confirmPassword"]}</span>
+                                    <br />
+                                    <span style={{ color: "red" }}>{error["match"]}</span>
+                                </div>
+
+                                {/* --- Forget Password --- */}
+                                <Link to={'/register'} className='font-roboto text-sm' style={{
+                                    'textDecoration': 'underline',
+                                    'textDecorationColor': '#5BC0BE',
+                                }}>Forget Password</Link>
+                                
+
+                                {/* --- Submit Button --- */}
+                                <div className="flex items-center space-x-3">
+                                    <button onClick={event => HandleSubmit(event)} className="focus:outline-none text-md font-bold font-roboto py-3 px-10 bg-cyan-dark hover:bg-cyan-light text-white hover:text-black transition duration-300 rounded-md">Sign In</button>
+                                        {loadingSubmit && <svg className="animate-spin bg-black h-5 w-5 mr-3" viewBox="0 0 24 24"></svg> }
+                                </div>
                                 <br />
-                                <span style={{ color: "red" }}>{error["username"]}</span>
-                            </div>
 
-                            {/* --- Email --- */}
-                            <div className="space-y-3">
-                                <label className="font-roboto text-lg">Email</label>
-                                <input onChange={handleChange('email')} placeholder="Enter your email" className="focus:outline-none focus:border-cyan-dark p-4 w-full h-13 border rounded-md"></input>
-                                <br />
-                                <span style={{ color: "red" }}>{error["email"]}</span>
-                            </div>
-
-                            {/* --- Password --- */}
-                            <div className="space-y-3">
-                                <label className="font-roboto text-lg">Password</label>
-                                <input type="password" required onChange={handleChange('password')}  placeholder="Enter your password" className="focus:outline-none focus:border-cyan-dark p-4 w-full h-13 border rounded-md"></input>
-                                <br />
-                                <span style={{ color: "red" }}>{error["password"]}</span>
-                            </div>
-
-                            {/* --- Confirm --- */}
-                            <div className="space-y-3">
-                                <label className="font-roboto text-lg">Confirm Password</label>
-                                <input type="password" required onChange={handleChange('confirmPassword')}  placeholder="Retype your password" className="focus:outline-none focus:border-cyan-dark p-4 w-full h-13 border rounded-md"></input>
-                                <br />
-                                <span style={{ color: "red" }}>{error["confirmPassword"]}</span>
-                                <br />
-                                <span style={{ color: "red" }}>{error["match"]}</span>
-                            </div>
-
-                            {/* --- Forget Password --- */}
-                            <Link to={'/register'} className='font-roboto text-sm' style={{
-                                'textDecoration': 'underline',
-                                'textDecorationColor': '#5BC0BE',
-                            }}>Forget Password</Link>
-
-                            {/* --- Submit Button --- */}
-                            <div className="flex items-center space-x-3">
-                                <button onClick={event => HandleSubmit(event)} className="focus:outline-none text-md font-bold font-roboto py-3 px-10 bg-cyan-dark hover:bg-cyan-light text-white hover:text-black transition duration-300 rounded-md">Sign In</button>
-                                    {loadingSubmit && <svg className="animate-spin bg-black h-5 w-5 mr-3" viewBox="0 0 24 24"></svg> }
-                            </div>
-                            <br />
-
-                            {/* --- Error Message --- */}
-                            <span style={{ color: "red" }}>{error["404"]}</span>
-                        </form>
-
+                                {/* --- Error Message --- */}
+                                <span style={{ color: "red" }}>{error["404"]}</span>
+                            </form>
+                            
+                            <a href={getGoogleOAuthURL()} className="border-cyan-dark border rounded-md px-4 py-3 flex items-center space-x-2 w-56">
+                                <img className='w-8 h-8' alt="home" src="/static/icons/google.png" />
+                                <h1 className="font-roboto text-md">Sign Up with Google</h1>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
