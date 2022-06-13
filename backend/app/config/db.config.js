@@ -1,8 +1,8 @@
 module.exports = {
-  HOST: "interactive-linked-list-database",
+  HOST: "localhost",
   PORT: 5432,
   USER: "postgres",
-  PASSWORD: "Ilham11pratama",
+  PASSWORD: "",
   DB: "interactive_linkedlist",
   dialect: "postgres",
   pool: {
