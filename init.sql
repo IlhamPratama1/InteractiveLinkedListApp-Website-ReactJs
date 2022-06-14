@@ -1,1 +1,0 @@
-CREATE DATABASE interactive_linkedlist OWNER postgres;
