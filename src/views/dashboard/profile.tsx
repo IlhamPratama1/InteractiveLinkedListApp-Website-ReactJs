@@ -45,7 +45,7 @@ export default function ProfileView() {
                         <img className='w-96' src='/static/illustrations/profile.svg' alt='profile' />
                         <div className="space-y-2">
                             <h1 className='font-bold text-3xl'>My Profile</h1>
-                            <p className='w-96 text-md opacity-60'>Detail information about user profile. click Edit to change profile</p>
+                            <p className='w-96 text-md opacity-60'>Detail information about user profile. click Edit to change user profile</p>
                         </div>
                     </div>
                 </div>
