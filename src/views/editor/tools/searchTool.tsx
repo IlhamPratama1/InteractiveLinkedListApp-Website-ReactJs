@@ -55,8 +55,9 @@ export default function SearchTool() {
             if (nodeData[i][valueBy] === searchIndex[ind]) {
                 SetSearchResult(i);
                 OpenNodeIndex(i);
+                break;
             }
-            if (i === nodeData.length - 1 && nodeData[i][valueBy] !== searchIndex[ind]) {
+            else if (i === nodeData.length - 1 && nodeData[i][valueBy] !== searchIndex[ind]) {
                 OpenSnackbar("Node data not found", 1);
             }
         }
