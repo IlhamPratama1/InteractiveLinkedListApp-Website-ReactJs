@@ -10,6 +10,7 @@ import Cookies from 'universal-cookie';
 import { State } from '../../state';
 import { UserStateInterface } from '../../interface';
 import { ListType, QuestType, StateDataType, TwoStateDataType } from '../../type';
+import { useHookDispatch } from '../../state/dispatch';
 
 // React Component
 import NewProject from './components/newProject';
@@ -30,6 +31,7 @@ export default function ProjectView() {
 
     // --- Redux State
     const auth: UserStateInterface = useSelector((state: State) => state.auth);
+    const { ResetStructData } = useHookDispatch();
 
     // --- State
     const projectList = ['single', 'double', 'circular'];
@@ -45,6 +47,7 @@ export default function ProjectView() {
 
     async function SubmitListType() {
         let encodedId: string = 'try';
+        ResetStructData();
         if (auth.token) {
             const list: ListType = await PostNewList(selectedProject);
             encodedId = hashids.encode(list.id);

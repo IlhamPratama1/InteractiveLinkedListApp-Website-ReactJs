@@ -20,3 +20,11 @@ export const SetStructData = (structData: Array<StructFormInterface>) => {
         });
     };
 }
+
+export const ResetStructData = () => {
+    return (dispatch: Dispatch<StructAction>) => {
+        dispatch({
+            type: ActionType.RESETSTRUCTDATA
+        });
+    };
+}

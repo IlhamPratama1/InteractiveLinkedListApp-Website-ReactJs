@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 // Redux component
-import { selectAnim, selectNode, selectProjectType, selectStruct, useHookDispatch } from '../../../state/dispatch';
-import { AnimStateInterface, StructStateInterface } from '../../../interface';
+import { selectAnim, selectNode, selectProjectType, selectStruct, selectTool, useHookDispatch } from '../../../state/dispatch';
+import { AnimStateInterface, StructStateInterface, ToolStateInterface } from '../../../interface';
 
 // External function
 import { CheckRegexValidation } from '../../../regex';
@@ -15,6 +15,7 @@ export default function SearchTool() {
     const projectType: string = useSelector(selectProjectType);
     const nodeData: Array<any> = useSelector(selectNode);
     const anim: AnimStateInterface = useSelector(selectAnim);
+    const { editIndex }: ToolStateInterface = useSelector(selectTool);
     const { structData }: StructStateInterface = useSelector(selectStruct);
     const { 
         GenerateCode, SetLastOperation, 
@@ -49,6 +50,13 @@ export default function SearchTool() {
 
         // Check anim if running
         if (anim.index !== -1) return;
+
+        if (editIndex !== -1) {
+            OpenSnackbar('You must fill empty node first', 1);
+            OpenNodeIndex(editIndex);
+            CloseTool();
+            return;
+        }
 
         const data = searchIndex[ind];
         for (let i = 0; i < nodeData.length; i++) {

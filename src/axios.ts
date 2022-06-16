@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseURL = 'http://localhost:8000/api/';
+const baseURL = 'https://api.ilhampratama-interactive-linked-list.xyz/api/';
 
 const axiosInstance = axios.create({
 	baseURL: baseURL,
