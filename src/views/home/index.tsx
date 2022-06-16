@@ -22,6 +22,7 @@ export default function HeroSection() {
                     </div>
                 </div>
             </div>
+            <h1 className="text-center font-roboto text-md">Copyright © 2022 Ilham Pratama ®</h1>
         </div>
     );
 }
