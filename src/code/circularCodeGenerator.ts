@@ -297,7 +297,7 @@ export default class CircularCodeGenerator extends CodeGenerator {
         ptr = start;
         int index = 0;
         cout << "- Seach node" << endl;
-        while (ptr -> next != start) 
+        while (true) 
         { 
             if (ptr -> ${searchType} == ${searchType}) {
                 cout << " => ${searchType} : " << ${searchType} << endl;
@@ -306,6 +306,7 @@ export default class CircularCodeGenerator extends CodeGenerator {
             }
             ptr = ptr->next; 
             index++;
+            if (ptr == start) break;
         }
         cout << " => ${searchType} : " << ${searchType} << endl;
         cout << " => Node data not found" << endl;
