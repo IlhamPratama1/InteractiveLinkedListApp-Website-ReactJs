@@ -1,4 +1,5 @@
 import { ErrorMessageInterface, FormInterface, } from "../interface";
+import { CheckRegexValidation } from "../regex";
 
 // Register Validation
 // Check if username or password is exist
@@ -14,6 +15,10 @@ export function RegisterValidation(formData: FormInterface, callback: Function):
     if (formData.email === "") {
         formIsValid = false;
         errors["email"] = "email can't be empty";
+    }
+    if (!formData.email.match(CheckRegexValidation('email'))){
+        formIsValid = false;
+        errors["email"] = "must be valid email";
     }
     if (formData.password === "") {
         formIsValid = false;

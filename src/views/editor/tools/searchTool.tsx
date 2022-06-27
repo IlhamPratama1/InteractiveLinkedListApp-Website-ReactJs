@@ -97,7 +97,7 @@ export default function SearchTool() {
                             <p className="text-sm font-bold">Search by {variable.value}</p>
                             <label className='text-xs opacity-40'>Index</label>
                             <div className='space-y-3'>
-                                <input value={searchIndex[i]} onChange={e => HandleChange(e, i, variable.type)} placeholder="value" className="focus:outline-none bg-slate-gray p-4 h-5 rounded-md text-sm"></input>
+                                <input value={searchIndex[i]} onChange={e => HandleChange(e, i, variable.type)} placeholder={`value in ${variable.type}`} className="focus:outline-none bg-slate-gray p-4 h-5 rounded-md text-sm"></input>
                                 <button onClick={(e) => SearchNodeAtIndex(variable.value, i, e)} className="text-xs font-bold rounded-md py-2 px-4 text-black bg-cyan-light transition duration-300">submit</button>
                             </div>
                         </form>

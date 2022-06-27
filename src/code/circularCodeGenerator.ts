@@ -86,7 +86,7 @@ export default class CircularCodeGenerator extends CodeGenerator {
             ptr = ptr -> next;
             index++;
         }
-        cout << "INDEX " << index << endl;
+        cout << "Index " << index << endl;
         cout << "DATA " << endl;
         ${this.MapDisplayValue()}
         cout << endl;
