@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export default function HeroSection() {
     return(
         <div className="h-screen mx-auto p-10 sm:p-12 md:p-16">
-            <div className="h-full grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-4">
+            <div className="lg:h-full grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-4">
                 <div className="h-full">
                     <img alt="logo" src="/static/icons/logo.svg" />
                     <div className="h-full flex justify-center items-center">

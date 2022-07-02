@@ -10,7 +10,7 @@ export default function Step4({ NextFunction, SkipFunction }: StepType) {
     return (
         <div className="tutorial flex">
             <div className="absolute z-30 bg-transparent w-[42rem] h-48 top-[10rem] left-[22rem] rounded-md hole"></div>
-            <div className="absolute z-40 top-[10rem] right-[26rem]">
+            <div className="absolute z-40 top-[10rem] left-[66rem]">
                 <div className="p-4 space-y-2 w-100 bg-white rounded-md">
                     <div className="flex items-center space-x-2">
                         <div className='font-roboto'>

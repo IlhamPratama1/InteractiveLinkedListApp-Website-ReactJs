@@ -31,7 +31,7 @@ export default function DashboardNavbar({ children }: DashboardNavType) {
         localStorage.removeItem('access_token');
 		axiosInstance.defaults.headers.common['x-access-token'] = false;
         LogoutUser();
-        navigate('/login/')
+        navigate('/login/');
     }
 
     // --- Render Component

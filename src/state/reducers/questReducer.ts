@@ -7,11 +7,8 @@ const questReducer = (state: Array<QuestStateInterface> = [], action: QuestActio
         case ActionType.SETQUESTDATA:
             return state = action.payload;
         case ActionType.SETQUESTCOMPLETE:
-            state.forEach(quest => {
-                if (quest.id === action.payload)
-                    quest.isComplete = true;
-            });
-            return state;
+            const result = state.map((data) => data.id === action.payload ? {...data, isComplete: true } : data);
+            return state = result;
         default:
             return state;
     }

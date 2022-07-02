@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { selectQuest, selectStruct } from '../../../state/dispatch';
 import ProfileModal from './components/profileModal';
 import QuestList from './components/questList';
+import { QuestStateInterface } from '../../../interface';
 
 
 export default function EditorNavbar() {
@@ -16,7 +17,7 @@ export default function EditorNavbar() {
 
     // --- Redux State
     const { structName } = useSelector(selectStruct);
-    const quests = useSelector(selectQuest);
+    const quests: QuestStateInterface[] = useSelector(selectQuest);
 
     function SetModalOpen(index: number) {
         if (index === modalOpen) 

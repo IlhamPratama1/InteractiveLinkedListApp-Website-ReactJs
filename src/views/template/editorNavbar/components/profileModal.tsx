@@ -20,6 +20,7 @@ export default function ProfileModal() {
         localStorage.removeItem('access_token');
 		axiosInstance.defaults.headers.common['x-access-token'] = false;
         LogoutUser();
+        navigate('/login/');
     };
 
     function NavigateProfile() { navigate('/dashboard/profile'); };
