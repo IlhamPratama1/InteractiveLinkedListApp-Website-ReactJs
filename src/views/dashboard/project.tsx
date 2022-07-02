@@ -7,10 +7,9 @@ import { Link } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 
 // Redux Component
-import { State } from '../../state';
 import { UserStateInterface } from '../../interface';
 import { ListType, QuestType, StateDataType, TwoStateDataType } from '../../type';
-import { useHookDispatch } from '../../state/dispatch';
+import { selectAuth, useHookDispatch } from '../../state/dispatch';
 
 // React Component
 import NewProject from './components/newProject';
@@ -30,7 +29,7 @@ export default function ProjectView() {
     const hashids = new Hashids(process.env.REACT_APP_HASH_ID, 20);
 
     // --- Redux State
-    const auth: UserStateInterface = useSelector((state: State) => state.auth);
+    const auth: UserStateInterface = useSelector(selectAuth);
     const { ResetStructData } = useHookDispatch();
 
     // --- State

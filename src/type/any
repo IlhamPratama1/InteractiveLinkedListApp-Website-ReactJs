@@ -1,6 +1,2 @@
 * structView -> error state
 * type -> listType, nodeModalType
-* remove:
-- react oveable
-- react zoom pan pinch
-- universal cookie

@@ -117,9 +117,24 @@ export type QuestType = {
     }
 }
 
+// GLobal type for Profile data
 export type ProfileType = {
     username: string,
     email: string,
     lists: number,
     quests: number
+}
+
+// Global type for feedback type data
+export type FeedbackType = {
+    id: number,
+    question: string,
+    type: string
+}
+
+export type UserFeedbackType = {
+    id?: number,
+    userId: number,
+    feedbackId: number,
+    answer: string
 }
