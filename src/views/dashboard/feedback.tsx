@@ -11,6 +11,14 @@ import FeedbackValidation from "../../validation/feedbackValidation";
 
 
 export default function FeedbackView() {
+    const initialData = [
+        { value: 1, text: "Bad" },
+        { value: 2, text: "" },
+        { value: 3, text: "" },
+        { value: 4, text: "" },
+        { value: 5, text: "Good" },
+    ];
+
     // --- React State
     const [ userId, setUserId ] = useState<number>(0);
     const [ feedback, setFeedback ] = useState<StateDataType<FeedbackType>>({ isLoading: true, data:[] });
@@ -25,14 +33,20 @@ export default function FeedbackView() {
         setUserFeedback(feedbackAnswer);
     }
 
+    function HandleLikertFeedback(event: React.MouseEvent, scale: string, index: number, feedbackId: number) {
+        event.preventDefault();
+        const feedbackAnswer: UserFeedbackType[] = [...userFeedback];
+        const answerData = { userId, feedbackId: feedbackId, answer: scale};
+        feedbackAnswer[index] = answerData;
+        setUserFeedback(feedbackAnswer);
+    }
+
     async function SubmitUserFeedback(event: React.MouseEvent) {
         event.preventDefault();
         const isValid = FeedbackValidation(userFeedback, feedback.data.length, setError);
-        console.log(isValid);
         if (isValid) { 
             setError({});
-            const result = await PostUserFeedback(userFeedback);
-            console.log(result);
+            await PostUserFeedback(userFeedback);
             setComplete(true);
         }
     }
@@ -75,12 +89,39 @@ export default function FeedbackView() {
                 : <form className="space-y-4">
                     {feedback.data.map((data, i) => {
                             return (
-                                <div className="space-y-1" key={i}>
+                                <div className="space-y-1  w-full lg:w-[64rem]" key={i}>
                                     <label className="font-roboto text-sm opacity-60">{`question ${data.id}`}</label>
                                     <h1 className="font-roboto text-lg">{data.question}</h1>
-                                    {complete
-                                        ? <input disabled defaultValue={userFeedback[i].answer} className="focus:outline-none focus:border-cyan-dark p-4 w-full lg:w-[64rem] h-13 border rounded-md"></input>
-                                        : <input onChange={e => HandleUserFeedback(e, i, data.id)} required className="focus:outline-none focus:border-cyan-dark p-4 w-full lg:w-[64rem] h-13 border rounded-md"></input>
+                                    {data.type === 'scale'
+                                        ? <div className="flex space-x-4">
+                                            {complete
+                                                ? initialData.map(({value, text}) => {
+                                                    return (
+                                                        <div key={value} className="text-center space-y-2">
+                                                            <button onClick={e => HandleLikertFeedback(e, String(value), i, data.id)} disabled
+                                                                className={`text-md font-bold w-12 h-12 rounded-full ${userFeedback[i] !== undefined && Number(userFeedback[i].answer) === value ? 'bg-blue-dark text-cyan-light' : 'bg-cyan-light text-blue-dark'}`}>
+                                                                {value}
+                                                            </button>
+                                                            <h1 className="font-roboto text-sm opacity-80">{text}</h1>
+                                                        </div>
+                                                    );
+                                                })
+                                                : initialData.map(({value, text}) => {
+                                                    return (
+                                                        <div key={value} className="text-center space-y-2">
+                                                            <button onClick={e => HandleLikertFeedback(e, String(value), i, data.id)} 
+                                                                className={`text-md font-bold w-12 h-12 rounded-full ${userFeedback[i] !== undefined && Number(userFeedback[i].answer) === value ? 'bg-blue-dark text-cyan-light' : 'bg-cyan-light text-blue-dark'}`}>
+                                                                {value}
+                                                            </button>
+                                                            <h1 className="font-roboto text-sm opacity-80">{text}</h1>
+                                                        </div>
+                                                    );
+                                                })
+                                            }
+                                          </div>
+                                        : complete
+                                            ? <input disabled defaultValue={userFeedback[i].answer} className="focus:outline-none focus:border-cyan-dark p-4 w-full h-13 border rounded-md"></input>
+                                            : <input onChange={e => HandleUserFeedback(e, i, data.id)} required className="focus:outline-none focus:border-cyan-dark p-4 w-full h-13 border rounded-md"></input>
                                     }
                                     <br />
                                     <span style={{ color: "red" }}>{error["value" + i]}</span>
