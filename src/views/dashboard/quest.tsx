@@ -159,7 +159,7 @@ export default function QuestView() {
                         }
                     </div>
                 </div>
-                </div>:
+                </div> :
                 <div className='grid grid-cols-4 gap-4 text-center py-11'>
                     <h1 className='font-roboto text-lg'><Link to={`/login`} className="underline text-cyan-dark" >Sign in</Link> see available quest</h1>
                 </div>

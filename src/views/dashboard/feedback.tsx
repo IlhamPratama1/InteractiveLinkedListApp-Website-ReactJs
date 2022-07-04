@@ -1,8 +1,11 @@
 // Lib
 import { useCallback, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 // Type
 import { FeedbackType, StateDataType, UserFeedbackType } from "../../type";
+import { UserStateInterface } from "../../interface";
+import { State } from "../../state";
 
 // External Functuin
 import { GetAllFedbackQuestion, GetUserFeedback, PostUserFeedback } from "../../api/feedbackRequest";
@@ -18,6 +21,8 @@ export default function FeedbackView() {
         { value: 4, text: "" },
         { value: 5, text: "Good" },
     ];
+
+    const auth: UserStateInterface = useSelector((state: State) => state.auth);
 
     // --- React State
     const [ userId, setUserId ] = useState<number>(0);
@@ -67,8 +72,8 @@ export default function FeedbackView() {
     }, []);
 
     useEffect(() => {
-        CheckFeedbackStatus();        
-    }, [CheckFeedbackStatus]);
+        if (feedback.isLoading && auth.token) CheckFeedbackStatus();       
+    }, [feedback, auth.token, CheckFeedbackStatus]);
 
     return (
         <div className="font-roboto h-full space-y-3">
@@ -79,7 +84,7 @@ export default function FeedbackView() {
                     <p className='w-[32rem] text-md opacity-60'>Follow quest's instruction to complete all quest below. Complete quest by type of Linked List: Single Linked List, Double Linked List, Circular Linked List and play on editor.</p>
                 </div>
             </div>
-            {feedback.isLoading
+            {auth.token && feedback.isLoading
                 ? <div className="space-y-4">
                     <div className='animate-pulse h-36 lg:w-[64rem] radius-md bg-slate-gray'></div>
                     <div className='animate-pulse h-36 lg:w-[64rem] radius-md bg-slate-gray'></div>
@@ -98,8 +103,7 @@ export default function FeedbackView() {
                                                 ? initialData.map(({value, text}) => {
                                                     return (
                                                         <div key={value} className="text-center space-y-2">
-                                                            <button onClick={e => HandleLikertFeedback(e, String(value), i, data.id)} disabled
-                                                                className={`text-md font-bold w-12 h-12 rounded-full ${userFeedback[i] !== undefined && Number(userFeedback[i].answer) === value ? 'bg-blue-dark text-cyan-light' : 'bg-cyan-light text-blue-dark'}`}>
+                                                            <button disabled className={`text-md font-bold w-12 h-12 rounded-full ${userFeedback[i] !== undefined && Number(userFeedback[i].answer) === value ? 'bg-blue-dark text-cyan-light' : 'bg-cyan-light text-blue-dark'}`}>
                                                                 {value}
                                                             </button>
                                                             <h1 className="font-roboto text-sm opacity-80">{text}</h1>

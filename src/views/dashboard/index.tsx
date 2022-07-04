@@ -10,6 +10,7 @@ import QuestView from "./quest";
 import ProfileView from "./profile";
 import FeedbackView from "./feedback";
 import QuizView from "./quiz";
+import StartQuizView from "../quiz";
 
 // Css
 import '../css/holeOverlay.css';
@@ -27,6 +28,7 @@ export default function DashboardView() {
                 <Route path="/saved" element={<SavedView />} />
                 <Route path="/quest" element={<QuestView />} />
                 <Route path="/quiz" element={<QuizView />} />
+                <Route path="/quiz/start" element={<StartQuizView />} />
                 <Route path="/profile" element={<ProfileView />} />
                 <Route path="/feedback" element={<FeedbackView />} />
             </Routes>

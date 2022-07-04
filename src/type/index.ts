@@ -138,3 +138,21 @@ export type UserFeedbackType = {
     feedbackId: number,
     answer: string
 }
+
+export type UserQuizType = {
+    id: number,
+    result: number,
+    createdAt: string,
+    updatedAt: string
+}
+
+export type AnswerType = {
+    id: number, 
+    answer: string
+}
+
+export type QuestionType = {
+    id: number,
+    question: string,
+    answers: AnswerType[]
+}
