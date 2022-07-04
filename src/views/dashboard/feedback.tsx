@@ -11,6 +11,7 @@ import { State } from "../../state";
 import { GetAllFedbackQuestion, GetUserFeedback, PostUserFeedback } from "../../api/feedbackRequest";
 import { GetMyProfile } from "../../api/userRequest";
 import FeedbackValidation from "../../validation/feedbackValidation";
+import { Link } from "react-router-dom";
 
 
 export default function FeedbackView() {
@@ -78,7 +79,7 @@ export default function FeedbackView() {
     return (
         <div className="font-roboto h-full space-y-3">
             <div className="flex items-center">
-                <img className='w-96' src='/static/illustrations/quest.svg' alt='quest' />
+                <img className='w-96' src='/static/illustrations/feedback.svg' alt='feedback' />
                 <div className="space-y-2">
                     <h1 className='font-bold text-3xl'>Feedback</h1>
                     <p className='w-[32rem] text-md opacity-60'>Follow quest's instruction to complete all quest below. Complete quest by type of Linked List: Single Linked List, Double Linked List, Circular Linked List and play on editor.</p>
@@ -133,9 +134,10 @@ export default function FeedbackView() {
                             );
                         })
                     }
-                    {complete
+                    { auth.token ? complete 
                         ? <button disabled className="text-md font-bold py-3 px-7 bg-blue-dark text-cyan-light rounded-md">Submit</button>
                         : <button onClick={SubmitUserFeedback} className="text-md font-bold py-3 px-7 bg-blue-dark text-cyan-light rounded-md">Submit</button>
+                      : <h1 className='font-roboto text-lg'><Link to={`/login`} className="underline text-cyan-dark" >Sign in</Link> to give feedback</h1>
                     }
                 </form>
             }

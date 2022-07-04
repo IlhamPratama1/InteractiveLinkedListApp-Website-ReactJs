@@ -29,12 +29,15 @@ export default function QuizView() {
     return (
         <div className="font-roboto h-full space-y-3">
             <div className="flex items-center">
-                <img className='w-96' src='/static/illustrations/quest.svg' alt='quest' />
+                <img className='w-96' src='/static/illustrations/lesson.svg' alt='lesson' />
                 <div className="space-y-2">
-                    <h1 className='font-bold text-3xl'>Quiz</h1>
+                    <h1 className='font-bold text-3xl'>Lesson</h1>
                     <p className='w-[32rem] text-md opacity-60'>Follow quest's instruction to complete all quest below. Complete quest by type of Linked List: Single Linked List, Double Linked List.</p>
                     <br />
-                    <Link to={`/dashboard/quiz/start`} className="text-md font-bold py-3 px-7 bg-blue-dark text-cyan-light rounded-md">Attempt Quiz</Link>
+                    {auth.token 
+                     ? <Link to={`/dashboard/quiz/start`} className="text-md font-bold py-3 px-7 bg-blue-dark text-cyan-light rounded-md">Attempt Test</Link>
+                     : <h1 className='font-roboto text-lg'><Link to={`/login`} className="underline text-cyan-dark" >Sign in</Link> to attempt Test</h1>
+                    }
                 </div>
             </div>
             {auth.token ?
@@ -43,8 +46,8 @@ export default function QuizView() {
                         <div className='animate-pulse h-12 radius-md bg-slate-gray'></div>
                         <div className='animate-pulse h-12 radius-md bg-slate-gray'></div>
                       </>
-                    : <table className="border-separate border-spacing-16 border border-slate-400">
-                        <thead>
+                    : <table className="border-separate border-spacing-16 border border-slate-400"> 
+                        <thead> 
                             <tr>
                                 <th className="p-3 border border-slate-300">id</th>
                                 <th className="p-3 border border-slate-300">Result</th>
@@ -65,7 +68,7 @@ export default function QuizView() {
                       </table>
             :
             <div className='grid grid-cols-4 gap-4 text-center py-11'>
-                <h1 className='font-roboto text-lg'><Link to={`/login`} className="underline text-cyan-dark" >Sign in</Link> see available quest</h1>
+                <h1 className='font-roboto text-lg'><Link to={`/login`} className="underline text-cyan-dark" >Sign in</Link> see test record</h1>
             </div>
             }
         </div>

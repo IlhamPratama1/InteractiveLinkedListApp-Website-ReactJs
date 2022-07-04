@@ -27,6 +27,7 @@ import Navbar from '../template/editorNavbar';
 import ZoomEditor from './zoom';
 import TutorialView from './tutorials';
 import Snackbar from '../template/snackbar/snackbar';
+import PseudocodeEditor from './pseudocode';
 
 
 export default function EditorView() {
@@ -197,6 +198,7 @@ export default function EditorView() {
                     <ZoomEditor />
                     <NodeEditor />
                     <CodeEditor />
+                    <PseudocodeEditor />
                     {firstTime 
                         ? null
                         : <TutorialView setFirstTime={setFirstTime} /> 

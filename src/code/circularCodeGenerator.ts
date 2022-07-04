@@ -196,33 +196,33 @@ export default class CircularCodeGenerator extends CodeGenerator {
     // Delete node in index function
     DeleteInIndex(): string {  
         let deleteInIndex = `
-        struct ${this._structName} *delete_in_index(struct ${this._structName} *start, int index)
-        {
-            ${this._structName} *ptr;
-            ptr = start;
-    
-            if (index < 1) {
-                ${this._structName} *deleteNode = start;
-                while (ptr -> next != start) {
-                    ptr = ptr -> next;
-                }
-                ptr -> next = deleteNode -> next;
-                start = deleteNode -> next;
-                deleteNode -> next = NULL;
-                free(deleteNode);
+    struct ${this._structName} *delete_in_index(struct ${this._structName} *start, int index)
+    {
+        ${this._structName} *ptr;
+        ptr = start;
+
+        if (index < 1) {
+            ${this._structName} *deleteNode = start;
+            while (ptr -> next != start) {
+                ptr = ptr -> next;
             }
-            else {
-                for(int i = 0; i < index - 1; i++) {
-                    ptr = ptr -> next;
-                }
-                ${this._structName} *deleteNode = ptr -> next;
-                ptr -> next = ptr -> next -> next;
-                deleteNode -> next = NULL;
-                free(deleteNode);
-            }
-            cout << "- Delete node in index " << index << endl;
-            return start;
+            ptr -> next = deleteNode -> next;
+            start = deleteNode -> next;
+            deleteNode -> next = NULL;
+            free(deleteNode);
         }
+        else {
+            for(int i = 0; i < index - 1; i++) {
+                ptr = ptr -> next;
+            }
+            ${this._structName} *deleteNode = ptr -> next;
+            ptr -> next = ptr -> next -> next;
+            deleteNode -> next = NULL;
+            free(deleteNode);
+        }
+        cout << "- Delete node in index " << index << endl;
+        return start;
+    }
         `;
         return deleteInIndex;
     }

@@ -154,7 +154,7 @@ export default class SingleLinkCodeGerator extends CodeGenerator {
     // Insert node after index function
     InsertAfterIndex(): string {
         let insertAfterIndex = `
-    struct ${this._structName}  *insert_after_index(struct ${this._structName}  *start, int index, ${this.MapParamInFunction()})
+    struct ${this._structName} *insert_after_index(struct ${this._structName}  *start, int index, ${this.MapParamInFunction()})
     {
         ${this._structName}  *new_node, *ptr;
 

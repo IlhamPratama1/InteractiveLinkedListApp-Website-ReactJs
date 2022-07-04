@@ -118,7 +118,7 @@ export default function ToolEditor() {
     }, [dispatch]);
 
     return (
-        <div className="absolute z-20 mt-8 ml-8 flex space-x-6 items-start">
+        <div className="absolute z-10 mt-8 ml-8 flex space-x-6 items-start">
             <div className="bg-white drop-shadow-5xl rounded-md">
                 <div className='flex justify-center border-b border-gray-200 py-4'>
                     <button title='dashboard' className="focus:outline-none" onClick={RedirectToDashboard}>

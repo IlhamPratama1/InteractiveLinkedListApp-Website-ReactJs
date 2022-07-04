@@ -51,7 +51,7 @@ export default function DashboardNavbar({ children }: DashboardNavType) {
                 {/* --- Navbar --- */}
                 <div className='h-full hidden md:grid grid-cols-1 gap-4 content-between'>
                     <img alt="logo" src="/static/icons/logo.svg" />
-                    <div className='space-y-10 font-roboto'>
+                    <div className='space-y-6 font-roboto'>
                         <DashboardMenu pathname='project'>
                             <OfficeBuildingIcon className='w-7' />
                             <h1 className='text-lg font-bold'>Project</h1>
@@ -66,7 +66,7 @@ export default function DashboardNavbar({ children }: DashboardNavType) {
                         </DashboardMenu>
                         <DashboardMenu pathname='quiz'>
                             <AcademicCapIcon className='w-7' />
-                            <h1 className='text-lg font-bold'>Quiz</h1>
+                            <h1 className='text-lg font-bold'>Lesson</h1>
                         </DashboardMenu>
                         <DashboardMenu pathname='profile'>
                             <UserCircleIcon className='w-7' />

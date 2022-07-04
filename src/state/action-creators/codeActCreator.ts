@@ -88,7 +88,7 @@ export const GenerateCode = (index: number, data: string | number, searchType: s
                 code: code,
                 operation: operationArr,
                 log: logArr,
-                lastOperation: '',
+                lastOperation: lastOperation,
                 searchLog: searchLog
             }
         });
