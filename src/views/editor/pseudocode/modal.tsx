@@ -1,4 +1,16 @@
+// Lib
 import { BookOpenIcon } from "@heroicons/react/outline";
+import { useSelector } from "react-redux";
+
+// Redux
+import { selectCode, selectProjectType } from "../../../state/dispatch";
+
+// Component
+import SingleAddContent from './components/single/singleAdd';
+import SingleDeleteContent from "./components/single/singleDelete";
+import SingleInsertAfterContent from "./components/single/singleInsertAfter";
+import SingleInsertBeforeContent from "./components/single/singleInsertBefore";
+import SingleSearchContent from "./components/single/singleSearch";
 
 // Typing
 type PseudocodeSectionType = {
@@ -6,6 +18,34 @@ type PseudocodeSectionType = {
 }
 
 export default function PseudocodeModal({ setModalOpen }: PseudocodeSectionType) {
+    // --- Redux state
+    const projectType: string = useSelector(selectProjectType);
+    const { lastOperation } = useSelector(selectCode);
+
+    const contents: any = {
+        "single": {
+            add: <SingleAddContent />,
+            before: <SingleInsertBeforeContent />,
+            after: <SingleInsertAfterContent />,
+            search: <SingleSearchContent />,
+            delete: <SingleDeleteContent />
+        },
+        "double": {
+            add: <SingleAddContent />,
+            before: <SingleInsertBeforeContent />,
+            after: <SingleInsertAfterContent />,
+            search: <SingleSearchContent />,
+            delete: <SingleDeleteContent />
+        },
+        "circular": {
+            add: <SingleAddContent />,
+            before: <SingleInsertBeforeContent />,
+            after: <SingleInsertAfterContent />,
+            search: <SingleSearchContent />,
+            delete: <SingleDeleteContent />
+        }
+    }
+
     // --- Func
     function CloseModal() { setModalOpen(false); }
 
@@ -22,7 +62,7 @@ export default function PseudocodeModal({ setModalOpen }: PseudocodeSectionType)
                         </div>
                         <div className="overflow-auto h-[48.7rem] text-sm">
                             <h1 className="text-lg">
-                                
+                                {contents[projectType][lastOperation.includes('search') ? 'search' : lastOperation]}
                             </h1>
                         </div>
                         <div className="flex items-center justify-end space-x-4">

@@ -1,7 +1,8 @@
 export function addNewNode(projectType: string): string {
     let pseudocode = '';
     if (projectType === 'single') {
-        pseudocode = `    Node new_node, ptr = new Node()
+        pseudocode = `    // ---- Add New Node ---- //
+    Node new_node, ptr = new Node()
     new_node.data = data
     ptr = start
     if (start) {
@@ -14,7 +15,8 @@ export function addNewNode(projectType: string): string {
     }`;
 
     } else if (projectType === 'double') {
-        pseudocode = `    Node new_node, ptr = new Node()
+        pseudocode = `    // ---- Add New Node ---- //
+    Node new_node, ptr = new Node()
     new_node.data = data
     ptr = start
     if (start) {
@@ -29,7 +31,8 @@ export function addNewNode(projectType: string): string {
     }`;
 
     } else if (projectType === 'circular') {
-        pseudocode = `    Node newNode, ptr = new Node()
+        pseudocode = `    // ---- Add New Node ---- //
+    Node newNode, ptr = new Node()
     newNode.data = data
     ptr = start
     if (start) {
@@ -49,7 +52,8 @@ export function addNewNode(projectType: string): string {
 export function insertBefore(projectType: string): string {
     let pseudocode = '';
     if (projectType === 'single') {
-        pseudocode = `    Node newNode, ptr = new Node()
+        pseudocode = `    // ---- Insert Before ---- //
+    Node newNode, ptr = new Node()
     newNode.data = data
     ptr = start
     if (index > 0) {
@@ -62,7 +66,8 @@ export function insertBefore(projectType: string): string {
     }`;
 
     } else if (projectType === 'double') {
-        pseudocode = `    Node newNode, ptr = new Node()
+        pseudocode = `    // ---- Insert Before ---- //
+    Node newNode, ptr = new Node()
     newNode.data = data
     ptr = start
     if (index > 0) {
@@ -78,7 +83,8 @@ export function insertBefore(projectType: string): string {
     }`;
 
     } else if (projectType === 'circular') {
-        pseudocode = `    Node newNode, ptr = new Node()
+        pseudocode = `    // ---- Insert Before ---- //
+    Node newNode, ptr = new Node()
     newNode.data = data
     ptr = start
     for (int i = 0; i < index - 1; i++) ptr = ptr.next
@@ -92,7 +98,8 @@ export function insertBefore(projectType: string): string {
 export function insertAfter(projectType: string): string {
     let pseudocode = '';
     if (projectType === 'single') {
-        pseudocode = `    Node newNode, ptr = new Node()
+        pseudocode = `    // ---- Insert After ---- //
+    Node newNode, ptr = new Node()
     newNode.data = data
     ptr = start
     for (int i = 0; i < index; i++) ptr = ptr.next
@@ -100,7 +107,8 @@ export function insertAfter(projectType: string): string {
     ptr.next = new_node`;
 
     } else if (projectType === 'double') {
-        pseudocode = `    Node newNode, ptr = new Node()
+        pseudocode = `    // ---- Insert After ---- //
+    Node newNode, ptr = new Node()
     newNode.data = data
     ptr = start
     for (int i = 0; i < index; i++) ptr = ptr.next
@@ -110,7 +118,8 @@ export function insertAfter(projectType: string): string {
     ptr.next.prev = new_node`;
 
     } else if (projectType === 'circular') {
-        pseudocode = `    Node newNode, ptr = new Node()
+        pseudocode = `    // ---- Insert After ---- //
+    Node newNode, ptr = new Node()
     newNode.data = data
     ptr = start
     for (int i = 0; i < index; i++)
@@ -126,7 +135,8 @@ export function insertAfter(projectType: string): string {
 export function deleteIndex(projectType: string): string {
     let pseudocode = '';
     if (projectType === 'single') {
-        pseudocode = `    Node newNode, ptr = new Node()
+        pseudocode = `    // ---- Delete Node ---- //
+    Node newNode, ptr = new Node()
     ptr = start
     if (index > 0) {
         for(int i = 0; i < index-1; i++) ptr = ptr.next
@@ -141,7 +151,8 @@ export function deleteIndex(projectType: string): string {
     }`;
 
     } else if (projectType === 'double') {
-        pseudocode = `    Node newNode, ptr = new Node()
+        pseudocode = `    // ---- Delete Node ---- //
+    Node newNode, ptr = new Node()
     newNode.data = data
     ptr = start
     for(int i = 0; i < index - 1; i++) ptr = ptr.next
@@ -156,7 +167,8 @@ export function deleteIndex(projectType: string): string {
     free(deleteNode)`;
     
     } else if (projectType === 'circular') {
-        pseudocode = `    Node newNode, ptr = new Node()
+        pseudocode = `    // ---- Delete Node ---- //
+    Node newNode, ptr = new Node()
     for(int i = 0; i < index - 1; i++) ptr = ptr.next
     Node deleteNode = ptr.next
     ptr.next = ptr.next.next
@@ -172,7 +184,8 @@ export function deleteIndex(projectType: string): string {
 export function searchData(projectType: string): string {
     let pseudocode = '';
     if (projectType === 'single') {
-        pseudocode = `    Node newNode, ptr = new Node()
+        pseudocode = `    // ---- Search Node ---- //
+    Node newNode, ptr = new Node()
     newNode.data = data
     ptr = start
     while (ptr) {
@@ -183,7 +196,8 @@ export function searchData(projectType: string): string {
         }
     }`;
     } else if (projectType === 'double') {
-        pseudocode = `    Node newNode, ptr = new Node()
+        pseudocode = `    // ---- Search Node ---- //
+    Node newNode, ptr = new Node()
     newNode.data = data
     ptr = start
     if (start) {
@@ -195,7 +209,8 @@ export function searchData(projectType: string): string {
         start = newNode
     }`;
     } else if (projectType === 'circular') {
-        pseudocode = `    Node newNode, ptr = new Node()
+        pseudocode = `    // ---- Search Node ---- //
+    Node newNode, ptr = new Node()
     newNode.data = data
     ptr = start
     while (true) 

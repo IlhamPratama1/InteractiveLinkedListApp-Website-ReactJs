@@ -12,6 +12,7 @@ import axiosInstance from '../../../axios';
 
 // Redux Component
 import { useHookDispatch } from '../../../state/dispatch';
+import ScrollToTop from '../../dashboard/components/scrollToTop';
 
 // Type
 type DashboardNavType = {
@@ -47,6 +48,7 @@ export default function DashboardNavbar({ children }: DashboardNavType) {
     }
     return(
         <div className='h-screen mx-auto p-10 sm:p-12 md:p-16'>
+            <ScrollToTop />
             <div className='h-full grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-7'>
                 {/* --- Navbar --- */}
                 <div className='h-full hidden md:grid grid-cols-1 gap-4 content-between'>
@@ -64,7 +66,7 @@ export default function DashboardNavbar({ children }: DashboardNavType) {
                             <ClipboardListIcon className='w-7' />
                             <h1 className='text-lg font-bold'>Quest</h1>
                         </DashboardMenu>
-                        <DashboardMenu pathname='quiz'>
+                        <DashboardMenu pathname='lesson'>
                             <AcademicCapIcon className='w-7' />
                             <h1 className='text-lg font-bold'>Lesson</h1>
                         </DashboardMenu>
@@ -85,7 +87,7 @@ export default function DashboardNavbar({ children }: DashboardNavType) {
                         </div>
                     </div>
                 </div>
-                <div className='h-full md:overflow-auto md:col-span-2 lg:col-span-4 xl:col-span-6'>
+                <div id='dashboard-child' className='h-full md:overflow-auto md:col-span-2 lg:col-span-4 xl:col-span-6'>
                     {children}
                 </div>
             </div>
