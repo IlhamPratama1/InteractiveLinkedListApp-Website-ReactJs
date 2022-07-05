@@ -1,18 +1,22 @@
 import SyntaxHighlighter from 'react-syntax-highlighter';
 
-export default function SingleSearchContent() {
+export default function CircularInsertBeforeContent() {
     const sectionCode1 = `
     Node new_node, ptr = new Node()
     new_node.data = data
     ptr = start
     `;
     const sectionCode2 = `
-    while (ptr) {
-        if (start) {
-            if (ptr.data == data) return start
-            ptr = ptr.next
-            index++
-        }
+    if (index > 0) {
+        for (int i = 0; i < index; i++) ptr = ptr.next
+        new_node.next = ptr.next
+        ptr.next = new_node
+    }
+    `;
+    const sectionCode3 =`
+    else {
+        newNode.next = start
+        start = newNode
     }
     `;
     return (
@@ -25,6 +29,10 @@ export default function SingleSearchContent() {
             <p>kemudian code dibawah digunakan untuk mengecek apakah data kosong, jika tidak maka posisikan pointer di akhir index node, lalu ubah pointer next dari ptr ke new_node, untuk pointer new_node ganti ke null, sebagai indikasi bahwa new_node merupakan data terakhir pada list.</p>
             <SyntaxHighlighter language="javascript" customStyle={{ width: '36rem', backgroundColor: "#FAFAFA" }}>
                 {sectionCode2}
+            </SyntaxHighlighter>
+            <p>jika data kosong, kita tinggal ubah pointer next dari new_node ke null untuk menandakan bahwa new_node merupakand data pertama dari list</p>
+            <SyntaxHighlighter language="javascript" customStyle={{ width: '26rem', backgroundColor: "#FAFAFA" }}>
+                {sectionCode3}
             </SyntaxHighlighter>
         </div>
     );

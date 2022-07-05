@@ -70,8 +70,8 @@ export default function QuizView() {
                                 <thead> 
                                     <tr>
                                         <th className="p-3 border border-slate-300">id</th>
-                                        <th className="py-3 border border-slate-300">Result</th>
-                                        <th className="py-3 border border-slate-300">Date</th>
+                                        <th className="px-16 py-3 border border-slate-300">Result</th>
+                                        <th className="px-16 py-3 border border-slate-300">Date</th>
                                     </tr>
                                 </thead>
                                 <tbody>

@@ -1,23 +1,19 @@
 import SyntaxHighlighter from 'react-syntax-highlighter';
 
-export default function SingleSearchContent() {
+export default function CircularInsertAfterContent() {
     const sectionCode1 = `
     Node new_node, ptr = new Node()
     new_node.data = data
     ptr = start
     `;
     const sectionCode2 = `
-    while (ptr) {
-        if (start) {
-            if (ptr.data == data) return start
-            ptr = ptr.next
-            index++
-        }
-    }
+    for (int i = 0; i < index; i++) ptr = ptr.next
+    new_node.next = ptr.next
+    ptr.next = new_node
     `;
     return (
         <div className="font-roboto space-y-3 text-md">
-            <h5 className='text-lg font-bold'>Insert Node before Index</h5>
+            <h5 className='text-lg font-bold'>Insert Node after Index</h5>
             <p>Menginisiasi node baru dengan nama new_node dan ptr. ptr digunakan sebagai indexing atau pembantu dalam posisi dan index node tujuan. lalu masukkan data pada new_node. kemudian posisikan ptr pada start.</p>
             <SyntaxHighlighter language="javascript" customStyle={{ width: '26rem', backgroundColor: "#FAFAFA" }}>
                 {sectionCode1}

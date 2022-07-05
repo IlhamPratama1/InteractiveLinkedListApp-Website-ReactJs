@@ -1,6 +1,6 @@
 import SyntaxHighlighter from 'react-syntax-highlighter';
 
-export default function SingleSearchContent() {
+export default function CircularSearchContent() {
     const sectionCode1 = `
     Node new_node, ptr = new Node()
     new_node.data = data
