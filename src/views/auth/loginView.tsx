@@ -120,7 +120,7 @@ export default function LoginView() {
                             {/* --- Google Oauth --- */}
                             <a href={getGoogleOAuthURL()} className="border-cyan-dark border rounded-md px-4 py-3 flex items-center space-x-2 w-56">
                                 <img className='w-8 h-8' alt="home" src="/static/icons/google.png" />
-                                <h1 className="font-roboto text-md">Sign Up with Google</h1>
+                                <h1 className="font-roboto text-md">Sign In with Google</h1>
                             </a>
                         </div>
                     </div>

@@ -135,8 +135,12 @@ export default function FeedbackView() {
                         })
                     }
                     { auth.token ? complete 
-                        ? <button disabled className="text-md font-bold py-3 px-7 bg-blue-dark text-cyan-light rounded-md">Submit</button>
-                        : <button onClick={SubmitUserFeedback} className="text-md font-bold py-3 px-7 bg-blue-dark text-cyan-light rounded-md">Submit</button>
+                        ? <h1 className='font-bold text-xl'>Feedback berhasil</h1>
+                        : <div>
+                            <span style={{ color: "red" }}>{error["404"]}</span>
+                            <br />
+                            <button onClick={SubmitUserFeedback} className="text-md font-bold py-3 px-7 bg-blue-dark text-cyan-light rounded-md">Submit</button>
+                          </div>
                       : <h1 className='font-roboto text-lg'><Link to={`/login`} className="underline text-cyan-dark" >Sign in</Link> to give feedback</h1>
                     }
                 </form>

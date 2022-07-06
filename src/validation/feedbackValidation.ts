@@ -8,6 +8,7 @@ export default function FeedbackValidation(formData: UserFeedbackType[], totalFe
         if (formData[i] === undefined || formData[i].answer === '') {
             formIsValid = false;
             errors["value" + i] = "Answer can't be empty";
+            errors["404"] = "Please fill all feedback answer";
         }
     };
 
