@@ -84,8 +84,8 @@ export default function ProjectView() {
                     <div className='w-full h-full bg-green-light rounded-3xl py-8 px-8 space-y-7'>
                         <img src='/static/illustrations/project-new.svg' alt='project' />
                         <div className='space-y-3 font-roboto px-2'>
-                            <h1 className='font-bold text-3xl'>Create New Project</h1>
-                            <p className='text-md opacity-80'>Create new Linked-List project, and select which type of Linked-List.</p>
+                            <h1 className='font-bold text-3xl'>Create New Visualization</h1>
+                            <p className='text-md opacity-80'>Create new Linked-List visualization, and select which type of Linked-List.</p>
                         </div>
                         <div className='space-y-6 font-roboto px-2'>
                             <h1 className='font-bold text-md opacity-50'>Type</h1>
@@ -109,8 +109,8 @@ export default function ProjectView() {
                     <div className='2xl:pl-10 2xl:pr-20 lg:pr-8 space-y-7'>
                         <img className='scale-90' src='/static/illustrations/phone.svg' alt='project' />
                         <div className='space-y-3 font-roboto'>
-                            <h1 className='font-bold text-3xl'>Open Saved Project</h1>
-                            <p className='text-md opacity-60'>Project Saved in Database by Struct Name and Linked List type. Click All to see all saved project.</p>
+                            <h1 className='font-bold text-3xl'>Open Saved Visualization</h1>
+                            <p className='text-md opacity-60'>Visualization Saved in Database by Struct Name and Linked List type. Click All to see all saved visualization.</p>
                         </div>
                         { auth.token ? 
                             <div className='space-y-5'>

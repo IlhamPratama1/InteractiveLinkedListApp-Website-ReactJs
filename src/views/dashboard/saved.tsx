@@ -43,8 +43,8 @@ export default function SavedView() {
                 <div className="flex items-center">
                     <img className='w-96' src='/static/illustrations/saved.svg' alt='saved' />
                     <div className="space-y-2">
-                        <h1 className='font-bold text-3xl'>Open Saved Project</h1>
-                        <p className='w-[32rem] text-md opacity-60'>Project Saved in Database by Struct Name and Linked List type. avaiable 3 type of linked list project: Single Linked List, Double Linked List, Circular Linked List. Go to project to create new Linked List project</p>
+                        <h1 className='font-bold text-3xl'>Open Saved Visualization</h1>
+                        <p className='w-[32rem] text-md opacity-60'>Visualization Saved in Database by Struct Name and Linked List type. avaiable 3 type of linked list visualization: Single Linked List, Double Linked List, Circular Linked List. Go to project to create new Linked List visualization</p>
                     </div>
                 </div>
                 <div className="grid grid-cols-4 gap-4">
