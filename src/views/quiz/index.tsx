@@ -28,7 +28,7 @@ export default function StartQuizView() {
     async function HandleSubmit() {
         let answersId: number[] = userAnswer.map((answer) => { return answer.id });
         await SubmitUserQuiz(answersId);
-        navigate('/dashboard/quiz');
+        navigate('/dashboard/lesson');
     }
 
     function HandleNavigationButton(index: number) {
