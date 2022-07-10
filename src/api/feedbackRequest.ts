@@ -10,6 +10,15 @@ export async function GetAllFedbackQuestion(): Promise<any> {
     }
 }
 
+export async function GetAllFedbackResponse(): Promise<any> {
+    try {
+        const feedbackResponse = await axiosInstance.get('/feedback/response');
+        return feedbackResponse.data;
+    } catch (err) {
+        console.log(err);
+    }
+}
+
 export async function GetUserFeedback(): Promise<any> {
     try {
         const userFeedback = await axiosInstance.get('/user-feedback/all');

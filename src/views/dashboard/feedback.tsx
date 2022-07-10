@@ -61,9 +61,9 @@ export default function FeedbackView() {
         const feedbackData = await GetAllFedbackQuestion();
         const profileData = await GetMyProfile();
         const userFeedback: UserFeedbackType[] = await GetUserFeedback();
-
+        
         if (userFeedback.length > 0) {
-            setUserFeedback(userFeedback)
+            setUserFeedback(userFeedback);
             setComplete(true);
         }
         else setComplete(false);
@@ -125,7 +125,7 @@ export default function FeedbackView() {
                                             }
                                           </div>
                                         : complete
-                                            ? <input disabled defaultValue={userFeedback[i].answer} className="focus:outline-none focus:border-cyan-dark p-4 w-full h-13 border rounded-md"></input>
+                                            ? <input disabled defaultValue={userFeedback[i] !== undefined ? userFeedback[i].answer : ''} className="focus:outline-none focus:border-cyan-dark p-4 w-full h-13 border rounded-md"></input>
                                             : <input onChange={e => HandleUserFeedback(e, i, data.id)} required className="focus:outline-none focus:border-cyan-dark p-4 w-full h-13 border rounded-md"></input>
                                     }
                                     <br />

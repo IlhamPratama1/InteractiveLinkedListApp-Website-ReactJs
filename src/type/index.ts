@@ -156,3 +156,14 @@ export type QuestionType = {
     question: string,
     answers: AnswerType[]
 }
+
+export type UserResponse = {
+    answer: string
+}
+
+export type FeedbackResponse = { 
+    id: number,
+    question: string,
+    type: string,
+    user_feedbacks: Array<UserResponse>
+}
