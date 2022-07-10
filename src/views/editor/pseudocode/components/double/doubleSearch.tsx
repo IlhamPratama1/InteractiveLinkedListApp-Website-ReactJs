@@ -17,7 +17,7 @@ export default function DoubleSearchContent() {
     `;
     return (
         <div className="font-roboto space-y-3 text-md">
-            <h5 className='text-lg font-bold'>Insert Node before Index</h5>
+            <h5 className='text-lg font-bold'>Search Node Data</h5>
             <p>Menginisiasi node baru dengan nama new_node dan ptr. ptr digunakan sebagai indexing atau pembantu dalam posisi dan index node tujuan. lalu masukkan data pada new_node. kemudian posisikan ptr pada start.</p>
             <SyntaxHighlighter language="javascript" customStyle={{ width: '26rem', backgroundColor: "#FAFAFA" }}>
                 {sectionCode1}

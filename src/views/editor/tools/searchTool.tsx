@@ -59,6 +59,8 @@ export default function SearchTool() {
         }
 
         const data = searchIndex[ind];
+        if (data === '') return;
+        
         for (let i = 0; i < nodeData.length; i++) {
             if (nodeData[i][valueBy] === searchIndex[ind]) {
                 SetSearchResult(i);
@@ -88,23 +90,21 @@ export default function SearchTool() {
     }
 
     return(
-        <div className="bg-white drop-shadow-8xl p-4 rounded-md">
-            <div className="w-48 font-roboto space-y-4">
-                {structData.map((variable, i) => {
-                    return(
-                        checkToolValue(i) ?
-                        <form key={i} className="space-y-2">
-                            <p className="text-sm font-bold">Search by {variable.value}</p>
-                            <label className='text-xs opacity-40'>Index</label>
-                            <div className='space-y-3'>
-                                <input value={searchIndex[i]} onChange={e => HandleChange(e, i, variable.type)} placeholder={`value in ${variable.type}`} className="focus:outline-none bg-slate-gray p-4 h-5 rounded-md text-sm"></input>
-                                <button onClick={(e) => SearchNodeAtIndex(variable.value, i, e)} className="text-xs font-bold rounded-md py-2 px-4 text-black bg-cyan-light transition duration-300">submit</button>
-                            </div>
-                        </form>
-                        : null
-                    );
-                })}
-            </div>
+        <div className="font-roboto space-y-4">
+            {structData.map((variable, i) => {
+                return(
+                    checkToolValue(i) ?
+                    <form key={i} className="w-56 bg-white drop-shadow-8xl p-4 rounded-md space-y-2">
+                        <p className="text-sm font-bold">Search by {variable.value}</p>
+                        <label className='text-xs opacity-40'>Index</label>
+                        <div className='space-y-3'>
+                            <input value={searchIndex[i]} onChange={e => HandleChange(e, i, variable.type)} placeholder={`value in ${variable.type}`} className="focus:outline-none bg-slate-gray p-4 h-5 rounded-md text-sm"></input>
+                            <button onClick={(e) => SearchNodeAtIndex(variable.value, i, e)} className="text-xs font-bold rounded-md py-2 px-4 text-black bg-cyan-light transition duration-300">submit</button>
+                        </div>
+                    </form>
+                    : null
+                );
+            })}
         </div>
     );
 }

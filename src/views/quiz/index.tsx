@@ -78,15 +78,15 @@ export default function StartQuizView() {
                 <h1 className='font-bold text-xl'>{`Question number ${questionIndex  + 1}`}</h1>
                 <div className="p-4 border rounded-md">
                     <div className="space-y-4">
-                        <p className='text-md'>{question.data[questionIndex].question}</p>
+                        <div contentEditable className='text-md'>{question.data[questionIndex].question}</div>
                         <div className="space-y-4">
                             {question.data[questionIndex].answers.map((answer, i) => {
                                 return (
-                                    <div key={i} className="flex space-x-3 items-center">
+                                    <div key={i} className="flex space-x-3">
                                         <button key={i} onClick={() => HandleAnswerData(i, answer.id)} className={`text-md font-bold w-10 h-10 rounded-full ${userAnswer[questionIndex].index === i ? 'bg-blue-dark text-cyan-light' : 'bg-cyan-dark text-white'}`}>
                                             {i + 1}
                                         </button>
-                                        <p className='text-md opacity-80'>{answer.answer}</p>
+                                        <p className='text-md opacity-80 w-9/12'>{answer.answer}</p>
                                     </div>
                                 );
                             })}

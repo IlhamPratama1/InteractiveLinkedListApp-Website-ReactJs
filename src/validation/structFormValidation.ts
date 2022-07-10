@@ -1,3 +1,4 @@
+import { CheckRegexValidation } from "../regex";
 import { StructFormType } from "../type";
 
 // Struct Form Validation
@@ -14,10 +15,19 @@ export function StructFormValidation(structName: string, formData: Array<StructF
         errors["name"] = "Struct name can't be empty";
     }
 
+    if (!structName.match(CheckRegexValidation('alphabet'))) {
+        formIsValid = false;
+        errors["name"] = "Struct name only contain alphabet character";
+    }
+
     for (let i = 0; i < formData.length; i++) {
         if (formData[i].value === '') {
             formIsValid = false;
             errors["value" + i] = "Struct name can't be empty";
+        }
+        if (!formData[i].value.match(CheckRegexValidation('alphabet'))) {
+            formIsValid = false;
+            errors["value" + i] = "Struct data only contain alphabet character";
         }
         if (formData[i].value === structName) {
             formIsValid = false;

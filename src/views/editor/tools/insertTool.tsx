@@ -90,8 +90,8 @@ export default function InsertTool() {
      } 
 
     return(
-        <div className="bg-white drop-shadow-8xl p-4 rounded-md">
-            <form className='font-roboto w-48 space-y-4'>
+        <div className="font-roboto space-y-4">
+            <form className='w-56 bg-white drop-shadow-8xl p-4 rounded-md'>
                 <div className='space-y-2'>
                     <p className="text-sm font-bold">Insert Before Index</p>
                     <label className='text-xs opacity-40'>Index</label>
@@ -100,6 +100,8 @@ export default function InsertTool() {
                         <button type='submit' onClick={e => InsertNodeBeforeIndex(e)} className="text-xs font-bold rounded-md py-2 px-4 text-black bg-cyan-light transition duration-300">Submit</button>
                     </div>
                 </div>
+            </form>
+            <form className='w-56 bg-white drop-shadow-8xl p-4 rounded-md'>
                 <div className='space-y-2'>
                     <p className="text-sm font-bold">Insert After Index</p>
                     <label className='text-xs opacity-40'>Index</label>
