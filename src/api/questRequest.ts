@@ -20,3 +20,12 @@ export async function UpdateQuest(id: number, isComplete: boolean): Promise<any>
         console.log(err);
     }
 }
+
+export async function GetFilterQuest(): Promise<any> {
+    try {
+        const quests = await axiosInstance.get(`/quest/filter-quest`);
+        return quests.data;
+    } catch (err) {
+        console.log(err);
+    }
+}

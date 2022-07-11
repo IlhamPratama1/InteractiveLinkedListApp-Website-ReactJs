@@ -2,17 +2,38 @@
 import 'chart.js/auto';
 import { ChartData } from 'chart.js/auto';
 import { useCallback, useEffect, useState } from "react";
-import { Doughnut } from 'react-chartjs-2';
+import { Doughnut, Bar } from 'react-chartjs-2';
 
 // External Function
 import { GetAllFedbackResponse } from "../../api/feedbackRequest";
+import { GetFilterQuest } from '../../api/questRequest';
 import { FeedbackResponse, StateDataType, UserResponse } from "../../type";
 
 
 export default function AdminView() {
     const CHART_SCALE_FEEDBACK: number[] = [1, 2, 3, 4, 5];
     const [feedbacks, setFeedback] = useState<StateDataType<FeedbackResponse>>({ isLoading: true, data: []});
+    const [userQuest, setUserQuest] = useState<StateDataType<{type: string, true: number, false: number}>>({ isLoading: true, data: [] });
 
+    function mapBarData(userQuestData: {type: string, true: number, false: number}) {
+        const labels = ['Total User']
+        const data = {
+            labels,
+            datasets: [
+              {
+                label: 'Complete',
+                data: [userQuestData.true],
+                backgroundColor: 'rgba(255, 99, 132, 0.5)',
+              },
+              {
+                label: 'Incomplete',
+                data: [userQuestData.false],
+                backgroundColor: 'rgba(53, 162, 235, 0.5)',
+              },
+            ],
+          };
+        return data;
+    }
     function mapChartData(userFeedback: UserResponse[]): ChartData<"doughnut", number[], unknown> {
         let numData: number[] = [0, 0, 0, 0, 0];
         userFeedback.forEach(num => {
@@ -74,12 +95,32 @@ export default function AdminView() {
         setFeedback({ isLoading: false, data: feedbackData });
     }, []);
 
+    const fetchUserQuestData = useCallback( async () => {
+        const userQuestData = await GetFilterQuest();
+        setUserQuest({isLoading: false, data: userQuestData});
+        console.log(userQuestData);
+    }, []);
+
     useEffect(() => {
         fetchFeedbackData();
-    }, [fetchFeedbackData]);
+        fetchUserQuestData();
+    }, [fetchFeedbackData, fetchUserQuestData]);
     return (
         <div className='space-y-4 font-roboto '>
             <h1 className='text-2xl font-bold'>User Feedback</h1>
+            <div className='flex flex-wrap'>
+                {feedbacks.isLoading 
+                    ? <div>loading..</div>
+                    : userQuest.data.map((quest, i) => {
+                        return (
+                            <div key={i} className='space-y-5 m-4 w-[20.5rem]'>
+                                <h1 className="text-lg font-bold capitalize">{quest.type} Linked List</h1>
+                                <Bar data={mapBarData(quest)} />
+                            </div>
+                        );
+                    })
+                }
+            </div>
             <div className="flex flex-wrap">
                 {feedbacks.isLoading 
                     ? <div>loading..</div>
