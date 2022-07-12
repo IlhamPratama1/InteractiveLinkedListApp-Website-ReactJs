@@ -1,8 +1,17 @@
 import axiosInstance from "../axios";
 
-export async function GetMyUserQuiz(): Promise<any> {
+export async function GetAllUserQuiz() {
     try {
         const userQuiz = await axiosInstance.get('/quiz/all');
+        return userQuiz.data;
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+export async function GetMyUserQuiz(): Promise<any> {
+    try {
+        const userQuiz = await axiosInstance.get('/quiz/user');
         return userQuiz.data;
     } catch (err) {
         console.log(err);

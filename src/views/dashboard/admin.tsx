@@ -7,15 +7,17 @@ import { Doughnut, Bar } from 'react-chartjs-2';
 // External Function
 import { GetAllFedbackResponse } from "../../api/feedbackRequest";
 import { GetFilterQuest } from '../../api/questRequest';
-import { FeedbackResponse, StateDataType, UserResponse } from "../../type";
+import { GetAllUserQuiz } from '../../api/quizRequest';
+import { FeedbackResponse, StateDataType, UserQuizType, UserResponse } from "../../type";
 
 
 export default function AdminView() {
     const CHART_SCALE_FEEDBACK: number[] = [1, 2, 3, 4, 5];
     const [feedbacks, setFeedback] = useState<StateDataType<FeedbackResponse>>({ isLoading: true, data: []});
     const [userQuest, setUserQuest] = useState<StateDataType<{type: string, true: number, false: number}>>({ isLoading: true, data: [] });
+    const [userQuiz, setUserQuiz] = useState<StateDataType<UserQuizType>>({ isLoading: true, data: [] });
 
-    function mapBarData(userQuestData: {type: string, true: number, false: number}) {
+    function mapBarData(userQuestData: {type: string, true: number, false: number}): ChartData<"bar", number[], string> {
         const labels = ['Total User']
         const data = {
             labels,
@@ -89,6 +91,33 @@ export default function AdminView() {
           };
           return data;
     }
+    function mapBarQuizData() {
+        const lowest = userQuiz.data.reduce((quiz, loc) => quiz.result < loc.result ? quiz : loc);
+        const highest = userQuiz.data.reduce((quiz, loc) => quiz.result > loc.result ? quiz : loc);
+        const average: number = userQuiz.data.reduce((quiz, loc) => quiz + loc.result, 0) / userQuiz.data.length;
+        const labels = ['Nilai Tes'];
+        const data = {
+            labels,
+            datasets: [
+                {
+                    label: 'Terendah',
+                    data: [lowest.result],
+                    backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                },
+                {
+                    label: 'Rata-rata',
+                    data: [average],
+                    backgroundColor: 'rgba(53, 162, 235, 0.5)',
+                },
+                {
+                    label: 'Tertinggi',
+                    data: [highest.result],
+                    backgroundColor: 'rgba(53, 162, 235, 0.5)',
+                },
+            ],
+        };
+        return data;
+    }
 
     const fetchFeedbackData = useCallback( async () => {
         const feedbackData = await GetAllFedbackResponse();
@@ -98,13 +127,18 @@ export default function AdminView() {
     const fetchUserQuestData = useCallback( async () => {
         const userQuestData = await GetFilterQuest();
         setUserQuest({isLoading: false, data: userQuestData});
-        console.log(userQuestData);
+    }, []);
+
+    const fetchUserQuizData = useCallback (async () => {
+        const userQuizData = await GetAllUserQuiz();
+        setUserQuiz({isLoading: false, data: userQuizData});
     }, []);
 
     useEffect(() => {
         fetchFeedbackData();
         fetchUserQuestData();
-    }, [fetchFeedbackData, fetchUserQuestData]);
+        fetchUserQuizData();
+    }, [fetchFeedbackData, fetchUserQuestData, fetchUserQuizData]);
     return (
         <div className='space-y-4 font-roboto '>
             <h1 className='text-2xl font-bold'>User Feedback</h1>
@@ -119,6 +153,12 @@ export default function AdminView() {
                             </div>
                         );
                     })
+                }
+            </div>
+            <div className='w-8/12'>
+                {userQuiz.isLoading 
+                    ? <div>loading..</div>
+                    : <Bar data={mapBarQuizData()} />
                 }
             </div>
             <div className="flex flex-wrap">
