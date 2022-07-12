@@ -102,17 +102,17 @@ export default function AdminView() {
                 {
                     label: 'Terendah',
                     data: [lowest.result],
-                    backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                    backgroundColor: 'rgba(255, 99, 132, 0.3)',
                 },
                 {
                     label: 'Rata-rata',
                     data: [average],
-                    backgroundColor: 'rgba(53, 162, 235, 0.5)',
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
                 },
                 {
                     label: 'Tertinggi',
                     data: [highest.result],
-                    backgroundColor: 'rgba(53, 162, 235, 0.5)',
+                    backgroundColor: 'rgba(153, 102, 255, 0.2)',
                 },
             ],
         };
@@ -155,7 +155,8 @@ export default function AdminView() {
                     })
                 }
             </div>
-            <div className='w-8/12'>
+            <div className='w-8/12 space-y-5 m-5'>
+                <h1 className="text-lg font-bold">Nilai Tes</h1>
                 {userQuiz.isLoading 
                     ? <div>loading..</div>
                     : <Bar data={mapBarQuizData()} />
