@@ -18,7 +18,7 @@ export default function AdminView() {
     const [userQuiz, setUserQuiz] = useState<StateDataType<UserQuizType>>({ isLoading: true, data: [] });
 
     function mapBarData(userQuestData: {type: string, true: number, false: number}): ChartData<"bar", number[], string> {
-        const labels = ['Total User']
+        const labels = ['Total Quest']
         const data = {
             labels,
             datasets: [
