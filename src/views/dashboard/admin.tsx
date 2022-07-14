@@ -1,8 +1,9 @@
 // Lib
-import 'chart.js/auto';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement, Title } from 'chart.js';
 import { ChartData } from 'chart.js/auto';
 import { useCallback, useEffect, useState } from "react";
 import { Doughnut, Bar } from 'react-chartjs-2';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 // External Function
 import { GetAllFedbackResponse } from "../../api/feedbackRequest";
@@ -10,9 +11,10 @@ import { GetFilterQuest } from '../../api/questRequest';
 import { GetAllUserQuiz } from '../../api/quizRequest';
 import { FeedbackResponse, StateDataType, UserQuizType, UserResponse } from "../../type";
 
+ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement, Title, ChartDataLabels);
 
 export default function AdminView() {
-    const CHART_SCALE_FEEDBACK: number[] = [1, 2, 3, 4, 5];
+    const CHART_SCALE_FEEDBACK: string[] = ['bad', 'low', 'enough', 'good', 'decent'];
     const [feedbacks, setFeedback] = useState<StateDataType<FeedbackResponse>>({ isLoading: true, data: []});
     const [userQuest, setUserQuest] = useState<StateDataType<{type: string, true: number, false: number}>>({ isLoading: true, data: [] });
     const [userQuiz, setUserQuiz] = useState<StateDataType<UserQuizType>>({ isLoading: true, data: [] });
@@ -91,7 +93,7 @@ export default function AdminView() {
           };
           return data;
     }
-    function mapBarQuizData() {
+    function mapBarQuizData(): ChartData<"bar", number[], string> {
         const lowest = userQuiz.data.reduce((quiz, loc) => quiz.result < loc.result ? quiz : loc);
         const highest = userQuiz.data.reduce((quiz, loc) => quiz.result > loc.result ? quiz : loc);
         const average: number = userQuiz.data.reduce((quiz, loc) => quiz + loc.result, 0) / userQuiz.data.length;
@@ -177,6 +179,17 @@ export default function AdminView() {
                                     ? <div className="lg:w-10/12">
                                         <Doughnut
                                             data={mapChartData(feedback.user_feedbacks)}
+                                            options={{
+                                                plugins: {
+                                                    datalabels: {
+                                                        display: function(context){
+                                                            var index = context.dataIndex;
+                                                            var value = context.dataset.data[index];
+                                                            return value !== null && value > 0 ? true : false;
+                                                        },
+                                                    }
+                                                }      
+                                            }}
                                         />
                                     </div>
                                     : <div className='overflow-auto h-64'>
