@@ -185,7 +185,7 @@ export default class DoubleLinkCodeGenerator extends CodeGenerator {
     // Delete node in index function
     DeleteInIndex(): string {  
         let deleteInIndex: string = `
-        struct ${this._structName} *delete_in_index(struct ${this._structName} *start, int index)
+    struct ${this._structName} *delete_in_index(struct ${this._structName} *start, int index)
         {
             ${this._structName} *ptr;
             ptr = start;

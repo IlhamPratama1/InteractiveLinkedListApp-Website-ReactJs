@@ -7,7 +7,7 @@ import gsap from "gsap";
 
 // Type
 import { selectCode, selectProjectType } from '../../../state/dispatch';
-import { addNewNode, deleteIndex, insertAfter, insertBefore, searchData } from './codeOperation';
+import { addNewNode, deleteIndex, insertAfter, insertBefore, searchData } from '../../../code/codeOperation';
 
 // Typing
 type PseudocodeSectionType = {
