@@ -12,6 +12,7 @@ import { StructStateInterface, UserStateInterface } from "../../../interface";
 import { CheckRegexValidation } from "../../../regex";
 import { UpdateNodeData } from "../../../api/nodeRequest";
 import { NodeFormValidation } from "../../../validation/nodeFormValidation";
+import Tooltip from "../../template/tooltip/tooltip";
 
 
 export default function EditModal({ index, data }: NodeModalType ) {
@@ -59,7 +60,9 @@ export default function EditModal({ index, data }: NodeModalType ) {
         return <input disabled value={disabledValue} placeholder={placeholder} className="focus:outline-none px-2 py-2 w-full rounded-sm text-sm"></input>
     }
     const inputValue = (variable: StructFormType) => {
-        return <input value={data[variable.value] || ''} onChange={e => UpdateNodeForm(variable, e)} placeholder={variable.type} className="focus:outline-none p-2 py-2 w-full border rounded-sm text-sm"></input>
+        return <Tooltip tooltipText={`input must be ${variable.type} type`}>
+                    <input value={data[variable.value] || ''} onChange={e => UpdateNodeForm(variable, e)} placeholder={variable.type} className="focus:outline-none p-2 py-2 w-full border rounded-sm text-sm"></input>
+               </Tooltip>
     }
     const RenderNodeValue = (variable: StructFormType, i: number) => {
         if (projectType === 'single') {
