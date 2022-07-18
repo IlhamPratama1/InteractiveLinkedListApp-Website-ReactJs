@@ -54,11 +54,9 @@ export default function QuestView() {
         setQuests({ isLoading: false, data: singleQuest, data2: doubleQuest, data3: circularQuest, data4: universalQuest });
     }, []);
 
-    function CountProgress(): string {
+    function CountProgress(): number {
         const progress = completeQuests.data.length * 100 / (completeQuests.data.length + completeQuests.data2.length);
-        const cssProgress = `bg-green-dark h-6 rounded-2xl w-[${progress}%]`;
-        console.log(cssProgress)
-        return cssProgress
+        return progress;
     }
 
     useEffect(() => {
@@ -82,13 +80,16 @@ export default function QuestView() {
                             <div className="space-y-4">
                                 <h1 className='font-roboto font-bold text-lg'>Status</h1>
                                 <div className="flex space-x-6">
+                                    <div className="bg-green-light rounded-lg p-4">
+                                        <img className='w-14' src='/static/icons/medal.png' alt='medal' />
+                                    </div>
                                     <div className="bg-green-light rounded-lg p-4 w-56 flex items-center space-x-4">
                                         <img className='w-14' src='/static/icons/star.png' alt='star' />
                                         <div>
                                             <h1 className='font-roboto text-md'>Quest</h1>
                                             <div className="flex space-x-2 items-end">
                                                 <h1 className='font-roboto text-3xl font-bold'>{completeQuests.data.length * 120}</h1>
-                                                <h1 className='font-roboto text-md'>/1080</h1>
+                                                <h1 className='font-roboto text-md'>/2400</h1>
                                             </div>
                                         </div>
                                     </div>
@@ -98,7 +99,7 @@ export default function QuestView() {
                                             <h1 className='font-roboto text-md'>Trophy</h1>
                                             <div className="flex space-x-2 items-end">
                                                 <h1 className='font-roboto text-3xl font-bold'>{completeQuests.data.length * 8}</h1>
-                                                <h1 className='font-roboto text-md'>/1080</h1>
+                                                <h1 className='font-roboto text-md'>/160</h1>
                                             </div>
                                         </div>
                                     </div>
@@ -106,15 +107,12 @@ export default function QuestView() {
                             </div>
                             <div className="progress">
                                 <h1 className='font-roboto font-bold text-lg'>Progress</h1>
-                                <div className="flex items-center space-x-4">
-                                    <div className="bg-green-light w-48 h-6 rounded-2xl">
-                                        <div className={CountProgress()}></div>
+                                <div className="flex space-x-4 items-center">
+                                    <div className="flex space-x-2 items-end">
+                                        <h1 className='font-roboto font-bold text-4xl'>{CountProgress()}%</h1>
+                                        <h1 className='font-roboto text-lg'>to</h1>
                                     </div>
-                                    <img className='w-12' src='/static/icons/medal.png' alt='quest' />
-                                    <div className="bg-green-light w-48 h-6 rounded-2xl">
-                                        <div className="bg-green-dark w-[0%] h-6 rounded-2xl"></div>
-                                    </div>
-                                    <img className='w-20' src='/static/icons/badge2.png' alt='quest' />
+                                    <img className='w-24' src='/static/icons/badge2.png' alt='quest' />
                                 </div>
                             </div>
                         </div>
