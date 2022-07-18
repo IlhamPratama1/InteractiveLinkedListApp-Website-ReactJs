@@ -112,7 +112,7 @@ export default function ProjectView() {
                             <h1 className='font-bold text-3xl'>Open Saved Visualization</h1>
                             <p className='text-md opacity-60'>Visualization Saved in Database by Struct Name and Linked List type. Click All to see all saved visualization.</p>
                         </div>
-                        { auth.token ? 
+                        {auth.token ? 
                             <div className='space-y-5'>
                                 {lists.isLoading 
                                     ?   <>
@@ -151,41 +151,38 @@ export default function ProjectView() {
                             <h1 className='font-bold text-3xl'>Quest</h1>
                             <p className='text-md opacity-60'>Follow quest's instruction to complete all quest below. Click all to see avaiable quest.</p>
                         </div>
-                        { auth.token ? 
-                            <div className='space-y-4'>
-                                {quests.data.length > 0 ? <h1 className='font-roboto font-bold text-md'>Complete</h1> : null }
-                                {quests.isLoading
-                                    ?   <>
-                                            <div className='animate-pulse h-12 radius-md bg-slate-gray'></div>
-                                            <div className='animate-pulse h-12 radius-md bg-slate-gray'></div>
-                                        </>
-                                    : quests.data.map((quest, i) => {
-                                        return (
-                                            <QuestList
-                                                key={i}
-                                                isComplete={true}
-                                                detail={quest.quest.detail}
-                                                type={quest.quest.type}
-                                            />
-                                        );
-                                    }).slice(0, quests.data.length - (quests.data2.length / 2))
+                        {auth.token ? 
+                            <div className='space-y-3'>
+                                {quests.data2.length > 0 
+                                    ? <h1 className='font-roboto font-bold text-md'>InComplete</h1> 
+                                    : <h1 className='font-roboto font-bold text-md'>Complete</h1>  
                                 }
-                                {quests.data2.length > 0 ? <h1 className='font-roboto font-bold text-md'>InComplete</h1> : null }
                                 {quests.isLoading
-                                    ?   <>
-                                            <div className='animate-pulse h-12 radius-md bg-slate-gray'></div>
-                                            <div className='animate-pulse h-12 radius-md bg-slate-gray'></div>
-                                        </>
-                                    : quests.data2.map((quest, i) => {
-                                        return (
-                                            <QuestList
-                                                key={i} 
-                                                isComplete={false}
-                                                detail={quest.quest.detail}
-                                                type={quest.quest.type}
-                                            />
-                                        );
-                                    }).slice(0, quests.data2.length - (quests.data.length / 2))
+                                    ? <>
+                                        <div className='animate-pulse h-12 radius-md bg-slate-gray'></div>
+                                        <div className='animate-pulse h-12 radius-md bg-slate-gray'></div>
+                                      </>
+                                    : quests.data2.length > 0 
+                                        ? quests.data2.map((quest, i) => {
+                                            return (
+                                                <QuestList
+                                                    key={i} 
+                                                    isComplete={false}
+                                                    detail={quest.quest.detail}
+                                                    type={quest.quest.type}
+                                                />
+                                            );
+                                            }).slice(0, 4)
+                                        : quests.data.map((quest, i) => {
+                                            return (
+                                                <QuestList
+                                                    key={i} 
+                                                    isComplete={false}
+                                                    detail={quest.quest.detail}
+                                                    type={quest.quest.type}
+                                                />
+                                            );
+                                            }).slice(0, 4)
                                 }
                             </div> :
                             <div className='text-center py-11'>

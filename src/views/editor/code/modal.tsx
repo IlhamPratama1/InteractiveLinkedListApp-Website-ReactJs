@@ -24,6 +24,16 @@ export default function Modal({ setModalOpen }: CodeSectionType) {
 
     // --- Func
     function CloseModal() { setModalOpen(false); }
+    const DownloadCode = () => {
+        const element = document.createElement('a');
+        const file = new Blob([code], {
+            type: 'text/plain'
+        });
+        element.href = URL.createObjectURL(file);
+        element.download = 'code.cpp';
+        document.body.appendChild(element);
+        element.click();
+    }
     function CopyCode() { navigator.clipboard.writeText(code); }
     async function Compile() {
         setOutput('Compiling...');
@@ -57,6 +67,7 @@ export default function Modal({ setModalOpen }: CodeSectionType) {
                         <div className="flex items-center justify-end space-x-4">
                             <button className="bg-cyan-light text-blue-dark font-bold rounded-md text-sm px-5 py-2 focus:outline-none transition duration-300" onClick={CopyCode}>Copy</button>
                             <button className="bg-cyan-dark text-white-gray font-bold rounded-md text-sm px-5 py-2 focus:outline-none transition duration-300" onClick={Compile}>Compile</button>
+                            <button className="bg-cyan-dark text-blue-dark font-bold rounded-md text-sm px-5 py-2 focus:outline-none transition duration-300" onClick={DownloadCode}>Download</button>
                             <button className="bg-blue-dark text-cyan-light font-bold rounded-md text-sm px-5 py-2 focus:outline-none transition duration-300" onClick={CloseModal} >Close</button>
                         </div>
                     </div>
